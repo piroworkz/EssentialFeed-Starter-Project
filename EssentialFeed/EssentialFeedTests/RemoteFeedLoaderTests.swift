@@ -64,6 +64,10 @@ class RemoteFeedLoaderTests: XCTestCase {
     }
     
     
+}
+
+extension RemoteFeedLoaderTests {
+    
     private func buildSUT(url: URL = URL(string: "https://example.com")!) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
         let sut = RemoteFeedLoader(url: url, client: client)
@@ -76,12 +80,12 @@ class RemoteFeedLoaderTests: XCTestCase {
         when action: () -> Void,
         file: StaticString = #filePath,
         line: UInt = #line) {
-            var capturedError = [RemoteFeedLoader.Error]()
-            sut.load { capturedError.append($0)}
+            var capturedResults = [RemoteFeedLoader.Result]()
+            sut.load { capturedResults.append($0)}
             
             action()
             
-            XCTAssertEqual(capturedError, [error], file: file, line: line)
+            XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
         }
     
     private class HTTPClientSpy: HTTPClient {
@@ -103,5 +107,4 @@ class RemoteFeedLoaderTests: XCTestCase {
             messages[index].completion(.success(data, response))
         }
     }
-    
 }
