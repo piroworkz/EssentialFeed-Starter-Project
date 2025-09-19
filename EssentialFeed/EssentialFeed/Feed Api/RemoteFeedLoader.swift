@@ -7,15 +7,6 @@
 
 import Foundation
 
-public enum HTTPClientResult {
-    case success(Data, HTTPURLResponse)
-    case failure(Error)
-}
-
-public protocol HTTPClient {
-    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
-}
-
 public final class RemoteFeedLoader {
     private let client: HTTPClient
     private let url: URL
@@ -39,9 +30,10 @@ public final class RemoteFeedLoader {
         client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                if let feedItems = try? FeedItemsMapper.map(data, response) {
-                    completion(.success(feedItems))
-                } else {
+                do {
+                    let items = try FeedItemsMapper.map(data, response)
+                    completion(.success(items))
+                } catch {
                     completion(.failure(.invalidData))
                 }
             case .failure(_):
@@ -49,38 +41,13 @@ public final class RemoteFeedLoader {
             }
         }
     }
-}
-
-private class FeedItemsMapper {
     
-    private struct Root: Decodable {
-        private let items: [Item]
-        
-        var feedItems: [FeedItem] {
-            items.map { item in
-                FeedItem(
-                    id: item.id,
-                    description: item.description,
-                    location: item.location,
-                    imageURL: item.image
-                )
-            }
+    private func map(_ data: Data, _ response: HTTPURLResponse) -> Result {
+        do {
+            let items = try FeedItemsMapper.map(data, response)
+            return .success(items)
+        } catch {
+            return .failure(.invalidData)
         }
     }
-    
-    private struct Item: Decodable {
-        let id: UUID
-        let description: String?
-        let location: String?
-        let image: URL
-    }
-    
-    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedItem] {
-        let successCode: Int = 200
-        guard response.statusCode == successCode else {
-            throw RemoteFeedLoader.Error.invalidData
-        }
-        return try JSONDecoder().decode(Root.self, from: data).feedItems
-    }
-    
 }
