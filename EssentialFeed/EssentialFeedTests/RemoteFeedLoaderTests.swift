@@ -72,6 +72,29 @@ class RemoteFeedLoaderTests: XCTestCase {
         }
     }
     
+    func test_load_deliversItemsON200HTTPResponseWithJSONItems() {
+        let (sut, client) = buildSUT()
+        
+        let item1 = buildFeedItem(
+            id: UUID(),
+            description: nil,
+            location: nil,
+            imageURL: URL(string: "http://a-url.com")!)
+        
+        let item2 = buildFeedItem(
+            id: UUID(),
+            description: "a description",
+            location: "a location",
+            imageURL: URL(string: "http://another-url.com")!)
+
+        let items: [FeedItem] = [item1.model, item2.model]
+        
+        expect(sut, toCompleteWith: .success(items)) {
+            let json = buildItemsJSON([item1.json, item2.json])
+            client.complete(withStatusCode: 200, data: json)
+        }
+    }
+    
 }
 
 extension RemoteFeedLoaderTests {
@@ -80,6 +103,26 @@ extension RemoteFeedLoaderTests {
         let client = HTTPClientSpy()
         let sut = RemoteFeedLoader(url: url, client: client)
         return (sut, client)
+    }
+    
+    private func buildFeedItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
+        let feedItem = FeedItem(id: id, description: description, location: location, imageURL: imageURL)
+        let json = [
+            "id": feedItem.id.uuidString,
+            "description": feedItem.description,
+            "location": feedItem.location,
+            "image": feedItem.imageURL.absoluteString
+        ].reduce(into: [String: Any]()) { accumulated, element in
+            if let value = element.value {
+                accumulated[element.key] = value
+            }
+        }
+        return (feedItem, json)
+    }
+    
+    private func buildItemsJSON(_ items: [[String: Any]]) -> Data {
+        let itemsJSON = [ "items": items]
+        return try! JSONSerialization.data(withJSONObject: itemsJSON)
     }
     
     private func expect(
@@ -116,3 +159,4 @@ extension RemoteFeedLoaderTests {
         }
     }
 }
+
