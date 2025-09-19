@@ -38,13 +38,12 @@ public final class RemoteFeedLoader {
     public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success(data, _):
-                if let root = try? JSONDecoder().decode(Root.self, from: data) {
-                    completion(.success(root.feedItems))
+            case let .success(data, response):
+                if let feedItems = try? FeedItemsMapper.map(data, response) {
+                    completion(.success(feedItems))
                 } else {
                     completion(.failure(.invalidData))
                 }
-                
             case .failure(_):
                 completion(.failure(.connection))
             }
@@ -52,24 +51,36 @@ public final class RemoteFeedLoader {
     }
 }
 
-private struct Root: Decodable {
-    private let items: [Item]
+private class FeedItemsMapper {
     
-    var feedItems: [FeedItem] {
-        items.map { item in
-            FeedItem(
-                id: item.id,
-                description: item.description,
-                location: item.location,
-                imageURL: item.image
-            )
+    private struct Root: Decodable {
+        private let items: [Item]
+        
+        var feedItems: [FeedItem] {
+            items.map { item in
+                FeedItem(
+                    id: item.id,
+                    description: item.description,
+                    location: item.location,
+                    imageURL: item.image
+                )
+            }
         }
     }
     
-    struct Item: Decodable {
+    private struct Item: Decodable {
         let id: UUID
         let description: String?
         let location: String?
         let image: URL
     }
+    
+    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [FeedItem] {
+        let successCode: Int = 200
+        guard response.statusCode == successCode else {
+            throw RemoteFeedLoader.Error.invalidData
+        }
+        return try JSONDecoder().decode(Root.self, from: data).feedItems
+    }
+    
 }
