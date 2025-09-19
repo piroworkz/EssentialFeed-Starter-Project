@@ -37,7 +37,6 @@ internal class FeedItemsMapper {
         guard response.statusCode == successCode, let items = try? JSONDecoder().decode(Root.self, from: data).feedItems  else {
             return .failure(.invalidData)
         }
-        
         return .success(items)
     }
     
