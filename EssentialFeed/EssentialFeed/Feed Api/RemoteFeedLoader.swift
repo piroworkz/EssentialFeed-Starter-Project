@@ -16,14 +16,11 @@ public final class RemoteFeedLoader {
         self.url = url
     }
     
+    public typealias Result = LoadFeedResult<Error>
+    
     public enum Error: Swift.Error {
         case connection
         case invalidData
-    }
-    
-    public enum Result: Equatable {
-        case success([FeedItem])
-        case failure(Error)
     }
     
     public func load(completion: @escaping (Result) -> Void) {
