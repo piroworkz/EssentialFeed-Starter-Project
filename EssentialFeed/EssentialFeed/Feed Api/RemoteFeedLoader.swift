@@ -16,7 +16,7 @@ public final class RemoteFeedLoader: FeedLoader {
         self.url = url
     }
     
-    public typealias Result = LoadFeedResult<Error>
+    public typealias Result = LoadFeedResult
     
     public enum Error: Swift.Error {
         case connection
@@ -31,7 +31,7 @@ public final class RemoteFeedLoader: FeedLoader {
             case let .success(data, response):
                 completion(FeedItemsMapper.map(data, response))
             case .failure(_):
-                completion(.failure(.connection))
+                completion(.failure(RemoteFeedLoader.Error.connection))
             }
         }
     }
