@@ -120,12 +120,6 @@ extension RemoteFeedLoaderTests {
         return (sut, client)
     }
     
-    func trackMemoryLeak(for instance: AnyObject,  file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance of SUT must be deallocated after each test", file: file, line: line)
-        }
-    }
-    
     private func buildFeedItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
         let feedItem = FeedItem(id: id, description: description, location: location, imageURL: imageURL)
         let json = [

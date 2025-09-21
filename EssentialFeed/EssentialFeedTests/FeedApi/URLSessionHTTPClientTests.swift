@@ -73,16 +73,10 @@ extension URLSessionHTTPClientTests {
         URLProtocolStub.stopIntercepting()
     }
     
-    private func buildSUT() -> URLSessionHTTPClient {
+    private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> URLSessionHTTPClient {
         let sut = URLSessionHTTPClient()
-        trackMemoryLeak(for: sut)
+        trackMemoryLeak(for: sut, file: file, line: line)
         return sut
-    }
-    
-    private func trackMemoryLeak(for instance: AnyObject,  file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance of SUT must be deallocated after each test", file: file, line: line)
-        }
     }
     
     private class URLProtocolStub: URLProtocol {
