@@ -36,7 +36,7 @@ class URLSessionHTTPClientTests: XCTestCase {
             expectation.fulfill()
         }
         
-        URLSessionHTTPClient().get(from: expectedURL) { _ in }
+        buildSUT().get(from: expectedURL) { _ in }
         
         wait(for: [expectation], timeout: 1.0)
     }
@@ -46,10 +46,9 @@ class URLSessionHTTPClientTests: XCTestCase {
         let expected = NSError(domain: "test error", code: 1)
         URLProtocolStub.stub(data: nil, response: nil, error: expected)
         
-        let sut = URLSessionHTTPClient()
         let expectation = expectation(description: "Wait for completion")
         
-        sut.get(from: url) { actual in
+        buildSUT().get(from: url) { actual in
             switch actual {
             case let .failure(actualError as NSError):
                 XCTAssertEqual(actualError.domain, expected.domain)
@@ -72,6 +71,10 @@ extension URLSessionHTTPClientTests {
     
     override func tearDown() {
         URLProtocolStub.stopIntercepting()
+    }
+    
+    private func buildSUT() -> URLSessionHTTPClient {
+        return URLSessionHTTPClient()
     }
     
     private class URLProtocolStub: URLProtocol {
@@ -127,7 +130,7 @@ extension URLSessionHTTPClientTests {
             if let error = URLProtocolStub.stub?.error {
                 client?.urlProtocol(self, didFailWithError: error)
             }
-
+            
             client?.urlProtocolDidFinishLoading(self)
         }
         
