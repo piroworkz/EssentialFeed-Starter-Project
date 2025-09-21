@@ -15,10 +15,14 @@ class URLSessionHTTPClient {
         self.session = session
     }
     
+    struct IllegalStateException: Error {}
+    
     func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void){
         session.dataTask(with: url) { _, _, error in
             if let error = error {
                 completion(.failure(error))
+            } else {
+                completion(.failure(IllegalStateException()))
             }
         }.resume()
     }
@@ -41,8 +45,9 @@ class URLSessionHTTPClientTests: XCTestCase {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    func test_getFromURL_failsONRequestError() {
+    func test_getFromURL_failsOnRequestError() {
         let expected = NSError(domain: "test error", code: 1)
+        
         URLProtocolStub.stub(data: nil, response: nil, error: expected)
         
         let expectation = expectation(description: "Wait for completion")
@@ -60,6 +65,26 @@ class URLSessionHTTPClientTests: XCTestCase {
         
         wait(for: [expectation], timeout: 1.0)
     }
+    
+    
+    func test_getFromURL_failsOnAllNullValues() {
+        URLProtocolStub.stub(data: nil, response: nil, error: nil)
+        let expectation = expectation(description: "Wait for completion")
+        
+        buildSUT().get(from: anyURL()) { actual in
+            switch actual {
+            case .failure:
+                break
+            default:
+                XCTFail("Expected any failure, but got \(actual) instead")
+            }
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    
 }
 
 extension URLSessionHTTPClientTests {
