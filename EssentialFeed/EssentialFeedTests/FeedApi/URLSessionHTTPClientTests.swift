@@ -18,9 +18,11 @@ class URLSessionHTTPClient {
     struct IllegalStateException: Error {}
     
     func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void){
-        session.dataTask(with: url) { _, _, error in
+        session.dataTask(with: url) { data, response, error in
             if let error = error {
                 completion(.failure(error))
+            } else if let data = data, data.count > 0, let response = response as? HTTPURLResponse {
+                completion(.success(data, response))
             } else {
                 completion(.failure(IllegalStateException()))
             }
@@ -68,6 +70,26 @@ class URLSessionHTTPClientTests: XCTestCase {
         XCTAssertNotNil(resultErrorFor(data: anyData(), response: nonHTTPURLResponse(), error: nil))
     }
     
+    func test_getFromURL_succeedsOnHttpUrlResponseWithData() {
+        let expectedData = anyData()
+        let expectedResponse = anyHTTPURLResponse()
+        URLProtocolStub.stub(data: expectedData, response: expectedResponse, error: nil)
+        let expectation = expectation(description: "Wait for completion")
+        
+        buildSUT().get(from: anyURL()) { result in
+            switch result {
+            case let .success(actualData, actualResponse):
+                XCTAssertEqual(actualData, expectedData)
+                XCTAssertEqual(actualResponse.url, expectedResponse.url)
+                XCTAssertEqual(actualResponse.statusCode, expectedResponse.statusCode)
+            default:
+                XCTFail("Expected success, but got \(result) instead")
+            }
+            
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
     
 }
 
