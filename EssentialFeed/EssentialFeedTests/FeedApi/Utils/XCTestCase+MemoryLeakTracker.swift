@@ -13,8 +13,4 @@ extension XCTestCase {
             XCTAssertNil(instance, "Instance of SUT must be deallocated after each test", file: file, line: line)
         }
     }
-    
-    func anyURL() -> URL {
-        return URL(string: "https://example.com")!
-    }
 }
