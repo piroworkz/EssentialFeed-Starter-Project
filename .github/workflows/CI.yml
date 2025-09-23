@@ -1,4 +1,4 @@
-name: macOS CI
+name: CI-macOS
 
 on:
   push:
@@ -9,13 +9,17 @@ on:
 jobs:
   build-and_test:
     runs-on: macos-latest
-
+    timeout-minutes: 8
+    
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
       - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode.app
+        run: sudo xcode-select -switch /Applications/Xcode_16.2.app
+
+      - name: Xcode version
+        run: /usr/bin/xcodebuild -version
 
       - name: Build and test for macOS arm64
         run: |
