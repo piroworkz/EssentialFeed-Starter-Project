@@ -49,9 +49,11 @@ class CacheFeedUseCaseTests: XCTestCase {
 
 extension CacheFeedUseCaseTests {
     
-    private func buildSUT() -> (sut: LocalFeedLoader, store: FeedStore) {
+    private func buildSUT(file: StaticString = #file, line: UInt = #line) -> (sut: LocalFeedLoader, store: FeedStore) {
         let store = FeedStore()
         let sut = LocalFeedLoader(store: store)
+        trackMemoryLeak(for: store, file: file, line: line)
+        trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, store)
     }
     
