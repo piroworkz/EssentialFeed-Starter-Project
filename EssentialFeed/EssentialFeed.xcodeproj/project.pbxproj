@@ -70,6 +70,7 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		18777EC52E848F490028A145 /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
 		18DDBAB32E80D669003E3C6B /* EssentialFeedApiEndToEndTests */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedApiEndToEndTests; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
@@ -156,6 +157,7 @@
 		18A1D3412E8332020061CA13 /* FeedCache */ = {
 			isa = PBXGroup;
 			children = (
+				18777EC52E848F490028A145 /* Utils */,
 				18A1D3422E8332160061CA13 /* CacheFeedUseCaseTests.swift */,
 				18777EC12E848AB30028A145 /* LoadFeedFromCacheUseCaseTests.swift */,
 			);
@@ -244,6 +246,9 @@
 			);
 			dependencies = (
 				080EDEFD21B6DA7E00813479 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				18777EC52E848F490028A145 /* Utils */,
 			);
 			name = EssentialFeedTests;
 			productName = EssentialFeedTests;
