@@ -29,9 +29,9 @@ extension HTTPClientResult {
     private struct Root: Decodable {
         private let items: [Item]
         
-        var feedItems: [FeedItem] {
+        var feedItems: [FeedImage] {
             items.map { item in
-                FeedItem(
+                FeedImage(
                     id: item.id,
                     description: item.description,
                     location: item.location,

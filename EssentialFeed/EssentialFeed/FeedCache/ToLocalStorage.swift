@@ -7,8 +7,8 @@
 
 import Foundation
 
-extension FeedItem {
-    public func toLocal() -> LocalFeedItem {
-        return LocalFeedItem(id: id, description: description, location: location, imageURL: imageURL)
+extension FeedImage {
+    public func toLocal() -> LocalFeedImage {
+        return LocalFeedImage(id: id, description: description, location: location, imageURL: imageURL)
     }
 }

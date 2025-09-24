@@ -132,14 +132,14 @@ extension CacheFeedUseCaseTests {
         XCTAssertEqual(receivedError as NSError?, expectedError, file: file, line: line)
     }
     
-    private func uniqueItems() -> (domain: [FeedItem], local: [LocalFeedItem]) {
+    private func uniqueItems() -> (domain: [FeedImage], local: [LocalFeedImage]) {
         let domain = [uniqueItem(), uniqueItem()]
         let local = domain.map { $0.toLocal() }
         return (domain, local)
     }
     
-    private func uniqueItem() -> FeedItem {
-        return FeedItem(id: UUID(), description: "Description", location: "location", imageURL: anyURL())
+    private func uniqueItem() -> FeedImage {
+        return FeedImage(id: UUID(), description: "Description", location: "location", imageURL: anyURL())
     }
     
     private func anyURL() -> URL {
@@ -154,7 +154,7 @@ extension CacheFeedUseCaseTests {
         
         enum ReceivedMessage: Equatable {
             case deleteCachedFeed
-            case insert([LocalFeedItem], Date)
+            case insert([LocalFeedImage], Date)
         }
         
         private(set) var receivedMessages: [ReceivedMessage] = []
@@ -182,7 +182,7 @@ extension CacheFeedUseCaseTests {
             insertionCompletions[index](nil)
         }
         
-        func insert(_ items: [LocalFeedItem], timestamp: Date, completion: @escaping InsertionCompletion) {
+        func insert(_ items: [LocalFeedImage], timestamp: Date, completion: @escaping InsertionCompletion) {
             insertionCompletions.append(completion)
             receivedMessages.append(.insert(items, timestamp))
         }

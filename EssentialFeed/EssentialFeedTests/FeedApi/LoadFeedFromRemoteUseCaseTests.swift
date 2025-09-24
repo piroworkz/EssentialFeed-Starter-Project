@@ -87,7 +87,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
             location: "a location",
             imageURL: URL(string: "http://another-url.com")!)
         
-        let items: [FeedItem] = [item1.model, item2.model]
+        let items: [FeedImage] = [item1.model, item2.model]
         
         expect(sut, toCompleteWith: .success(items)) {
             let json = buildItemsJSON([item1.json, item2.json])
@@ -120,8 +120,8 @@ extension LoadFeedFromRemoteUseCaseTests {
         return (sut, client)
     }
     
-    private func buildFeedItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedItem, json: [String: Any]) {
-        let feedItem = FeedItem(id: id, description: description, location: location, imageURL: imageURL)
+    private func buildFeedItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedImage, json: [String: Any]) {
+        let feedItem = FeedImage(id: id, description: description, location: location, imageURL: imageURL)
         let json = [
             "id": feedItem.id.uuidString,
             "description": feedItem.description,
