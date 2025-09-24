@@ -10,9 +10,12 @@ import Foundation
 public class LocalFeedLoader {
     private let store: FeedStore
     private let currentDate: () -> Date
+    private let calendar = Calendar(identifier: .gregorian)
     
     public typealias SaveResult = Error?
     public typealias LoadResult = LoadFeedResult
+    
+    private var maxAgeInDays: Int { return 7 }
     
     public init(store: FeedStore, currentDate: @escaping () -> Date) {
         self.store = store
@@ -50,6 +53,12 @@ public class LocalFeedLoader {
         }
     }
     
+    private func isCacheValid(_ timestamp: Date) -> Bool {
+        guard let maxCacheAge = calendar.date(byAdding: .day, value: maxAgeInDays, to: timestamp) else {
+            return false
+        }
+        return currentDate() < maxCacheAge
+    }
 }
 
 
