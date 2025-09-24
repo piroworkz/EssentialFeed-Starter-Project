@@ -9,7 +9,7 @@ import Foundation
 
 extension HTTPClientResult {
     
-    func toDomain() -> RemoteFeedLoader.Result {
+    func toLoadFeedResult() -> RemoteFeedLoader.Result {
         switch self {
         case let .success(data, response):
             return map(data, response)
