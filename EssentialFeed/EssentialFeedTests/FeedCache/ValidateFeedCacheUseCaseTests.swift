@@ -34,6 +34,19 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
     
+    
+    func test_validateCache_doesNotDeleteLessThanSevenDaysOldCache() {
+        let feed = uniqueImageFeed()
+        let fixedCurrentDate = Date()
+        let lessThanSevenDaysOldTimestamp = fixedCurrentDate.adding(days: -7).adding(seconds: 1)
+        let (sut, store) = buildSUT(currentDate: { fixedCurrentDate })
+        
+        sut.validateCache()
+        store.completeRetrievalWithFoundCache(feed.local, timestamp: lessThanSevenDaysOldTimestamp)
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieve])
+    }
+    
 }
 
 
@@ -47,7 +60,21 @@ extension ValidateFeedCacheUseCaseTests {
         return (sut, store)
     }
     
+    private func uniqueImageFeed() -> (domain: [FeedImage], local: [LocalFeedImage]) {
+        let domain = [uniqueImage(), uniqueImage()]
+        let local = domain.map { $0.toLocal() }
+        return (domain, local)
+    }
+    
+    private func uniqueImage() -> FeedImage {
+        return FeedImage(id: UUID(), description: "any", location: "any", imageURL: anyURL())
+    }
+    
     private func anyNSError() -> NSError {
         return NSError(domain: "any", code: 0)
+    }
+    
+    private func anyURL() -> URL {
+        return URL(string: "https://example.com")!
     }
 }
