@@ -73,6 +73,15 @@ final class LoadFeedFromCacheUseCaseTests: XCTestCase {
             store.completeRetrievalWithFoundCache(feed.local, timestamp: moreThanSevenDaysOldTimestamp)
         }
     }
+    
+    func test_load_deletesCacheOnRetrievalError() {
+        let (sut, store) = buildSUT()
+        
+        sut.load { _ in }
+        store.completeRetrieval(with: anyNSError())
+        
+        XCTAssertEqual(store.receivedMessages, [.retrieve, .deleteCachedFeed])
+    }
 }
 
 extension LoadFeedFromCacheUseCaseTests {
