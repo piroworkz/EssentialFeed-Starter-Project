@@ -59,22 +59,4 @@ extension ValidateFeedCacheUseCaseTests {
         trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, store)
     }
-    
-    private func uniqueImageFeed() -> (domain: [FeedImage], local: [LocalFeedImage]) {
-        let domain = [uniqueImage(), uniqueImage()]
-        let local = domain.map { $0.toLocal() }
-        return (domain, local)
-    }
-    
-    private func uniqueImage() -> FeedImage {
-        return FeedImage(id: UUID(), description: "any", location: "any", imageURL: anyURL())
-    }
-    
-    private func anyNSError() -> NSError {
-        return NSError(domain: "any", code: 0)
-    }
-    
-    private func anyURL() -> URL {
-        return URL(string: "https://example.com")!
-    }
 }

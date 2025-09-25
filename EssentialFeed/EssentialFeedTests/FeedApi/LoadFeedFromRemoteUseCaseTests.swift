@@ -17,7 +17,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     }
     
     func test_load_doesRequestDataFromURL() {
-        let url = URL(string: "https://example.com")!
+        let url = anyURL()
         let (sut, client) = buildSUT(url: url)
         
         sut.load { _ in }
@@ -26,7 +26,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     }
     
     func test_loadTwice_requestsDataFromURLTwice() {
-        let url = URL(string: "https://example.com")!
+        let url = anyURL()
         let (sut, client) = buildSUT(url: url)
         
         sut.load { _ in }
@@ -37,7 +37,7 @@ class LoadFeedFromRemoteUseCaseTests: XCTestCase {
     
     func test_load_deliverErrorOnClientError() {
         let (sut, client) = buildSUT()
-        let clientError = NSError(domain: "Test", code: 0)
+        let clientError = anyNSError()
         
         expect(sut, toCompleteWith: failure(.connection)) {
             client.complete(with: clientError)
