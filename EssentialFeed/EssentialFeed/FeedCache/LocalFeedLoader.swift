@@ -8,19 +8,14 @@
 import Foundation
 
 private final class FeedCachePolicy {
-    private let currentDate: () -> Date
     private let calendar = Calendar(identifier: .gregorian)
     
-    init(currentDate: @escaping () -> Date) {
-        self.currentDate = currentDate
-    }
-    
-    func isCacheValid(_ timestamp: Date) -> Bool {
+    func isCacheValid(_ timestamp: Date, against date: Date) -> Bool {
         let maxAgeInDays: Int = 7
         guard let maxCacheAge = calendar.date(byAdding: .day, value: maxAgeInDays, to: timestamp) else {
             return false
         }
-        return currentDate() < maxCacheAge
+        return date < maxCacheAge
     }
 }
     
@@ -29,12 +24,11 @@ private final class FeedCachePolicy {
 public class LocalFeedLoader {
     private let store: FeedStore
     private let currentDate: () -> Date
-    private let cachePolicy: FeedCachePolicy
+    private let cachePolicy = FeedCachePolicy()
     
     public init(store: FeedStore, currentDate: @escaping () -> Date) {
         self.store = store
         self.currentDate = currentDate
-        self.cachePolicy = FeedCachePolicy(currentDate: currentDate)
     }
 }
 
@@ -70,7 +64,7 @@ extension LocalFeedLoader: FeedLoader {
             switch result {
             case let .failure(error):
                 completion(.failure(error))
-            case let .found(feed, timestamp) where self.cachePolicy.isCacheValid(timestamp):
+            case let .found(feed, timestamp) where self.cachePolicy.isCacheValid(timestamp, against: self.currentDate()):
                 completion(.success(feed.map { $0.toDomain() }))
             case .found, .empty:
                 completion(.success([]))
@@ -86,7 +80,7 @@ extension LocalFeedLoader {
             switch result {
             case .failure:
                 self.store.deleteCachedFeed { _ in }
-            case let .found(feed: _, timestamp: timestamp) where !self.cachePolicy.isCacheValid(timestamp):
+            case let .found(feed: _, timestamp: timestamp) where !self.cachePolicy.isCacheValid(timestamp, against: self.currentDate()):
                 self.store.deleteCachedFeed { _ in }
             case .found, .empty:
                 break
