@@ -132,8 +132,10 @@ extension CodableFeedStoreTests {
         try? FileManager.default.removeItem(at: storeURL)
     }
     
-    private func buildSUT() -> CodableFeedStore {
-        return CodableFeedStore()
+    private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore {
+        let sut = CodableFeedStore()
+        trackMemoryLeak(for: sut, file: file, line: line)
+        return sut
     }
 }
 
