@@ -10,10 +10,14 @@ import EssentialFeed
 
 class CodableFeedStore {
     
-    private let soreURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("image-feed.store")
+    private let storeURL: URL
+    
+    init(storeURL: URL) {
+        self.storeURL = storeURL
+    }
     
     func retrieve(completion: @escaping FeedStore.RetrievalCompletion) {
-        guard let data = try? Data(contentsOf: soreURL) else {
+        guard let data = try? Data(contentsOf: storeURL) else {
             return completion(.empty)
         }
         
@@ -25,7 +29,7 @@ class CodableFeedStore {
     func insert(_ feed: [LocalFeedImage], timestamp: Date, completion: @escaping FeedStore.InsertionCompletion) {
         let encoder = JSONEncoder()
         let encoded = try! encoder.encode(Cache(feed: feed.map(CodableFeedImage.init), timestamp: timestamp))
-        try! encoded.write(to: soreURL)
+        try! encoded.write(to: storeURL)
         completion(nil)
     }
     
@@ -133,7 +137,8 @@ extension CodableFeedStoreTests {
     }
     
     private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore {
-        let sut = CodableFeedStore()
+        let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("image-feed.store")
+        let sut = CodableFeedStore(storeURL: storeURL)
         trackMemoryLeak(for: sut, file: file, line: line)
         return sut
     }
