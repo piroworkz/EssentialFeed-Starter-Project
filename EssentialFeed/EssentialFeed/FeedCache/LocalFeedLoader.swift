@@ -77,6 +77,6 @@ extension LocalFeedLoader {
 
 extension LocalFeedImage {
     func toDomain() -> FeedImage {
-        return FeedImage(id: id, description: description, location: location, imageURL: imageURL)
+        return FeedImage(id: id, description: description, location: location, imageURL: url)
     }
 }
