@@ -60,7 +60,7 @@ class CodableFeedStore {
 class CodableFeedStoreTests: XCTestCase {
     
     func test_retrieve_deliversEmptyOnEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = buildSUT()
         let expectation = expectation(description: "Wait for retrieval")
         
         sut.retrieve { result in
@@ -77,7 +77,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_retrieve_hasNoSideEffectsOnEmptyCache() {
-        let sut = CodableFeedStore()
+        let sut = buildSUT()
         let expectation = expectation(description: "Wait for retrieval")
         
         sut.retrieve { firstResult in
@@ -96,7 +96,7 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_retrieveAfterInsertingToEmptyCache_deliversInsertedValues() {
-        let sut = CodableFeedStore()
+        let sut = buildSUT()
         let feed = uniqueImageFeed().local
         let timestamp = Date()
         let expectation = expectation(description: "Wait for retrieval")
@@ -130,6 +130,10 @@ extension CodableFeedStoreTests {
         super.tearDown()
         let storeURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first!.appendingPathComponent("image-feed.store")
         try? FileManager.default.removeItem(at: storeURL)
+    }
+    
+    private func buildSUT() -> CodableFeedStore {
+        return CodableFeedStore()
     }
 }
 
