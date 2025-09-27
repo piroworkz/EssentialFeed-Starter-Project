@@ -98,9 +98,10 @@ class CodableFeedStoreTests: XCTestCase {
     }
     
     func test_retrieve_deliversFailureOnRetrievalError() {
-        let sut = buildSUT()
+        let storeURL = testSpecificStoreURL()
+        let sut = buildSUT(storeURL: storeURL)
         
-        try! "invalid data".write(to: testSpecificStoreURL(), atomically: true, encoding: .utf8)
+        try! "invalid data".write(to: storeURL, atomically: true, encoding: .utf8)
         
         expect(sut, toRetrieve: .failure(anyNSError()))
     }
@@ -117,8 +118,8 @@ extension CodableFeedStoreTests {
         undoStoreSideEffects()
     }
     
-    private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore {
-        let sut = CodableFeedStore(storeURL: testSpecificStoreURL())
+    private func buildSUT(storeURL: URL? = nil,file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore {
+        let sut = CodableFeedStore(storeURL: storeURL ?? testSpecificStoreURL())
         trackMemoryLeak(for: sut, file: file, line: line)
         return sut
     }
