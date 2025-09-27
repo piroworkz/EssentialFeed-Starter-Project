@@ -151,7 +151,7 @@ class CodableFeedStoreTests: XCTestCase {
         let timestamp = Date()
         
         let insertionError = insert((feed, timestamp), to: sut)
-
+        
         XCTAssertNotNil(insertionError, "Expected to fail insertion")
         
         expect(sut, toRetrieve: .empty)
@@ -159,29 +159,21 @@ class CodableFeedStoreTests: XCTestCase {
     
     func test_delete_hasNoSideEffectsOnEmptyCache() {
         let sut = buildSUT()
-        let expectation = expectation(description: "Wait for deletion")
         
-        sut.deleteCachedFeed { deletionError in
-            XCTAssertNil(deletionError, "Expected to delete empty cache successfully")
-            expectation.fulfill()
-        }
+        let deletionError = deleteCache(from: sut)
         
-        wait(for: [expectation], timeout: 1.0)
-        
+        XCTAssertNil(deletionError, "Expected to delete empty cache successfully")
         expect(sut, toRetrieve: .empty)
     }
     
     func test_delete_emptiesPreviouslyInsertedCache() {
         let sut = buildSUT()
-        let expectation = expectation(description: "Wait for deletion")
         
         insert((uniqueImageFeed().local, timestamp: Date()), to: sut)
         
-        sut.deleteCachedFeed { deletionError in
-            XCTAssertNil(deletionError, "Expected to delete cache successfully")
-            expectation.fulfill()
-        }
-        wait(for: [expectation], timeout: 1.0)
+        let deletionError = deleteCache(from: sut)
+        
+        XCTAssertNil(deletionError, "Expected to delete cache successfully")
         expect(sut, toRetrieve: .empty)
     }
 }
@@ -241,6 +233,19 @@ extension CodableFeedStoreTests {
         wait(for: [expectation], timeout: 1.0)
         
         return insertionError
+    }
+    
+    private func deleteCache(from sut: CodableFeedStore) -> Error? {
+        let expectation = expectation(description: "Wait for deletion")
+        
+        var deletionError : Error?
+        sut.deleteCachedFeed { receivedDeletionError in
+            deletionError = receivedDeletionError
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+        
+        return deletionError
     }
     
     private func testSpecificStoreURL() -> URL {
