@@ -204,18 +204,18 @@ extension CodableFeedStoreTests {
         undoStoreSideEffects()
     }
     
-    private func buildSUT(storeURL: URL? = nil,file: StaticString = #filePath, line: UInt = #line) -> CodableFeedStore {
+    private func buildSUT(storeURL: URL? = nil,file: StaticString = #filePath, line: UInt = #line) -> FeedStore {
         let sut = CodableFeedStore(storeURL: storeURL ?? testSpecificStoreURL())
         trackMemoryLeak(for: sut, file: file, line: line)
         return sut
     }
     
-    private func expect(_ sut: CodableFeedStore, toRetrieveTwice expectedResult: RetrieveCahedFeedResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: FeedStore, toRetrieveTwice expectedResult: RetrieveCahedFeedResult, file: StaticString = #file, line: UInt = #line) {
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
         expect(sut, toRetrieve: expectedResult, file: file, line: line)
     }
     
-    private func expect(_ sut: CodableFeedStore, toRetrieve expectedResult: RetrieveCahedFeedResult, file: StaticString = #file, line: UInt = #line) {
+    private func expect(_ sut: FeedStore, toRetrieve expectedResult: RetrieveCahedFeedResult, file: StaticString = #file, line: UInt = #line) {
         let expectation = expectation(description: "Wait for retrieval")
         
         sut.retrieve { retrievedResult in
@@ -235,7 +235,7 @@ extension CodableFeedStoreTests {
     }
     
     @discardableResult
-    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: CodableFeedStore) -> Error? {
+    private func insert(_ cache: (feed: [LocalFeedImage], timestamp: Date), to sut: FeedStore) -> Error? {
         let expectation = expectation(description: "Wait for insertion")
         
         var insertionError: Error?
@@ -250,7 +250,7 @@ extension CodableFeedStoreTests {
         return insertionError
     }
     
-    private func deleteCache(from sut: CodableFeedStore) -> Error? {
+    private func deleteCache(from sut: FeedStore) -> Error? {
         let expectation = expectation(description: "Wait for deletion")
         
         var deletionError : Error?
@@ -283,4 +283,3 @@ extension CodableFeedStoreTests {
         deleteStoreArtifacts()
     }
 }
-
