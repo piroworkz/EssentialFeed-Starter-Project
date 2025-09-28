@@ -28,11 +28,6 @@
 		18DDBAAD2E80D3B8003E3C6B /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBAAC2E80D3B8003E3C6B /* URLSessionHTTPClient.swift */; };
 		18DDBAB62E80D669003E3C6B /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080EDEF121B6DA7E00813479 /* EssentialFeed.framework */; };
 		18DDBABC2E80DA64003E3C6B /* XCTestCase+MemoryLeakTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBAA82E80B591003E3C6B /* XCTestCase+MemoryLeakTracker.swift */; };
-		18E0C7152E88AA2F006ED77E /* FeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C7142E88AA2F006ED77E /* FeedStoreSpecs.swift */; };
-		18E0C7172E88AACC006ED77E /* XCTestCase+FeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C7162E88AACC006ED77E /* XCTestCase+FeedStoreSpecs.swift */; };
-		18E0C7192E88B092006ED77E /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C7182E88B092006ED77E /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */; };
-		18E0C71B2E88B4AA006ED77E /* XCTestCase+FailableInsertFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C71A2E88B4AA006ED77E /* XCTestCase+FailableInsertFeedStoreSpecs.swift */; };
-		18E0C71D2E88B5AE006ED77E /* XCTestCase+FailableDeleteFeedStoreSpecs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E0C71C2E88B5AE006ED77E /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */; };
 		18F4BEB12E85FD190030008C /* ValidateFeedCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4BEB02E85FD190030008C /* ValidateFeedCacheUseCaseTests.swift */; };
 		18F4BEB52E8606F60030008C /* SharedTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4BEB42E8606F60030008C /* SharedTestUtils.swift */; };
 		18F4BEB62E8606F60030008C /* SharedTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4BEB42E8606F60030008C /* SharedTestUtils.swift */; };
@@ -81,11 +76,6 @@
 		18DDBAAC2E80D3B8003E3C6B /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		18DDBAB22E80D669003E3C6B /* EssentialFeedApiEndToEndTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialFeedApiEndToEndTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18DDBABF2E80DB50003E3C6B /* CI.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI.xctestplan; sourceTree = "<group>"; };
-		18E0C7142E88AA2F006ED77E /* FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedStoreSpecs.swift; sourceTree = "<group>"; };
-		18E0C7162E88AACC006ED77E /* XCTestCase+FeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FeedStoreSpecs.swift"; sourceTree = "<group>"; };
-		18E0C7182E88B092006ED77E /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableRetrieveFeedStoreSpecs.swift"; sourceTree = "<group>"; };
-		18E0C71A2E88B4AA006ED77E /* XCTestCase+FailableInsertFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableInsertFeedStoreSpecs.swift"; sourceTree = "<group>"; };
-		18E0C71C2E88B5AE006ED77E /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+FailableDeleteFeedStoreSpecs.swift"; sourceTree = "<group>"; };
 		18F4BEB02E85FD190030008C /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		18F4BEB42E8606F60030008C /* SharedTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -158,9 +148,9 @@
 			isa = PBXGroup;
 			children = (
 				18D167B12E7CEFAE006A3E6B /* EssentialFeedTests-Bridging-Header.h */,
-				080EDF0121B6DA7E00813479 /* Info.plist */,
 				18C0DDD42E7E1CE700138960 /* FeedApi */,
 				18A1D3412E8332020061CA13 /* FeedCache */,
+				080EDF0121B6DA7E00813479 /* Info.plist */,
 				18DDBAA72E80B566003E3C6B /* Utils */,
 			);
 			path = EssentialFeedTests;
@@ -183,11 +173,6 @@
 				18777EC12E848AB30028A145 /* LoadFeedFromCacheUseCaseTests.swift */,
 				18F4BEB02E85FD190030008C /* ValidateFeedCacheUseCaseTests.swift */,
 				1829D1852E8769AA007FDAC7 /* CodableFeedStoreTests.swift */,
-				18E0C7142E88AA2F006ED77E /* FeedStoreSpecs.swift */,
-				18E0C7162E88AACC006ED77E /* XCTestCase+FeedStoreSpecs.swift */,
-				18E0C7182E88B092006ED77E /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift */,
-				18E0C71A2E88B4AA006ED77E /* XCTestCase+FailableInsertFeedStoreSpecs.swift */,
-				18E0C71C2E88B5AE006ED77E /* XCTestCase+FailableDeleteFeedStoreSpecs.swift */,
 			);
 			path = FeedCache;
 			sourceTree = "<group>";
@@ -405,15 +390,10 @@
 				18F4BEB62E8606F60030008C /* SharedTestUtils.swift in Sources */,
 				18F4BEB12E85FD190030008C /* ValidateFeedCacheUseCaseTests.swift in Sources */,
 				18D167B32E7CEFAF006A3E6B /* LoadFeedFromRemoteUseCaseTests.swift in Sources */,
-				18E0C71B2E88B4AA006ED77E /* XCTestCase+FailableInsertFeedStoreSpecs.swift in Sources */,
 				18DDBAA92E80B591003E3C6B /* XCTestCase+MemoryLeakTracker.swift in Sources */,
 				18A1D3432E8332160061CA13 /* CacheFeedUseCaseTests.swift in Sources */,
-				18E0C71D2E88B5AE006ED77E /* XCTestCase+FailableDeleteFeedStoreSpecs.swift in Sources */,
-				18E0C7192E88B092006ED77E /* XCTestCase+FailableRetrieveFeedStoreSpecs.swift in Sources */,
 				18777EC22E848AB30028A145 /* LoadFeedFromCacheUseCaseTests.swift in Sources */,
-				18E0C7152E88AA2F006ED77E /* FeedStoreSpecs.swift in Sources */,
 				1800B7172E7E5CEE0069BF14 /* URLSessionHTTPClientTests.swift in Sources */,
-				18E0C7172E88AACC006ED77E /* XCTestCase+FeedStoreSpecs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
