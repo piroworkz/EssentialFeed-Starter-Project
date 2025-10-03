@@ -27,14 +27,7 @@ public class CoreDataFeedStore: FeedStore {
             do {
                 let managedCache = ManagedCache(context: context)
                 managedCache.timestamp = timestamp
-                managedCache.feed = NSOrderedSet(array: feed.map { local in
-                    let managedFeedImage = ManagedFeedImage(context: context)
-                    managedFeedImage.id = local.id
-                    managedFeedImage.url = local.url
-                    managedFeedImage.imageDescription = local.description
-                    managedFeedImage.location = local.location
-                    return managedFeedImage
-                })
+                managedCache.feed = feed.toManaged(context)
                 try context.save()
                 completion(nil)
             } catch {
@@ -50,7 +43,6 @@ public class CoreDataFeedStore: FeedStore {
             do {
                 let request = NSFetchRequest<ManagedCache>(entityName: ManagedCache.entity().name!)
                 request.returnsObjectsAsFaults = false
-                
                 if let cache = try context.fetch(request).first {
                     completion(.found(feed: cache.feed.toLocal(), timestamp: cache.timestamp))
                 } else {
@@ -67,6 +59,20 @@ extension NSOrderedSet {
     func toLocal() -> [LocalFeedImage] {
         return compactMap { $0 as? ManagedFeedImage }
             .map { LocalFeedImage(id: $0.id, description: $0.imageDescription, location: $0.location, imageURL: $0.url) }
+    }
+}
+
+extension [LocalFeedImage] {
+    func toManaged(_ context: NSManagedObjectContext) -> NSOrderedSet {
+        return NSOrderedSet(array: map { local in
+            let managedFeedImage = ManagedFeedImage(context: context)
+            managedFeedImage.id = local.id
+            managedFeedImage.url = local.url
+            managedFeedImage.imageDescription = local.description
+            managedFeedImage.location = local.location
+            return managedFeedImage
+            
+        })
     }
 }
 
