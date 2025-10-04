@@ -25,6 +25,31 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
         }
         wait(for: [expectation], timeout: 1.0)
     }
+    
+    func test_load_deliversItemsSavedOnASeparateInstance() throws {
+        let sutToPerformSave = try buildSUT()
+        let sutToPerformLoad = try buildSUT()
+        let feed = uniqueImageFeed().domain
+        let saveExpectation = expectation(description: "Wait for save completion")
+        sutToPerformSave.save(feed) { saveResult in
+            XCTAssertNil(saveResult, "Expected to save feed successfully")
+            saveExpectation.fulfill()
+        }
+        wait(for: [saveExpectation], timeout: 1.0)
+        
+        let loadExpectation = expectation(description: "Wait for load completion")
+        sutToPerformLoad.load { loadResult in
+            switch loadResult {
+            case let .success(loadedFeed):
+                XCTAssertEqual(loadedFeed, feed, "Expected to load feed successfully")
+            case let .failure(error):
+                XCTFail("Expected successful load result, got \(error) instead")
+            }
+            loadExpectation.fulfill()
+        }
+        
+        wait(for: [loadExpectation], timeout: 1.0)
+    }
 }
 
 
