@@ -127,11 +127,7 @@ extension LoadFeedFromRemoteUseCaseTests {
             "description": feedItem.description,
             "location": feedItem.location,
             "image": feedItem.imageURL.absoluteString
-        ].reduce(into: [String: Any]()) { accumulated, element in
-            if let value = element.value {
-                accumulated[element.key] = value
-            }
-        }
+        ].compactMapValues { $0 }
         return (feedItem, json)
     }
     
