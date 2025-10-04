@@ -28,7 +28,18 @@ final class EssentialFeedCacheIntegrationTests: XCTestCase {
 }
 
 
-private extension EssentialFeedCacheIntegrationTests {
+extension EssentialFeedCacheIntegrationTests {
+    
+    override func setUp() {
+        super.setUp()
+        deleteStoreArtifacts()
+    }
+    
+    override func tearDown() {
+        super.tearDown()
+        deleteStoreArtifacts()
+    }
+    
     private func buildSUT(file: StaticString = #filePath, line: UInt = #line) throws -> LocalFeedLoader {
         let storeBundle = Bundle(for: CoreDataFeedStore.self)
         let storeURL = testSpecificStoreURL()
@@ -37,6 +48,10 @@ private extension EssentialFeedCacheIntegrationTests {
         trackMemoryLeak(for: store, file: file, line: line)
         trackMemoryLeak(for: sut, file: file, line: line)
         return sut
+    }
+    
+    private func deleteStoreArtifacts() {
+        try? FileManager.default.removeItem(at: testSpecificStoreURL())
     }
     
     private func testSpecificStoreURL() -> URL {
