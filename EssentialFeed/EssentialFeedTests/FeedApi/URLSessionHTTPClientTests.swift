@@ -103,7 +103,7 @@ extension URLSessionHTTPClientTests {
         let result = resultFor(data: data, response: response, error: error, file: file, line: line)
         
         switch result {
-        case let .success(data, response):
+        case let .success((data, response)):
             return (data, response)
         default:
             XCTFail("Expected success, but got \(result) instead", file: file, line: line)
@@ -111,11 +111,11 @@ extension URLSessionHTTPClientTests {
         }
     }
     
-    private func resultFor(data: Data?, response: URLResponse?,  error: Error?, file: StaticString = #filePath, line: UInt = #line) -> HTTPClientResult {
+    private func resultFor(data: Data?, response: URLResponse?,  error: Error?, file: StaticString = #filePath, line: UInt = #line) -> HTTPClient.Result {
         URLProtocolStub.stub(data: data, response: response, error: error)
         let expectation = expectation(description: "Wait for completion")
         
-        var receivedResult: HTTPClientResult!
+        var receivedResult: HTTPClient.Result!
         buildSUT().get(from: anyURL()) { result in
             receivedResult = result
             expectation.fulfill()

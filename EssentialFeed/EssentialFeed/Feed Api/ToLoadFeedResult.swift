@@ -7,11 +7,11 @@
 
 import Foundation
 
-extension HTTPClientResult {
+extension HTTPClient.Result {
     
     func toLoadFeedResult() -> RemoteFeedLoader.Result {
         switch self {
-        case let .success(data, response):
+        case let .success((data, response)):
             return map(data, response)
         case .failure(_):
             return RemoteFeedLoader.Result.failure(RemoteFeedLoader.Error.connection)
