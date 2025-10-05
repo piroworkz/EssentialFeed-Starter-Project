@@ -20,9 +20,9 @@ public class CoreDataFeedStore: FeedStore {
         perform { context in
             do {
                 try ManagedCache.find(in: context).map(context.delete)
-                completion(nil)
+                completion(.success(()))
             } catch {
-                return completion(error)
+                return completion(.failure(error))
             }
             
         }
@@ -36,9 +36,9 @@ public class CoreDataFeedStore: FeedStore {
                 managedCache.feed = ManagedFeedImage.toManaged(feed, in: context)
                 
                 try context.save()
-                completion(nil)
+                completion(.success(()))
             } catch {
-                completion(error)
+                completion(.failure(error))
             }
         }
     }
