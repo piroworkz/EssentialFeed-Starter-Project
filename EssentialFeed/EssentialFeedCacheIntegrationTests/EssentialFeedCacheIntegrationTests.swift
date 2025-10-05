@@ -83,7 +83,7 @@ extension EssentialFeedCacheIntegrationTests {
     private func save(_ feed: [FeedImage], with loader: LocalFeedLoader, file: StaticString = #filePath, line: UInt = #line) {
         let saveExpectation = expectation(description: "Wait for save completion")
         loader.save(feed) { saveResult in
-            if case let .failure(error) = saveResult {
+            if case .failure = saveResult {
                 XCTAssertNil(saveResult, "Expected to save feed successfully", file: file, line: line)
             }
             saveExpectation.fulfill()
