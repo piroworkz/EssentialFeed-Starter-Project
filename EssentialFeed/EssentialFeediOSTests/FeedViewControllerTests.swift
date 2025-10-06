@@ -23,7 +23,6 @@ final class FeedViewController: UITableViewController {
         tableView.refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
         onFirstViewIsAppearing = { controller in
-            controller.refreshControl?.beginRefreshing()
             controller.load()
             controller.onFirstViewIsAppearing = nil
         }
@@ -35,6 +34,7 @@ final class FeedViewController: UITableViewController {
     }
     
     @objc private func load() {
+        refreshControl?.beginRefreshing()
         loader?.load { [weak self] _ in
             self?.refreshControl?.endRefreshing()
         }
@@ -86,6 +86,24 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
     }
     
+    func test_pullToRefresh_showsLoadingIndicator() {
+        let (sut, _) = buildSUT()
+        
+        sut.setFakeRefreshControl()
+        sut.refreshControl?.simulatePullToRefresh()
+        
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, true)
+    }
+    
+    func test_pullToRefresh_hidesLoadingIndicatorOnLoaderCompletion() {
+        let (sut, loader) = buildSUT()
+        
+        sut.setFakeRefreshControl()
+        sut.refreshControl?.simulatePullToRefresh()
+        loader.completeFeedLoading()
+        
+        XCTAssertEqual(sut.refreshControl?.isRefreshing, false)
+    }
 }
 
 extension FeedViewControllerTests {
@@ -125,7 +143,7 @@ private extension FeedViewController {
         endAppearanceTransition()
     }
     
-    private func setFakeRefreshControl() {
+    func setFakeRefreshControl() {
         let fakeRefreshControl = FakeRefreshControl()
         refreshControl?.transferActions(to: fakeRefreshControl)
         refreshControl = fakeRefreshControl
