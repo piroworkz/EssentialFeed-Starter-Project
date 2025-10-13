@@ -36,6 +36,15 @@ public class FeedViewController: UITableViewController {
         return tableModel.count
     }
     
+    public override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cellModel = tableModel[indexPath.row]
+        let cell = FeedImageCell()
+        cell.descriptionLabel.text = cellModel.description
+        cell.locationLabel.text = cellModel.location
+        cell.locationContainer.isHidden = cellModel.location == nil
+        return cell
+    }
+    
     @objc private func load() {
         refreshControl?.beginRefreshing()
         loader?.load { [weak self] result in
