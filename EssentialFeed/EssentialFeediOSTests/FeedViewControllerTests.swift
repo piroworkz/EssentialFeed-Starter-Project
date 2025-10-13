@@ -43,6 +43,14 @@ final class FeedViewControllerTests: XCTestCase {
         loader.completeFeedLoading(at: 1)
         XCTAssertFalse(sut.isShowingLoadingIndicator, "Expected no loading indicator once user-initiated reload completes successfully")
     }
+    
+    func test_loadFeedCompletion_rendersSuccessfullyLoadedFeed() {
+        let (sut, loader) = buildSUT()
+        
+        sut.simulateViewAppearing()
+        
+        XCTAssertEqual(sut.numberOfRenderedFeedImageViews(), 0)
+    }
 }
 
 extension FeedViewControllerTests {
@@ -73,6 +81,9 @@ extension FeedViewControllerTests {
 }
 
 private extension FeedViewController {
+    
+    private var feedImagesSection: Int { 0 }
+    
     var isShowingLoadingIndicator: Bool {
         return tableView.refreshControl?.isRefreshing == true
     }
@@ -94,6 +105,10 @@ private extension FeedViewController {
     
     func simulateUserInitiatedFeedReload() {
         tableView.refreshControl?.simulatePullToRefresh()
+    }
+    
+    func numberOfRenderedFeedImageViews() -> Int {
+        return tableView.numberOfRows(inSection: feedImagesSection)
     }
     
     private class FakeRefreshControl: UIRefreshControl {
