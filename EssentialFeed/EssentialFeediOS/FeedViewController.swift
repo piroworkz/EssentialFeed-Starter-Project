@@ -48,6 +48,11 @@ public class FeedViewController: UITableViewController {
         return cell
     }
     
+    public override func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        let cellModel = tableModel[indexPath.row]
+        imageLoader?.cancelImageDataLoad(from: cellModel.imageURL)
+    }
+    
     @objc private func load() {
         refreshControl?.beginRefreshing()
         feedLoader?.load { [weak self] result in
@@ -62,4 +67,5 @@ public class FeedViewController: UITableViewController {
 
 public protocol FeedImageDataLoader {
     func loadImageData(from url: URL)
+    func cancelImageDataLoad(from url: URL)
 }
