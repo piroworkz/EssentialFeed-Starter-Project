@@ -179,7 +179,7 @@ final class FeedViewControllerTests: XCTestCase {
         XCTAssertEqual(view1?.isShowingRetryAction, true, "Expected retry action for second view once second image loading completes with error")
     }
     
-    func test_feedImageViewRetryButton_isVisibleOnInvalidImageData() {
+    func test_feedImageViewRetryButton_isVisibleOnInvalidImageData () {
         let (sut, loader) = buildSUT()
         
         sut.simulateViewAppearing()
@@ -191,6 +191,29 @@ final class FeedViewControllerTests: XCTestCase {
         let invalidImageData = Data("invalid image data".utf8)
         loader.completeImageLoading(with: invalidImageData, at: 0)
         XCTAssertEqual(view?.isShowingRetryAction, true, "Expected retry action once image loading completes with invalid image data")
+    }
+    
+    func test_feedImageViewRetryAction_retriesImageLoad() {
+        let image0 = buildFeedItem(imageURL: URL(string: "https://url-0.com")!)
+        let image1 = buildFeedItem(imageURL: URL(string: "https://url-1.com")!)
+        let (sut, loader) = buildSUT()
+        
+        sut.simulateViewAppearing()
+        loader.completeFeedLoading(with: [image0, image1], at: 0)
+        
+        let view0 = sut.simulateFeedImageViewVisible(at: 0)
+        let view1 = sut.simulateFeedImageViewVisible(at: 1)
+        XCTAssertEqual(loader.loadedImageURLs, [image0.imageURL, image1.imageURL], "Expected two image URL request for the two visible views")
+        
+        loader.completeImageLoadingWithError(at: 0)
+        loader.completeImageLoadingWithError(at: 1)
+        XCTAssertEqual(loader.loadedImageURLs, [image0.imageURL, image1.imageURL], "Expected only two image URL requests before retry action")
+        
+        view0?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImageURLs, [image0.imageURL, image1.imageURL, image0.imageURL], "Expected third imageURL request after first view retry action")
+        
+        view1?.simulateRetryAction()
+        XCTAssertEqual(loader.loadedImageURLs, [image0.imageURL, image1.imageURL, image0.imageURL, image1.imageURL], "Expected fourth imageURL request after second view retry action")
     }
 }
 
@@ -310,6 +333,10 @@ private extension FeedImageCell {
     var isShowingRetryAction: Bool {
         return !feedImageRetryButton.isHidden
     }
+    
+    func simulateRetryAction() {
+        feedImageRetryButton.simulateTap()
+    }
 }
 
 private extension FeedViewController {
@@ -396,7 +423,7 @@ private extension UIRefreshControl {
     }
 }
 
-extension UIImage {
+private extension UIImage {
     
     static func make(withColor color: UIColor) -> UIImage {
         let rect = CGRect(x: 0, y: 0, width: 1, height: 1)
@@ -406,6 +433,16 @@ extension UIImage {
         return UIGraphicsImageRenderer(size: rect.size, format: format).image { rendererContext in
             color.setFill()
             rendererContext.fill(rect)
+        }
+    }
+}
+
+private extension UIButton {
+    func simulateTap() {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: .touchUpInside)?.forEach {
+                (target as NSObject).perform(Selector($0))
+            }
         }
     }
 }
