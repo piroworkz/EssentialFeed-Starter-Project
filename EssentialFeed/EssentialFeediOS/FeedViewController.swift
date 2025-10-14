@@ -7,7 +7,7 @@
 import UIKit
 import EssentialFeed
 
-public class FeedViewController: UITableViewController {
+public class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
     private var onFirstViewIsAppearing: ((FeedViewController) -> Void)?
     private var feedLoader: FeedLoader?
     private var imageLoader: FeedImageDataLoader?
@@ -24,6 +24,7 @@ public class FeedViewController: UITableViewController {
         super.viewDidLoad()
         tableView.refreshControl = UIRefreshControl()
         refreshControl?.addTarget(self, action: #selector(load), for: .valueChanged)
+        tableView.prefetchDataSource = self
         onFirstViewIsAppearing = { controller in
             controller.load()
             controller.onFirstViewIsAppearing = nil
@@ -69,6 +70,13 @@ public class FeedViewController: UITableViewController {
         tasks[indexPath]?.cancel()
         tasks[indexPath] = nil
         
+    }
+    
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        indexPaths.forEach { indexPath in
+            let cellModel = tableModel[indexPath.row]
+            _ = imageLoader?.loadImageData(from: cellModel.imageURL, completion: { _ in })
+        }
     }
     
     @objc private func load() {
