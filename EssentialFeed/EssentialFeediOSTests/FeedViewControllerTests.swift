@@ -231,6 +231,22 @@ final class FeedViewControllerTests: XCTestCase {
         sut.simulateFeedImageViewNearVisible(at: 1)
         XCTAssertEqual(loader.loadedImageURLs, [image0.imageURL, image1.imageURL], "Expected second image URL request once second image is near visible")
     }
+    
+    func test_feedImageView_cancelsImageURLPreloadingWhenNotNearVisibleAnymore() {
+        let image0 = buildFeedItem(imageURL: URL(string: "https://url-0.com")!)
+        let image1 = buildFeedItem(imageURL: URL(string: "https://url-1.com")!)
+        let (sut, loader) = buildSUT()
+        
+        sut.simulateViewAppearing()
+        loader.completeFeedLoading(with: [image0, image1], at: 0)
+        XCTAssertEqual(loader.cancelledImageURLs, [], "Expected no cancelled image URL requests until image is not near visible")
+        
+        sut.simulateFeedImageViewNotNearVisible(at: 0)
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.imageURL], "Expected first cancelled image URL request once first image is not near visible anymore")
+        
+        sut.simulateFeedImageViewNotNearVisible(at: 1)
+        XCTAssertEqual(loader.cancelledImageURLs, [image0.imageURL, image1.imageURL], "Expected second cancelled image URL request once second image is not near visible anymore")
+    }
 }
 
 extension FeedViewControllerTests {
@@ -408,6 +424,14 @@ private extension FeedViewController {
         let dataSource = tableView.prefetchDataSource
         let index = IndexPath(row: row, section: feedImagesSection)
         dataSource?.tableView(tableView, prefetchRowsAt: [index])
+    }
+    
+    func simulateFeedImageViewNotNearVisible(at row: Int) {
+        simulateFeedImageViewNearVisible(at: row)
+        
+        let dataSource = tableView.prefetchDataSource
+        let index = IndexPath(row: row, section: feedImagesSection)
+        dataSource?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
     private class FakeRefreshControl: UIRefreshControl {
