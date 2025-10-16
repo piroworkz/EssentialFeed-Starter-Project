@@ -49,7 +49,6 @@ public class FeedViewController: UITableViewController, UITableViewDataSourcePre
         cell.feedImageView.image = nil
         cell.feedImageRetryButton.isHidden = true
         cell.feedImageContainer.startShimmering()
-        
         let loadImage = { [weak self, weak cell] in
             guard let self = self else { return }
             self.tasks[indexPath] = imageLoader?.loadImageData(from: cellModel.imageURL) { [weak cell] result in
@@ -97,14 +96,4 @@ public class FeedViewController: UITableViewController, UITableViewDataSourcePre
             self?.refreshControl?.endRefreshing()
         }
     }
-}
-
-public protocol FeedImageDataLoader {
-    typealias Result = Swift.Result<Data, Error>
-    
-    func loadImageData(from url: URL, completion: @escaping(Result) -> Void) -> FeedImageDataLoaderTask
-}
-
-public protocol FeedImageDataLoaderTask {
-    func cancel()
 }
