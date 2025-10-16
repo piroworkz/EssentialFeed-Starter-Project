@@ -451,20 +451,3 @@ private extension FeedViewController {
     }
 }
 
-private extension UIRefreshControl {
-    func transferActions(to fake: UIRefreshControl) {
-        allTargets.forEach { target in
-            actions(forTarget: target, forControlEvent: .valueChanged)?
-                .forEach { action in
-                    fake.addTarget(target, action: Selector(action), for: .valueChanged)
-                }
-        }
-    }
-    
-    func simulatePullToRefresh() {
-        allTargets.forEach { target in
-            actions(forTarget: target, forControlEvent: .valueChanged)?
-                .forEach {(target as NSObject).perform(Selector($0))}
-        }
-    }
-}
