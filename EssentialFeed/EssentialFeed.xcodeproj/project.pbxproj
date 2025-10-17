@@ -183,6 +183,7 @@
 		18777EC52E848F490028A145 /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (18CDCE642E90D30D00771821 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
 		18CDCE562E90CDD900771821 /* EssentialFeedCacheIntegrationTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1802B54F2E93269000E42155 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedCacheIntegrationTests; sourceTree = "<group>"; };
 		18DDBAB32E80D669003E3C6B /* EssentialFeedApiEndToEndTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1802B54B2E93251C00E42155 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedApiEndToEndTests; sourceTree = "<group>"; };
+		18E039692EA1D18F00A08664 /* Composers */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = Composers; sourceTree = "<group>"; };
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -382,6 +383,7 @@
 		18E0383A2EA1AF5800A08664 /* FeedUI */ = {
 			isa = PBXGroup;
 			children = (
+				18E039692EA1D18F00A08664 /* Composers */,
 				18E0383C2EA1AF6F00A08664 /* Views */,
 				18E0383B2EA1AF6100A08664 /* Controllers */,
 			);
@@ -496,6 +498,9 @@
 			);
 			dependencies = (
 				18FFA8992E937ED8001818C5 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				18E039692EA1D18F00A08664 /* Composers */,
 			);
 			name = EssentialFeediOS;
 			packageProductDependencies = (
