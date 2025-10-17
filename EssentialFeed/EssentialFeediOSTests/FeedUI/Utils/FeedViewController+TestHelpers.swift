@@ -48,9 +48,15 @@ extension FeedViewController {
     }
     
     func setFakeRefreshControl() {
-        let fakeRefreshControl = FakeRefreshControl()
-        refreshControl?.transferActions(to: fakeRefreshControl)
-        tableView.refreshControl = fakeRefreshControl
+        let fake = FakeRefreshControl()
+
+        refreshControl?.allTargets.forEach { target in
+            refreshControl?.actions(forTarget: target, forControlEvent: .valueChanged)?.forEach { action in
+                fake.addTarget(target, action: Selector(action), for: .valueChanged)
+            }
+        }
+        refreshControl = fake
+        refreshController?.view = fake
     }
     
     func simulateUserInitiatedFeedReload() {
