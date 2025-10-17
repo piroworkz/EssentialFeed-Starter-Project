@@ -9,16 +9,16 @@ import UIKit
 
 public final class FeedRefreshViewController: NSObject, FeedLoadingView {
     
-    private let loadFeed: () -> Void
+    private let delegate: FeedRefreshViewControllerDelegate
     
     public lazy var view: UIRefreshControl = loadView()
     
-    init(loadFeed: @escaping () -> Void) {
-        self.loadFeed = loadFeed
+    init(delegate: FeedRefreshViewControllerDelegate) {
+        self.delegate = delegate
     }
 
     @objc func refresh() {
-        loadFeed()
+        delegate.didRequestFeedRefresh()
     }
     
     func display(_ state: FeedLoadingViewState) {
@@ -34,4 +34,8 @@ public final class FeedRefreshViewController: NSObject, FeedLoadingView {
         view.addTarget(self, action: #selector(refresh), for: .valueChanged)
         return view
     }
+}
+
+protocol FeedRefreshViewControllerDelegate {
+    func didRequestFeedRefresh()
 }

@@ -13,8 +13,9 @@ public final class FeedUIComposer {
     private init() {}
     
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
-        let presenter = FeedPresenter(feedLoader: feedLoader)
-        let refreshController = FeedRefreshViewController(loadFeed: presenter.loadFeed)
+        let presenter = FeedPresenter()
+        let presenterAdapter = FeedLoaderPresentationAdapter(feedLoader: feedLoader, presenter: presenter)
+        let refreshController = FeedRefreshViewController(delegate: presenterAdapter)
         let feedController = FeedViewController(refreshController: refreshController)
         presenter.feedLoadingView = WeakReference(refreshController)
         presenter.feedView = FeedViewAdapter(controller: feedController, loader: imageLoader)
@@ -44,7 +45,7 @@ extension WeakReference: FeedLoadingView where T: FeedLoadingView {
         value?.display(state)
     }
 }
-    
+
 
 private class FeedViewAdapter: FeedView {
     
@@ -59,6 +60,29 @@ private class FeedViewAdapter: FeedView {
     func display(_ state: FeedViewState) {
         controller?.tableModel = state.feed.map { model in
             FeedImageCellController(viewModel: FeedImageViewModel<UIImage>(model: model, imageLoader: loader, mapImage: UIImage.init))
+        }
+    }
+}
+
+
+private final class FeedLoaderPresentationAdapter: FeedRefreshViewControllerDelegate {
+    private let feedLoader: FeedLoader
+    private let presenter: FeedPresenter
+    
+    init(feedLoader: FeedLoader, presenter: FeedPresenter) {
+        self.feedLoader = feedLoader
+        self.presenter = presenter
+    }
+    
+    func didRequestFeedRefresh() {
+        presenter.didStartLoadingFeed()
+        feedLoader.load { [weak self] result in
+            switch result {
+            case let .success(feed):
+                self?.presenter.didFinishLoadingFeed(with: feed)
+            case let .failure(error):
+                self?.presenter.didFinishLoadingFeed(with: error)
+            }
         }
     }
 }
