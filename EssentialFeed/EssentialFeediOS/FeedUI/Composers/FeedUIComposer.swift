@@ -14,7 +14,7 @@ public final class FeedUIComposer {
     
     public static func feedComposedWith(feedLoader: FeedLoader, imageLoader: FeedImageDataLoader) -> FeedViewController {
         let presenter = FeedPresenter(feedLoader: feedLoader)
-        let refreshController = FeedRefreshViewController(presenter: presenter)
+        let refreshController = FeedRefreshViewController(loadFeed: presenter.loadFeed)
         let feedController = FeedViewController(refreshController: refreshController)
         presenter.feedLoadingView = WeakReference(refreshController)
         presenter.feedView = FeedViewAdapter(controller: feedController, loader: imageLoader)
@@ -40,8 +40,8 @@ private final class WeakReference<T: AnyObject> {
 }
 
 extension WeakReference: FeedLoadingView where T: FeedLoadingView {
-    func display(isLoading: Bool) {
-        value?.display(isLoading: isLoading)
+    func display(_ state: FeedLoadingViewState) {
+        value?.display(state)
     }
 }
     
@@ -56,8 +56,8 @@ private class FeedViewAdapter: FeedView {
         self.loader = loader
     }
     
-    func display(feed: [FeedImage]) {
-        controller?.tableModel = feed.map { model in
+    func display(_ state: FeedViewState) {
+        controller?.tableModel = state.feed.map { model in
             FeedImageCellController(viewModel: FeedImageViewModel<UIImage>(model: model, imageLoader: loader, mapImage: UIImage.init))
         }
     }
