@@ -4,16 +4,15 @@
 //
 //  Created by David Luna on 05/10/25.
 //
+
 import UIKit
-import EssentialFeed
 
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching {
-    public var refreshController: FeedRefreshViewController?
+    
     private var onFirstViewIsAppearing: ((FeedViewController) -> Void)?
-    private var feedLoader: FeedLoader?
-    private var imageLoader: FeedImageDataLoader?
-     var tableModel = [FeedImageCellController]() { didSet {tableView.reloadData()} }
-    private var cellControllers = [IndexPath: FeedImageCellController]()
+    
+    public var refreshController: FeedRefreshViewController?
+    var tableModel = [FeedImageCellController]() { didSet {tableView.reloadData()} }
     
     public convenience init(refreshController: FeedRefreshViewController) {
         self.init()
