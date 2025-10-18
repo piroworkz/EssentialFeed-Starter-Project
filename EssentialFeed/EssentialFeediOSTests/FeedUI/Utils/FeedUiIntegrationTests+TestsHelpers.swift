@@ -11,7 +11,7 @@ import EssentialFeed
 import EssentialFeediOS
 
 
-extension FeedViewControllerTests {
+extension FeedUiIntegrationTests {
     
     func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
