@@ -79,6 +79,9 @@ Location</string>
                                                                 <fontDescription key="titleFontDescription" type="system" pointSize="60"/>
                                                                 <color key="baseForegroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                             </buttonConfiguration>
+                                                            <connections>
+                                                                <action selector="retryButtonTapped" destination="r4x-Jc-hgO" eventType="touchUpInside" id="1p2-vH-iGu"/>
+                                                            </connections>
                                                         </button>
                                                     </subviews>
                                                     <color key="backgroundColor" red="0.89019607840000003" green="0.89019607840000003" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -120,6 +123,13 @@ Location</string>
                                         <constraint firstItem="yXS-29-36R" firstAttribute="top" secondItem="05M-gH-gx0" secondAttribute="topMargin" priority="999" constant="6" id="kBF-pb-qtQ"/>
                                     </constraints>
                                 </tableViewCellContentView>
+                                <connections>
+                                    <outlet property="descriptionLabel" destination="9rt-up-UVQ" id="SKj-DE-dBR"/>
+                                    <outlet property="feedImageContainer" destination="Flx-PV-7Dl" id="LVt-WO-oTP"/>
+                                    <outlet property="feedImageView" destination="k8e-rx-bie" id="XIN-K1-qlv"/>
+                                    <outlet property="locationContainer" destination="VFS-t5-8Gj" id="Pya-oh-a3S"/>
+                                    <outlet property="locationLabel" destination="dc2-za-8qA" id="TGK-Od-0wo"/>
+                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <connections>
