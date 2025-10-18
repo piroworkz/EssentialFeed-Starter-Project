@@ -125,6 +125,7 @@ Location</string>
                         <connections>
                             <outlet property="dataSource" destination="gVb-IE-lO6" id="XnY-nU-deT"/>
                             <outlet property="delegate" destination="gVb-IE-lO6" id="CwQ-Z7-Sb2"/>
+                            <outlet property="prefetchDataSource" destination="gVb-IE-lO6" id="WA3-cA-FCC"/>
                         </connections>
                     </tableView>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="K5M-Q5-AdH">
