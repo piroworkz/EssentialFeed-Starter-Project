@@ -283,5 +283,22 @@ final class FeedUiIntegrationTests: XCTestCase {
         
         wait(for: [expectation], timeout: 1.0)
     }
+    
+    func test_loadImageDataCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = buildSUT()
+        
+        sut.simulateViewAppearing()
+        loader.completeFeedLoading(with: [buildFeedItem()], at: 0)
+        _ = sut.simulateFeedImageViewVisible(at: 0)
+        
+        let expectation = expectation(description: "Wait for background queue")
+        
+        DispatchQueue.global().async {
+            loader.completeImageLoading(at: 0)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
 
 }

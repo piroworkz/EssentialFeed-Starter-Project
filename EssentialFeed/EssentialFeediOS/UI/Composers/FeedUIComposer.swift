@@ -20,7 +20,7 @@ public final class FeedUIComposer {
         )
         
         presenterAdapter.presenter = FeedPresenter(
-            feedView: FeedViewAdapter(controller: feedController, loader: imageLoader),
+            feedView: FeedViewAdapter(controller: feedController, loader: MainQueueDispatchDecorator(decoratee: imageLoader)),
             feedLoadingView: WeakReference(feedController)
         )
         
@@ -46,6 +46,14 @@ private final class MainQueueDispatchDecorator<Decoratee> {
 extension MainQueueDispatchDecorator: FeedLoader where Decoratee == FeedLoader {
     func load(completion: @escaping (FeedLoader.Result) -> Void) {
         decoratee.load {[weak self] result in
+            self?.dispatch { completion(result) }
+        }
+    }
+}
+
+extension MainQueueDispatchDecorator: FeedImageDataLoader where Decoratee == FeedImageDataLoader {
+    func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
+        return decoratee.loadImageData(from: url) {[weak self] result in
             self?.dispatch { completion(result) }
         }
     }
