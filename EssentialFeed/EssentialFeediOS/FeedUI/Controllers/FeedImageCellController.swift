@@ -40,7 +40,7 @@ final class FeedImageCellController: FeedImageView {
         cell?.locationContainer.isHidden = !state.hasLocation
         cell?.locationLabel.text = state.location
         cell?.descriptionLabel.text = state.description
-        cell?.feedImageView.image = state.image
+        cell?.feedImageView.setImageAnimated(state.image)
         cell?.feedImageContainer.isShimmering = state.isLoading
         cell?.feedImageRetryButton.isHidden = !state.shouldRetry
         cell?.onRetry = delegate.didRequestImage
@@ -50,4 +50,3 @@ final class FeedImageCellController: FeedImageView {
         cell = nil
     }
 }
-
