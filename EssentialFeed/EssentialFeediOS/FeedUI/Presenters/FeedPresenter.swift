@@ -30,7 +30,7 @@ final class FeedPresenter {
     private let feedLoadingView: FeedLoadingView
     
     static var title: String {
-        return "My Feed"
+        return NSLocalizedString("FEED_VIEW_TITLE", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Feed view title")
     }
     
     init(feedView: FeedView, feedLoadingView: FeedLoadingView) {
