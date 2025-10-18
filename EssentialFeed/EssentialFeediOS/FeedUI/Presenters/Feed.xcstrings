@@ -9,6 +9,12 @@
             "state" : "translated",
             "value" : "My Feed"
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Para ti"
+          }
         }
       }
     }
