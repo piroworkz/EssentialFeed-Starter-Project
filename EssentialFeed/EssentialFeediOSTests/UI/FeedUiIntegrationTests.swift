@@ -270,5 +270,18 @@ final class FeedUiIntegrationTests: XCTestCase {
         
     }
     
+    func test_loadFeedCompletion_dispatchesFromBackgroundToMainThread() {
+        let (sut, loader) = buildSUT()
+        
+        sut.simulateViewAppearing()
+        
+        let expectation = expectation(description: "Wait for background queue")
+        DispatchQueue.global().async {
+            loader.completeFeedLoading(at: 0)
+            expectation.fulfill()
+        }
+        
+        wait(for: [expectation], timeout: 1.0)
+    }
 
 }
