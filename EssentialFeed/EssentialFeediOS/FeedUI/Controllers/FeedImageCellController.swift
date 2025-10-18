@@ -7,46 +7,40 @@
 
 import UIKit
 
-final class FeedImageCellController {
-    private let viewModel: FeedImageViewModel<UIImage>
+protocol FeedImageCellControllerDelegate {
+    func didRequestImage()
+    func didCancelImageRequest()
+}
+
+final class FeedImageCellController: FeedImageView {
     
-    init(viewModel: FeedImageViewModel<UIImage>) {
-        self.viewModel = viewModel
+    private let delegate: FeedImageCellControllerDelegate
+    private lazy var cell = FeedImageCell()
+    
+    init(delegate: FeedImageCellControllerDelegate) {
+        self.delegate = delegate
     }
     
     func view() -> UITableViewCell {
-        let cell = bind(FeedImageCell())
-        viewModel.loadImageData()
-        
+        delegate.didRequestImage()
         return cell
     }
     
     func preload() {
-        viewModel.loadImageData()
+        delegate.didRequestImage()
     }
     
     func cancelLoad() {
-        viewModel.cancelImageDataLoad()
+        delegate.didCancelImageRequest()
     }
     
-    private func bind(_ cell: FeedImageCell) -> FeedImageCell {
-        cell.locationContainer.isHidden = !viewModel.hasLocation
-        cell.locationLabel.text = viewModel.location
-        cell.descriptionLabel.text = viewModel.description
-        cell.onRetry = viewModel.loadImageData
-        
-        viewModel.onImageLoad = { [weak cell] image in
-            cell?.feedImageView.image = image
-        }
-        
-        viewModel.onImageLoadingStateChange = { [weak cell] isLoading in
-            cell?.feedImageContainer.isShimmering = isLoading
-        }
-        
-        viewModel.onShouldRetryImageLoadStateChange = { [weak cell] shouldRetry in
-            cell?.feedImageRetryButton.isHidden = !shouldRetry
-        }
-        
-        return cell
+    func display(_ state: FeedImageState<UIImage>) {
+        cell.locationContainer.isHidden = !state.hasLocation
+        cell.locationLabel.text = state.location
+        cell.descriptionLabel.text = state.description
+        cell.feedImageView.image = state.image
+        cell.feedImageContainer.isShimmering = state.isLoading
+        cell.feedImageRetryButton.isHidden = !state.shouldRetry
+        cell.onRetry = delegate.didRequestImage
     }
 }
