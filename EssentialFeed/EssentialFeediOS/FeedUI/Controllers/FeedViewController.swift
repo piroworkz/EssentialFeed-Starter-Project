@@ -21,7 +21,6 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
         super.viewDidLoad()
         onFirstViewIsAppearing = { controller in
             controller.onFirstViewIsAppearing = nil
-            controller.title = FeedPresenter.title
             controller.refresh()
         }
     }
