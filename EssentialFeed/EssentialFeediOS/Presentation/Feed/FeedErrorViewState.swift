@@ -8,4 +8,12 @@
 
 struct FeedErrorViewState {
     let message: String?
+    
+    static var noError: FeedErrorViewState {
+        return FeedErrorViewState(message: nil)
+    }
+    
+    static func error(message: String) -> FeedErrorViewState {
+        return FeedErrorViewState(message: message)
+    }
 }
