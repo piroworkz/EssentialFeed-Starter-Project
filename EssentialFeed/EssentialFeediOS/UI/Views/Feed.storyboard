@@ -18,7 +18,24 @@
                         <view key="tableHeaderView" contentMode="scaleToFill" id="RvD-ca-38H" customClass="ErrorView" customModule="EssentialFeediOS" customModuleProvider="target">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="16"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <subviews>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o03-su-Pb8">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="16"/>
+                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                    <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemRedColor"/>
+                            <constraints>
+                                <constraint firstAttribute="trailing" secondItem="o03-su-Pb8" secondAttribute="trailing" id="5Qf-pr-grZ"/>
+                                <constraint firstItem="o03-su-Pb8" firstAttribute="top" secondItem="RvD-ca-38H" secondAttribute="top" id="gPO-yW-dNN"/>
+                                <constraint firstItem="o03-su-Pb8" firstAttribute="leading" secondItem="RvD-ca-38H" secondAttribute="leading" id="jwc-W5-oVR"/>
+                                <constraint firstAttribute="bottom" secondItem="o03-su-Pb8" secondAttribute="bottom" id="kmG-A6-Fyo"/>
+                            </constraints>
+                            <connections>
+                                <outlet property="label" destination="o03-su-Pb8" id="LIV-T2-2JP"/>
+                            </connections>
                         </view>
                         <view key="tableFooterView" contentMode="scaleToFill" id="tC8-Wx-wGn">
                             <rect key="frame" x="0.0" y="674" width="393" height="16"/>
@@ -158,6 +175,9 @@ Location</string>
         <image name="pin" width="10" height="14.333333015441895"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
