@@ -12,7 +12,7 @@ protocol FeedViewControllerDelegate {
 }
 
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView, FeedErrorView {
-    public let errorView: ErrorView = ErrorView()
+    @IBOutlet private(set) public var errorView: ErrorView?
     private var onFirstViewIsAppearing: ((FeedViewController) -> Void)?
     var delegate : FeedViewControllerDelegate?
     var tableModel = [FeedImageCellController]() {
@@ -40,7 +40,7 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     func display(_ viewModel: FeedErrorViewState) {
-        errorView.message = viewModel.message
+        errorView?.message = viewModel.message
     }
     
     public override func viewIsAppearing(_ animated: Bool) {
