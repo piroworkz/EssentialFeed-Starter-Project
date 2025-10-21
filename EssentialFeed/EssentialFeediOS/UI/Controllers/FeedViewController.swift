@@ -32,11 +32,7 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     func display(_ state: FeedLoadingViewState) {
-        if state.isLoading {
-            refreshControl?.beginRefreshing()
-        } else {
-            refreshControl?.endRefreshing()
-        }
+        refreshControl?.update(isRefreshing: state.isLoading)
     }
     
     func display(_ viewModel: FeedErrorViewState) {
@@ -78,3 +74,5 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
         return tableModel[indexPath.row]
     }
 }
+
+
