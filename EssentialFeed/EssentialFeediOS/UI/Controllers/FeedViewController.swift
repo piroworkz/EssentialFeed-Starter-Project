@@ -12,7 +12,7 @@ protocol FeedViewControllerDelegate {
 }
 
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView {
-    
+    public let errorView: ErrorView = ErrorView()
     private var onFirstViewIsAppearing: ((FeedViewController) -> Void)?
     var delegate : FeedViewControllerDelegate?
     var tableModel = [FeedImageCellController]() {

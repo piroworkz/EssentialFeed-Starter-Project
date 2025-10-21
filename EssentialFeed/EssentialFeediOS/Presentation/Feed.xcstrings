@@ -1,6 +1,24 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "FEED_VIEW_CONNECTION_ERROR" : {
+      "comment" : "Couldn't connect to server",
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Couldn't connect to server"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "No se pudo conectar con el servidor"
+          }
+        }
+      }
+    },
     "FEED_VIEW_TITLE" : {
       "comment" : "Feed view title",
       "localizations" : {
