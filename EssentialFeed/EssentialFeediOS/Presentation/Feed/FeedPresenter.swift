@@ -8,30 +8,6 @@
 import Foundation
 import EssentialFeed
 
-struct FeedLoadingViewState {
-    let isLoading: Bool
-}
-
-protocol FeedLoadingView {
-    func display(_ state: FeedLoadingViewState)
-}
-
-struct FeedViewState {
-    let feed: [FeedImage]
-}
-
-protocol FeedView {
-    func display(_ state: FeedViewState)
-}
-
-struct FeedErrorViewState {
-    let message: String?
-}
-
-protocol FeedErrorView {
-    func display(_ state: FeedErrorViewState)
-}
-
 final class FeedPresenter {
     
     private let feedView: FeedView
