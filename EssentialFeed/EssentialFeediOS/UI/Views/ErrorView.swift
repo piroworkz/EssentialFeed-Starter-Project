@@ -13,7 +13,7 @@ public final class ErrorView: UIView {
     
     public var message: String? {
         get { return isVisible ? label.text : nil }
-        set { label.text = newValue }
+        set { setMessageAnimated(newValue) }
     }
     
     public override func awakeFromNib() {
