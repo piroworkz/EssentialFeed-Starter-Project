@@ -42,6 +42,4 @@ final class FeedPresenter {
         feedErrorView.display(.error(message: loadErrorMessage))
         feedLoadingView.display(FeedLoadingViewState(isLoading: false))
     }
-    
-    
 }
