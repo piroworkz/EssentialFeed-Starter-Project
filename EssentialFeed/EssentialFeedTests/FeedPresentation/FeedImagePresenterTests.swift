@@ -140,7 +140,6 @@ final class FeedImagePresenterTests: XCTestCase {
     }
 }
 
-
 extension FeedImagePresenterTests {
     
     private var failingImageMapper: (Data) -> AnyImage? {
