@@ -182,7 +182,6 @@
 		18764E652EA849FB00AE9179 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				Feed.xcstrings,
 				FeedPresenterTests.swift,
 			);
 			target = 080EDEF921B6DA7E00813479 /* EssentialFeedTests */;
@@ -494,6 +493,9 @@
 			buildRules = (
 			);
 			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				18764E662EA84B5B00AE9179 /* FeedPresentation */,
 			);
 			name = EssentialFeed;
 			productName = EssentialFeed;

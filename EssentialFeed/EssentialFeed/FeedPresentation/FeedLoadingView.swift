@@ -2,10 +2,8 @@
 //  FeedLoadingView.swift
 //  EssentialFeed
 //
-//  Created by David Luna on 21/10/25.
+//  Created by David Luna on 26/10/25.
 //
-
-import Foundation
 
 public protocol FeedLoadingView {
     func display(_ state: FeedLoadingViewState)

@@ -8,81 +8,6 @@
 import XCTest
 import EssentialFeed
 
-protocol FeedErrorView {
-    func display(_ state: FeedErrorViewState)
-}
-
-struct FeedErrorViewState {
-    let message: String?
-    
-    static var noError: FeedErrorViewState {
-        return FeedErrorViewState(message: nil)
-    }
-    
-    static func error(message: String) -> FeedErrorViewState {
-        return FeedErrorViewState(message: message)
-    }
-}
-
-struct FeedLoadingViewState {
-    let isLoading: Bool
-    
-    static var loading: FeedLoadingViewState {
-        return FeedLoadingViewState(isLoading: true)
-    }
-    
-    static var notLoading: FeedLoadingViewState {
-        return FeedLoadingViewState(isLoading: false)
-    }
-}
-
-protocol FeedLoadingView {
-    func display(_ state: FeedLoadingViewState)
-}
-
-protocol FeedView {
-    func display(_ state: FeedViewState)
-}
-
-struct FeedViewState {
-    let feed: [FeedImage]
-}
-
-final class FeedPresenter {
-    private let feedErrorView: FeedErrorView
-    private let feedLoadingView: FeedLoadingView
-    private let feedView: FeedView
-    
-    init(feedErrorView: FeedErrorView, feedLoadingView: FeedLoadingView, feedView: FeedView) {
-        self.feedErrorView = feedErrorView
-        self.feedLoadingView = feedLoadingView
-        self.feedView = feedView
-    }
-    
-    static var title: String {
-        return NSLocalizedString("FEED_VIEW_TITLE", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Feed view title")
-    }
-    
-    private var loadErrorMessage: String {
-        return NSLocalizedString("FEED_VIEW_CONNECTION_ERROR", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Error message displayed when we can't load the feed")
-    }
-    
-    func didStartLoadingFeed() {
-        feedErrorView.display(.noError)
-        feedLoadingView.display(.loading)
-    }
-    
-    func didFinishLoadingFeed(with feed: [FeedImage]) {
-        feedView.display(FeedViewState(feed: feed))
-        feedLoadingView.display(.notLoading)
-    }
-    
-    func didFinishLoadingFeed(with error: Error) {
-        feedErrorView.display(.error(message: loadErrorMessage))
-        feedLoadingView.display(.notLoading)
-    }
-}
-
 final class FeedPresenterTests: XCTestCase {
     
     func test_title_isLocalized() {
@@ -125,7 +50,7 @@ extension FeedPresenterTests {
     
     private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (FeedPresenter, ViewSpy) {
         let view = ViewSpy()
-        let sut = FeedPresenter(feedErrorView: view, feedLoadingView: view, feedView: view)
+        let sut = FeedPresenter(feedErrorView: view, feedLoadingView: view as FeedLoadingView, feedView: view as FeedView)
         trackMemoryLeak(for: view, file: file, line: line)
         trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, view)

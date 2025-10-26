@@ -2,9 +2,8 @@
 //  FeedViewState.swift
 //  EssentialFeed
 //
-//  Created by David Luna on 21/10/25.
+//  Created by David Luna on 26/10/25.
 //
-import Foundation
 
 public struct FeedViewState {
     public let feed: [FeedImage]

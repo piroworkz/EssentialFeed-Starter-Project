@@ -21,7 +21,6 @@
     },
     "FEED_VIEW_TITLE" : {
       "comment" : "Feed view title",
-      "extractionState" : "stale",
       "localizations" : {
         "en" : {
           "stringUnit" : {

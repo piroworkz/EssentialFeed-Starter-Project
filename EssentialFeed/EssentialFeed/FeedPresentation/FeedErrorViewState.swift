@@ -2,19 +2,18 @@
 //  FeedErrorViewState.swift
 //  EssentialFeed
 //
-//  Created by David Luna on 21/10/25.
+//  Created by David Luna on 26/10/25.
 //
 
-import Foundation
 
 public struct FeedErrorViewState {
     public let message: String?
     
-    public static var noError: FeedErrorViewState {
+    static var noError: FeedErrorViewState {
         return FeedErrorViewState(message: nil)
     }
     
-    public static func error(message: String) -> FeedErrorViewState {
+    static func error(message: String) -> FeedErrorViewState {
         return FeedErrorViewState(message: message)
     }
 }
