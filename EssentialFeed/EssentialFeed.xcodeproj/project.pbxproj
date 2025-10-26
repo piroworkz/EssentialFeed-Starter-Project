@@ -182,6 +182,7 @@
 		18764E652EA849FB00AE9179 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				FeedLocalizationTests.swift,
 				FeedPresenterTests.swift,
 			);
 			target = 080EDEF921B6DA7E00813479 /* EssentialFeedTests */;
@@ -301,11 +302,11 @@
 		080EDEFE21B6DA7E00813479 /* EssentialFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				18764E622EA849D400AE9179 /* FeedPresentation */,
 				18D167B12E7CEFAE006A3E6B /* EssentialFeedTests-Bridging-Header.h */,
 				080EDF0121B6DA7E00813479 /* Info.plist */,
 				18C0DDD42E7E1CE700138960 /* FeedApi */,
 				18A1D3412E8332020061CA13 /* FeedCache */,
+				18764E622EA849D400AE9179 /* FeedPresentation */,
 				18DDBAA72E80B566003E3C6B /* Utils */,
 			);
 			path = EssentialFeedTests;
