@@ -182,6 +182,7 @@
 		18764E652EA849FB00AE9179 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				FeedImagePresenterTests.swift,
 				FeedLocalizationTests.swift,
 				FeedPresenterTests.swift,
 			);
