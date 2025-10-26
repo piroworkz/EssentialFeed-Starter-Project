@@ -86,6 +86,16 @@ final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == I
             )
         )
     }
+    
+    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
+        view.display(
+            currentState.update(
+                image: nil,
+                isLoading: false,
+                shouldRetry: true
+            )
+        )
+    }
 }
 
 final class FeedImagePresenterTests: XCTestCase {
@@ -137,6 +147,19 @@ final class FeedImagePresenterTests: XCTestCase {
         XCTAssertEqual(actual?.isLoading, false, "Expected isLoading to be false")
         XCTAssertEqual(actual?.shouldRetry, false, "Expected shouldRetry to be false")
         XCTAssertEqual(actual?.image, mappedImage, "Expected image to be the mapped image")
+    }
+    
+    func test_didFinishLoadingImageDataWithError_displaysRetry() {
+        let expected = uniqueImage()
+        let (sut, view) = buildSUT()
+        
+        sut.didFinishLoadingImageData(with: anyNSError(), for: expected)
+        
+        let actual = view.messages.first
+        XCTAssertEqual(view.messages.count, 1, "Expected one message sent to view")
+        XCTAssertEqual(actual?.isLoading, false, "Expected isLoading to be false")
+        XCTAssertEqual(actual?.shouldRetry, true, "Expected shouldRetry to be true")
+        XCTAssertNil(actual?.image, "Expected image to be nil")
     }
 }
 
