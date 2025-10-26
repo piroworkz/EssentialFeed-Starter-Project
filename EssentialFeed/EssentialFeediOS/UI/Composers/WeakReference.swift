@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EssentialFeed
 
 final class WeakReference<T: AnyObject> {
     weak var value: T?
