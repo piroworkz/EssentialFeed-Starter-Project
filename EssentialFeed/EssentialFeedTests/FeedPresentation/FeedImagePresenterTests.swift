@@ -95,7 +95,7 @@ final class FeedImagePresenterTests: XCTestCase {
     }
     
     func test_didStartLoadingImageData_displaysLoadingImage() {
-        let (sut, view) = buildSUT(imageMapper: {_ in nil})
+        let (sut, view) = buildSUT()
         let expected = uniqueImage()
         
         sut.didStartLoadingImageData(for: expected)
@@ -110,7 +110,7 @@ final class FeedImagePresenterTests: XCTestCase {
     }
     
     func test_didFinishLoadingImageData_displaysRetryOnFailedImageTransformation() {
-        let (sut, view) = buildSUT()
+        let (sut, view) = buildSUT(imageMapper: failingImageMapper)
         let expected = uniqueImage()
         let data = Data()
         
@@ -126,6 +126,10 @@ final class FeedImagePresenterTests: XCTestCase {
 
 
 extension FeedImagePresenterTests {
+    
+    private var failingImageMapper: (Data) -> Any? {
+        return { _ in nil }
+    }
     
     private func buildSUT(imageMapper: @escaping (Data) -> Any? = { _ in nil }, file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImagePresenter, view: ViewSpy) {
         let view = ViewSpy()
