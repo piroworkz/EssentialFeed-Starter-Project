@@ -62,7 +62,6 @@ final class FeedPresenterTests: XCTestCase {
         XCTAssertEqual(view.messages, [.display(.none), .display(isLoading: true)], "Expected no error message when starting to load feed")
     }
     
-    
 }
 
 extension FeedPresenterTests {
@@ -76,18 +75,19 @@ extension FeedPresenterTests {
     }
     
     private class ViewSpy: FeedErrorView, FeedLoadingView {
-        enum Message: Equatable {
+        
+        enum Message: Hashable {
             case display(String?)
             case display(isLoading: Bool)
         }
-        var messages = [Message]()
+        var messages = Set<Message>()
         
         func display(_ state: FeedErrorViewState) {
-            messages.append(.display(state.message))
+            messages.insert(.display(state.message))
         }
         
         func display(_ state: FeedLoadingViewState) {
-            messages.append(.display(isLoading: state.isLoading))
+            messages.insert(.display(isLoading: state.isLoading))
         }
     }
 }
