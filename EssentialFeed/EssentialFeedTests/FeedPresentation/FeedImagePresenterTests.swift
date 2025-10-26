@@ -57,10 +57,13 @@ struct FeedImageState {
 class FeedImagePresenter {
     
     private let view: FeedImageView
+    private let imageMapper: (Data) -> Any?
+    
     private var currentState: FeedImageState = FeedImageState()
     
-    init(view: FeedImageView) {
+    init(view: FeedImageView, imageMapper: @escaping (Data) -> Any?) {
         self.view = view
+        self.imageMapper = imageMapper
     }
     
     func didStartLoadingImageData(for model: FeedImage) {
@@ -70,6 +73,17 @@ class FeedImagePresenter {
             isLoading: true,
         )
         view.display(state)
+    }
+    
+    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
+        let image = imageMapper(data)
+        view.display(
+            currentState.update(
+                image: image,
+                isLoading: false,
+                shouldRetry: image == nil
+            )
+        )
     }
 }
 
@@ -81,7 +95,7 @@ final class FeedImagePresenterTests: XCTestCase {
     }
     
     func test_didStartLoadingImageData_displaysLoadingImage() {
-        let (sut, view) = buildSUT()
+        let (sut, view) = buildSUT(imageMapper: {_ in nil})
         let expected = uniqueImage()
         
         sut.didStartLoadingImageData(for: expected)
@@ -94,14 +108,28 @@ final class FeedImagePresenterTests: XCTestCase {
         XCTAssertEqual(actual?.shouldRetry, false, "Expected shouldRetry to be false")
         XCTAssertNil(actual?.image, "Expected image to be nil")
     }
+    
+    func test_didFinishLoadingImageData_displaysRetryOnFailedImageTransformation() {
+        let (sut, view) = buildSUT()
+        let expected = uniqueImage()
+        let data = Data()
+        
+        sut.didFinishLoadingImageData(with: data, for: expected)
+        
+        let actual = view.messages.first
+        XCTAssertEqual(view.messages.count, 1, "Expected one message sent to view")
+        XCTAssertEqual(actual?.isLoading, false, "Expected isLoading to be false")
+        XCTAssertEqual(actual?.shouldRetry, true, "Expected shouldRetry to be true")
+        XCTAssertNil(actual?.image, "Expected image to be nil")
+    }
 }
 
 
 extension FeedImagePresenterTests {
     
-    private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImagePresenter, view: ViewSpy) {
+    private func buildSUT(imageMapper: @escaping (Data) -> Any? = { _ in nil }, file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedImagePresenter, view: ViewSpy) {
         let view = ViewSpy()
-        let sut = FeedImagePresenter(view: view)
+        let sut = FeedImagePresenter(view: view, imageMapper: imageMapper)
         trackMemoryLeak(for: view, file: file, line: line)
         trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, view)
