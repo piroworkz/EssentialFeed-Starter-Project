@@ -182,6 +182,7 @@
 		18764E652EA849FB00AE9179 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				Feed.xcstrings,
 				FeedPresenterTests.swift,
 			);
 			target = 080EDEF921B6DA7E00813479 /* EssentialFeedTests */;
@@ -198,7 +199,7 @@
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		1802B5612E9327B300E42155 /* EssentialFeediOSTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1802B56D2E93282A00E42155 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeediOSTests; sourceTree = "<group>"; };
 		18764E622EA849D400AE9179 /* FeedPresentation */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (18764E652EA849FB00AE9179 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = FeedPresentation; sourceTree = "<group>"; };
-		18764E662EA84B5B00AE9179 /* FeedPresenter */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FeedPresenter; sourceTree = "<group>"; };
+		18764E662EA84B5B00AE9179 /* FeedPresentation */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = FeedPresentation; sourceTree = "<group>"; };
 		18777EC52E848F490028A145 /* Utils */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (18CDCE642E90D30D00771821 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = Utils; sourceTree = "<group>"; };
 		18CDCE562E90CDD900771821 /* EssentialFeedCacheIntegrationTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1802B54F2E93269000E42155 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedCacheIntegrationTests; sourceTree = "<group>"; };
 		18DDBAB32E80D669003E3C6B /* EssentialFeedApiEndToEndTests */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (1802B54B2E93251C00E42155 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = EssentialFeedApiEndToEndTests; sourceTree = "<group>"; };
@@ -293,7 +294,7 @@
 				18D167B92E7CF91D006A3E6B /* Feed Api */,
 				080EDF1021B6DFA200813479 /* Feed Feature */,
 				18A1D3452E836FE10061CA13 /* FeedCache */,
-				18764E662EA84B5B00AE9179 /* FeedPresenter */,
+				18764E662EA84B5B00AE9179 /* FeedPresentation */,
 			);
 			path = EssentialFeed;
 			sourceTree = "<group>";
