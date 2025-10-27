@@ -290,6 +290,7 @@
 		080EDEF321B6DA7E00813479 /* EssentialFeed */ = {
 			isa = PBXGroup;
 			children = (
+				18E038372EA1AED800A08664 /* FeedImageLoader */,
 				080EDEF521B6DA7E00813479 /* Info.plist */,
 				18D167B92E7CF91D006A3E6B /* Feed Api */,
 				080EDF1021B6DFA200813479 /* Feed Feature */,
@@ -456,7 +457,6 @@
 			isa = PBXGroup;
 			children = (
 				18E0383A2EA1AF5800A08664 /* UI */,
-				18E038372EA1AED800A08664 /* FeedImageLoader */,
 			);
 			path = EssentialFeediOS;
 			sourceTree = "<group>";
