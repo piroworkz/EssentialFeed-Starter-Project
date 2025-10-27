@@ -8,96 +8,6 @@
 import XCTest
 import EssentialFeed
 
-protocol FeedImageView {
-    associatedtype Image
-    func display(_ state: FeedImageState<Image>)
-}
-
-struct FeedImageState<Image> {
-    let description: String?
-    let location: String?
-    let image: Image?
-    let isLoading: Bool
-    let shouldRetry: Bool
-    
-    init(
-        description: String? = nil,
-        location: String? = nil,
-        image: Image? = nil,
-        isLoading: Bool = false,
-        shouldRetry: Bool = false
-    ) {
-        self.description = description
-        self.location = location
-        self.image = image
-        self.isLoading = isLoading
-        self.shouldRetry = shouldRetry
-    }
-    
-    var hasLocation: Bool {
-        return location != nil
-    }
-    
-    func update(
-        description: String?? = nil,
-        location: String?? = nil,
-        image: Image?? = nil,
-        isLoading: Bool? = nil,
-        shouldRetry: Bool? = nil
-    ) -> FeedImageState<Image> {
-        FeedImageState(
-            description: description ?? self.description,
-            location: location ?? self.location,
-            image: image ?? self.image,
-            isLoading: isLoading ?? self.isLoading,
-            shouldRetry: shouldRetry ?? self.shouldRetry
-        )
-    }
-}
-
-final class FeedImagePresenter<View: FeedImageView, Image> where View.Image == Image {
-    
-    private let view: View
-    private let imageMapper: (Data) -> Image?
-    
-    private var currentState: FeedImageState<Image> = FeedImageState()
-    
-    init(view: View, imageMapper: @escaping (Data) -> Image?) {
-        self.view = view
-        self.imageMapper = imageMapper
-    }
-    
-    func didStartLoadingImageData(for model: FeedImage) {
-        let state = currentState.update(
-            description: model.description,
-            location: model.location,
-            isLoading: true,
-        )
-        view.display(state)
-    }
-    
-    func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-        let image = imageMapper(data)
-        view.display(
-            currentState.update(
-                image: image,
-                isLoading: false,
-                shouldRetry: image == nil
-            )
-        )
-    }
-    
-    func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
-        view.display(
-            currentState.update(
-                image: nil,
-                isLoading: false,
-                shouldRetry: true
-            )
-        )
-    }
-}
-
 final class FeedImagePresenterTests: XCTestCase {
     func test_init_doesNotSendMessagesToView() {
         let (_, view) = buildSUT()
@@ -121,11 +31,10 @@ final class FeedImagePresenterTests: XCTestCase {
     }
     
     func test_didFinishLoadingImageData_displaysRetryOnFailedImageTransformation() {
-        let (sut, view) = buildSUT(imageMapper: failingImageMapper)
+        let (sut, view) = buildSUT()
         let expected = uniqueImage()
-        let data = Data()
         
-        sut.didFinishLoadingImageData(with: data, for: expected)
+        sut.didFinishLoadingImageData(with: Data(), for: expected)
         
         let actual = view.messages.first
         XCTAssertEqual(view.messages.count, 1, "Expected one message sent to view")
@@ -136,11 +45,10 @@ final class FeedImagePresenterTests: XCTestCase {
     
     func test_didFinishLoadingImageData_displaysImageOnSuccessfulTransformation() {
         let expected = uniqueImage()
-        let data = Data()
         let mappedImage = AnyImage()
         let (sut, view) = buildSUT(imageMapper: { _ in mappedImage })
         
-        sut.didFinishLoadingImageData(with: data, for: expected)
+        sut.didFinishLoadingImageData(with: Data(), for: expected)
         
         let actual = view.messages.first
         XCTAssertEqual(view.messages.count, 1, "Expected one message sent to view")
