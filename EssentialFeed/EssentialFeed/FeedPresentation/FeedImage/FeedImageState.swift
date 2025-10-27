@@ -28,7 +28,7 @@ public struct FeedImageState<Image> {
 }
 
 extension FeedImageState {
-    var hasLocation: Bool {
+    public var hasLocation: Bool {
         return location != nil
     }
     
