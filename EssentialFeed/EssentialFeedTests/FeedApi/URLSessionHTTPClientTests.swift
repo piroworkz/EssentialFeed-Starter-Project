@@ -8,7 +8,6 @@
 import XCTest
 import EssentialFeed
 
-
 class URLSessionHTTPClientTests: XCTestCase {
     
     func test_getFromURL_performsGETRequestWithURL() {
@@ -138,10 +137,6 @@ extension URLSessionHTTPClientTests {
     
     private func anyHTTPURLResponse() -> HTTPURLResponse {
         return  HTTPURLResponse(url: anyURL(), statusCode: 200, httpVersion: nil, headerFields: nil)!
-    }
-    
-    private func anyData() -> Data {
-        return Data("any data".utf8)
     }
     
     private class URLProtocolStub: URLProtocol {
