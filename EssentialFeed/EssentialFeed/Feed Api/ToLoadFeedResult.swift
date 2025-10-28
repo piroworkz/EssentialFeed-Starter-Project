@@ -19,8 +19,7 @@ extension HTTPClient.Result {
     }
     
     private func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedLoader.Result {
-        let successCode: Int = 200
-        guard response.statusCode == successCode, let items = try? JSONDecoder().decode(Root.self, from: data).feedItems  else {
+        guard response.isOK, let items = try? JSONDecoder().decode(Root.self, from: data).feedItems  else {
             return .failure(RemoteFeedLoader.Error.invalidData)
         }
         return .success(items)
@@ -49,3 +48,10 @@ extension HTTPClient.Result {
     }
 }
 
+extension HTTPURLResponse {
+    
+    var isOK: Bool {
+        return statusCode == 200
+    }
+    
+}
