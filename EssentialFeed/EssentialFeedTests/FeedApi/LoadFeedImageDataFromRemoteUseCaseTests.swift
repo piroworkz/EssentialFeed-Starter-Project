@@ -8,7 +8,7 @@
 import XCTest
 import EssentialFeed
 
-final class RemoteFeedImageDataLoaderTests: XCTestCase {
+final class LoadFeedImageDataFromRemoteUseCaseTests: XCTestCase {
     
     func test_init_doesNotPerformURLRequests() {
         let (_, client) = buildSUT()
@@ -111,7 +111,7 @@ final class RemoteFeedImageDataLoaderTests: XCTestCase {
     }
 }
 
-extension RemoteFeedImageDataLoaderTests {
+extension LoadFeedImageDataFromRemoteUseCaseTests {
     
     private func buildSUT(url: URL = anyURL(), file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteFeedImageDataLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
