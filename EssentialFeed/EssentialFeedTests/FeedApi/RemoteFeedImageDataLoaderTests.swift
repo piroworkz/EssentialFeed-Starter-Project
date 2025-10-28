@@ -72,7 +72,7 @@ final class RemoteFeedImageDataLoaderTests: XCTestCase {
         
         [199, 201, 300, 400, 500].enumerated().forEach { index, code in
             expect(sut, toCompleteWith: failure(.invalidData)) {
-                client.complete(withStatusCode: code, data: anyData())
+                client.complete(withStatusCode: code, data: anyData() , at: index)
             }
         }
     }
