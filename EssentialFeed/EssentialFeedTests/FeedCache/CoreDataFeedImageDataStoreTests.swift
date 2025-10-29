@@ -4,7 +4,6 @@
 //
 //  Created by David Luna on 29/10/25.
 //
-
 import XCTest
 import EssentialFeed
 
@@ -23,6 +22,16 @@ final class CoreDataFeedImageDataStoreTests: XCTestCase {
         
         expect(sut, toCompleteRetrievalWith: notFound(), for: url)
     }
+    
+    func test_retrieveImageData_deliversFoundDataWhenThereIsAStoredImageDataMatchingURL() {
+        let sut = buildSUT()
+        let storageData = anyData()
+        let matchingURL = anyURL()
+        
+        insert(storageData, for: matchingURL, into: sut)
+        
+        expect(sut, toCompleteRetrievalWith: found(storageData), for: matchingURL)
+    }
 }
 
 extension CoreDataFeedImageDataStoreTests {
@@ -36,6 +45,10 @@ extension CoreDataFeedImageDataStoreTests {
     
     private func notFound() -> FeedImageDataStore.RetrievalResult {
         return .success(.none)
+    }
+    
+    private func found(_ data: Data) -> FeedImageDataStore.RetrievalResult {
+        return .success(data)
     }
     
     private func expect(_ sut: CoreDataFeedStore, toCompleteRetrievalWith expectedResult: FeedImageDataStore.RetrievalResult,for url: URL, file: StaticString = #filePath, line: UInt = #line) {

@@ -22,7 +22,7 @@ extension ManagedFeedImage {
         return LocalFeedImage(id: id, description: imageDescription, location: location, imageURL: url)
     }
     
-    static func toManaged(_ feed: [LocalFeedImage], in context: NSManagedObjectContext) -> NSOrderedSet { 
+    static func toManaged(_ feed: [LocalFeedImage], in context: NSManagedObjectContext) -> NSOrderedSet {
         return NSOrderedSet(array: feed.map { local in
             let managed = ManagedFeedImage(context: context)
             managed.id = local.id
@@ -31,5 +31,13 @@ extension ManagedFeedImage {
             managed.location = local.location
             return managed
         })
+    }
+    
+    static func first(with url: URL, in context: NSManagedObjectContext) throws -> ManagedFeedImage? {
+        let request = NSFetchRequest<ManagedFeedImage>(entityName: entity().name!)
+        request.predicate = NSPredicate(format: "%K == %@", argumentArray: [#keyPath(ManagedFeedImage.url), url])
+        request.returnsObjectsAsFaults = false
+        request.fetchLimit = 1
+        return try context.fetch(request).first
     }
 }
