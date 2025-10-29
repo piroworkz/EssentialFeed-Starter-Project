@@ -14,6 +14,15 @@ final class CoreDataFeedImageDataStoreTests: XCTestCase {
         expect(buildSUT(), toCompleteRetrievalWith: notFound(), for: anyURL())
     }
     
+    func test_retrieveImageData_deliversNotFoundWhenStoredDataURLDoesNotMatch() {
+        let sut = buildSUT()
+        let url = anyURL()
+        let differentURL = URL(string: "https://different-url.com")!
+        
+        insert(anyData(), for: differentURL, into: sut)
+        
+        expect(sut, toCompleteRetrievalWith: notFound(), for: url)
+    }
 }
 
 extension CoreDataFeedImageDataStoreTests {
@@ -43,6 +52,31 @@ extension CoreDataFeedImageDataStoreTests {
         }
         wait(for: [expecrtation], timeout: 1.0)
     }
+    
+    private func insert(_ data: Data, for url: URL, into sut: CoreDataFeedStore, file: StaticString = #filePath, line: UInt = #line) {
+        let expectation = expectation(description: "Wait for insertion")
+        let image = localImage(url: url)
+        
+        sut.insert([image], timestamp: Date()) { result in
+            switch result {
+            case let .failure(error):
+                XCTFail("Expected to insert image data successfully, got error: \(error) instead", file: file, line: line)
+            case .success:
+                sut.insert(data, for: url) { insertionResult in
+                    if case let Result.failure(error) = insertionResult {
+                        XCTFail("Expected to insert image data successfully, got error: \(error) instead", file: file, line: line)
+                    }
+                }
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    private func localImage(url: URL) -> LocalFeedImage {
+        return LocalFeedImage(id: UUID(), description: nil, location: nil, imageURL: url)
+    }
+    
 }
 
 extension CoreDataFeedStore: @retroactive FeedImageDataStore {
