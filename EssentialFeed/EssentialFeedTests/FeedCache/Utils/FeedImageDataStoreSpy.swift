@@ -34,6 +34,10 @@ class FeedImageDataStoreSpy: FeedImageDataStore {
         insertionCompletions[index](.failure(error))
     }
     
+    func completeInsertionSuccessfully(at index: Int = 0) {
+        insertionCompletions[index](.success(()))
+    }
+    
     enum Message: Equatable {
         case retrieve(dataForURL: URL)
         case insert(data: Data, for: URL)
