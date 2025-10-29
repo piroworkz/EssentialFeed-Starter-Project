@@ -44,6 +44,22 @@ final class CoreDataFeedImageDataStoreTests: XCTestCase {
         
         expect(sut, toCompleteRetrievalWith: found(lastInsertedData), for: url)
     }
+    
+    func test_sideEffects_runSerially() {
+        let sut = buildSUT()
+        let url = anyURL()
+        
+        let firstOperation = expectation(description: "First operation")
+        sut.insert(anyData(), for: url) { _ in firstOperation.fulfill() }
+        
+        let secondOperation = expectation(description: "Second operation")
+        sut.insert(anyData(), for: url) { _ in secondOperation.fulfill() }
+        
+        let thirdOperation = expectation(description: "Third operation")
+        sut.insert(anyData(), for: url) { _ in thirdOperation.fulfill() }
+        
+        wait(for: [firstOperation, secondOperation, thirdOperation], timeout: 5.0, enforceOrder: true)
+    }
 }
 
 extension CoreDataFeedImageDataStoreTests {
@@ -86,14 +102,15 @@ extension CoreDataFeedImageDataStoreTests {
             switch result {
             case let .failure(error):
                 XCTFail("Expected to insert image data successfully, got error: \(error) instead", file: file, line: line)
+                expectation.fulfill()
             case .success:
                 sut.insert(data, for: url) { insertionResult in
                     if case let Result.failure(error) = insertionResult {
                         XCTFail("Expected to insert image data successfully, got error: \(error) instead", file: file, line: line)
                     }
+                    expectation.fulfill()
                 }
             }
-            expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
     }
