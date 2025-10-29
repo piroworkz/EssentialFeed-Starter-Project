@@ -29,7 +29,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         let (sut, store) = buildSUT()
         
         sut.validateCache { _ in }
-        store.completeRetrievaklWithEmptyCache()
+        store.completeRetrievalWithEmptyCache()
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
@@ -78,7 +78,7 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         sut?.validateCache { _ in }
         
         sut = nil
-        store.completeRetrievaklWithEmptyCache()
+        store.completeRetrievalWithEmptyCache()
         
         XCTAssertEqual(store.receivedMessages, [.retrieve])
     }
@@ -98,6 +98,14 @@ final class ValidateFeedCacheUseCaseTests: XCTestCase {
         expect(sut, toCompleteWith: .success(())) {
             store.completeRetrieval(with: anyNSError())
             store.completeDeletionSuccessfully()
+        }
+    }
+    
+    func test_validateCache_succeedsOnEmptyCache() {
+        let (sut, store) = buildSUT()
+        
+        expect(sut, toCompleteWith: .success(())) {
+            store.completeRetrievalWithEmptyCache()
         }
     }
 }
