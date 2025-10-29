@@ -10,33 +10,33 @@ import EssentialFeed
 
 final class EssentialFeedCacheIntegrationTests: XCTestCase {
     
-    func test_load_deliversNoItemsOnEmptyCache() throws {
-        let sut = try buildFeedLoader()
+    func test_loadFeed_deliversNoItemsOnEmptyCache() throws {
+        let feedLoader = try buildFeedLoader()
         
-        expect(sut, toLoad: [])
+        expect(feedLoader, toLoad: [])
     }
     
-    func test_load_deliversItemsSavedOnASeparateInstance() throws {
-        let sutToPerformSave = try buildFeedLoader()
-        let sutToPerformLoad = try buildFeedLoader()
+    func test_loadFeed_deliversItemsSavedOnASeparateInstance() throws {
+        let feedLoaderToPerformSave = try buildFeedLoader()
+        let feedLoaderToPerformLoad = try buildFeedLoader()
         let feed = uniqueImageFeed().domain
         
-        save(feed, with: sutToPerformSave)
+        save(feed, with: feedLoaderToPerformSave)
         
-        expect(sutToPerformLoad, toLoad: feed)
+        expect(feedLoaderToPerformLoad, toLoad: feed)
     }
     
-    func test_save_overridesItemsSavedOnASeparateInstance() throws {
-        let sutToPerformFirstSave = try buildFeedLoader()
-        let sutToPerformLastSave = try buildFeedLoader()
-        let sutToPerformLoad = try buildFeedLoader()
+    func test_saveFeed_overridesItemsSavedOnASeparateInstance() throws {
+        let feedLoaderToPerformFirstSave = try buildFeedLoader()
+        let feedLoaderToPerformLastSave = try buildFeedLoader()
+        let feedLoaderToPerformLoad = try buildFeedLoader()
         let firstFeed = uniqueImageFeed().domain
         let lastFeed = uniqueImageFeed().domain
         
-        save(firstFeed, with: sutToPerformFirstSave)
-        save(lastFeed, with: sutToPerformLastSave)
+        save(firstFeed, with: feedLoaderToPerformFirstSave)
+        save(lastFeed, with: feedLoaderToPerformLastSave)
         
-        expect(sutToPerformLoad, toLoad: lastFeed)
+        expect(feedLoaderToPerformLoad, toLoad: lastFeed)
         
     }
     
