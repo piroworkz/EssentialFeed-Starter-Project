@@ -298,11 +298,11 @@
 		080EDEF321B6DA7E00813479 /* EssentialFeed */ = {
 			isa = PBXGroup;
 			children = (
-				18E038372EA1AED800A08664 /* FeedImageLoader */,
 				080EDEF521B6DA7E00813479 /* Info.plist */,
 				18D167B92E7CF91D006A3E6B /* Feed Api */,
 				080EDF1021B6DFA200813479 /* Feed Feature */,
 				18A1D3452E836FE10061CA13 /* FeedCache */,
+				18E038372EA1AED800A08664 /* FeedImageLoader */,
 				18764E662EA84B5B00AE9179 /* FeedPresentation */,
 			);
 			path = EssentialFeed;
