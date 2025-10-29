@@ -30,13 +30,16 @@ extension LocalFeedImageDataLoader {
 }
 
 extension LocalFeedImageDataLoader: FeedImageDataLoader {
+    
     public func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> any FeedImageDataLoaderTask {
         let task = Task(completion: completion)
         store.retrieve(dataForURL: url) { [weak self] result in
             guard self != nil else { return }
             task.complete(with: result
                 .mapError { _ in LoadError.failed }
-                .flatMap { _ in .failure(LoadError.notFound) })
+                .flatMap { data in
+                    data.map { .success($0) } ?? .failure(LoadError.notFound)
+                })
         }
         return task
     }
