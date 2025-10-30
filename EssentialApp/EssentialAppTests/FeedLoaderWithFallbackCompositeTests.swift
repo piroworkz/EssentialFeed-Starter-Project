@@ -24,24 +24,47 @@ final class FeedLoaderWithFallbackCompositeTests: XCTestCase {
     
     func test_load_deliversPrimaryFeedOnPrimaryLoaderSuccess() {
         let primaryFeed = uniqueFeed()
-        let primaryLoader = LoaderStub(result: .success(primaryFeed))
+        let sut = buildSUT(primaryResult: .success(primaryFeed), fallbackResult: .success([]))
+        
+        expect(sut, toCompleteWith: .success(primaryFeed))
+    }
+}
+
+extension FeedLoaderWithFallbackCompositeTests {
+    
+    private func buildSUT(primaryResult: FeedLoader.Result, fallbackResult: FeedLoader.Result, file: StaticString = #file, line: UInt = #line) -> FeedLoaderWithFallbackComposite {
+        let primaryLoader = LoaderStub(result: primaryResult)
+        let fallbackLoader = LoaderStub(result: fallbackResult)
         let sut = FeedLoaderWithFallbackComposite(primary: primaryLoader)
+        trackMemoryLeak(for: primaryLoader, file: file, line: line)
+        trackMemoryLeak(for: fallbackLoader, file: file, line: line)
+        trackMemoryLeak(for: sut, file: file, line: line)
+        return sut
+    }
+    
+    private func expect(_ sut: FeedLoader, toCompleteWith expectedResult: FeedLoader.Result, file: StaticString = #filePath, line: UInt = #line) {
         let expectation = expectation(description: "Wait for load completion")
         
-        sut.load { result in
-            switch result {
-            case let .success(feed):
-                XCTAssertEqual(feed, primaryFeed)
-            case let .failure(error):
-                XCTFail("Expected success, got \(error) instead")
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedFeed), .success(expectedFeed)):
+                XCTAssertEqual(receivedFeed, expectedFeed, file: file, line: line)
+            case (.failure, .failure):
+                break
+            default:
+                XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
             }
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: 1.0)
     }
-}
-
-extension FeedLoaderWithFallbackCompositeTests {
+        
+    private func trackMemoryLeak(for instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
+        addTeardownBlock { [weak instance] in
+            XCTAssertNil(instance, "Instance of SUT must be deallocated after each test", file: file, line: line)
+        }
+    }
+    
     private func uniqueFeed() -> [FeedImage] {
         return [FeedImage(id: UUID(), description: "any", location: "any", imageURL: URL(string: "http://any-url.com")!)]
     }
