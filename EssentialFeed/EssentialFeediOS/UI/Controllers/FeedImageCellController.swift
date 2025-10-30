@@ -38,12 +38,12 @@ final class FeedImageCellController: FeedImageView {
     }
     
     func display(_ state: FeedImageState<UIImage>) {
-        cell?.locationContainer.isHidden = !state.hasLocation
-        cell?.locationLabel.text = state.location
-        cell?.descriptionLabel.text = state.description
-        cell?.feedImageView.setImageAnimated(state.image)
-        cell?.feedImageContainer.isShimmering = state.isLoading
-        cell?.feedImageRetryButton.isHidden = !state.shouldRetry
+        cell?.locationContainer?.isHidden = !state.hasLocation
+        cell?.locationLabel?.text = state.location
+        cell?.descriptionLabel?.text = state.description
+        cell?.feedImageView?.setImageAnimated(state.image)
+        cell?.feedImageContainer?.isShimmering = state.isLoading
+        cell?.feedImageRetryButton?.isHidden = !state.shouldRetry
         cell?.onRetry = delegate.didRequestImage
     }
     

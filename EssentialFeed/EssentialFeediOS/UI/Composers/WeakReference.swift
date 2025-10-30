@@ -29,7 +29,7 @@ extension WeakReference: FeedImageView where T: FeedImageView, T.Image == UIImag
 }
 
 extension WeakReference: FeedErrorView where T: FeedErrorView {
-    func display(_ viewModel: FeedErrorViewState) {
-        value?.display(viewModel)
+    func display(_ state: FeedErrorViewState) {
+        value?.display(state)
     }
 }

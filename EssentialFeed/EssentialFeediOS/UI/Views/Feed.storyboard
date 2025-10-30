@@ -143,6 +143,7 @@ Location</string>
                                 <connections>
                                     <outlet property="descriptionLabel" destination="9rt-up-UVQ" id="SKj-DE-dBR"/>
                                     <outlet property="feedImageContainer" destination="Flx-PV-7Dl" id="LVt-WO-oTP"/>
+                                    <outlet property="feedImageRetryButton" destination="eG1-rA-QwA" id="8Ap-LX-Xiw"/>
                                     <outlet property="feedImageView" destination="k8e-rx-bie" id="XIN-K1-qlv"/>
                                     <outlet property="locationContainer" destination="VFS-t5-8Gj" id="Pya-oh-a3S"/>
                                     <outlet property="locationLabel" destination="dc2-za-8qA" id="TGK-Od-0wo"/>
@@ -182,7 +183,7 @@ Location</string>
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
         <systemColor name="systemRedColor">
-            <color red="1" green="0.23137254900000001" blue="0.18823529410000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="1" green="0.2196078431372549" blue="0.23529411764705882" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>

@@ -24,8 +24,9 @@ public final class FeedImagePresenter<View: FeedImageView, Image> where View.Ima
     }
     
     public func didFinishLoadingImageData(with data: Data, for model: FeedImage) {
-        guard let image = imageMapper(data) else { return
+        guard let image = imageMapper(data) else {
             didFinishLoadingImageData(with: InvalidImageDataError(), for: model)
+            return
         }
         view.display(FeedImageState(description: model.description, location: model.location, image: image, isLoading: false, shouldRetry: false))
     }
