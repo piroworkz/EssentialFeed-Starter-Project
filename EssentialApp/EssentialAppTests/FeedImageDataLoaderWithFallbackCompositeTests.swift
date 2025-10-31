@@ -10,13 +10,22 @@ import EssentialFeed
 
 class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
     private let primary: FeedImageDataLoader
+    private let fallback: FeedImageDataLoader
     
     init(primary: FeedImageDataLoader, fallback: FeedImageDataLoader) {
         self.primary = primary
+        self.fallback = fallback
     }
     
     func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> any FeedImageDataLoaderTask {
-        _ = primary.loadImageData(from: url) { _ in }
+        _ = primary.loadImageData(from: url) { [weak self]  result in
+            switch result {
+            case .success:
+                break
+            case .failure:
+                _ = self?.fallback.loadImageData(from: url) { _ in }
+            }
+        }
         return Task()
     }
     
@@ -42,6 +51,17 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
         
         XCTAssertEqual(primaryLoader.loadedURLs, [url], "Expected to load image data from primary loader")
         XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty, "Expected no loaded URLs from fallback loader")
+    }
+    
+    func test_loadImageData_loadsFromFallbackOnPrimaryLoaderFailure() {
+        let (sut, primaryLoader, fallbackLoader) = buildSUT()
+        let url = anyURL()
+        
+        _ = sut.loadImageData(from: url) { _ in }
+        primaryLoader.complete(with: anyNSError())
+        
+        XCTAssertEqual(primaryLoader.loadedURLs, [url], "Expected to load image data from primary loader")
+        XCTAssertEqual(fallbackLoader.loadedURLs, [url], "Expected to load image data from fallback loader on primary loader failure")
     }
 }
 
@@ -71,6 +91,10 @@ extension FeedImageDataLoaderWithFallbackCompositeTests {
         func loadImageData(from url: URL, completion: @escaping (FeedImageDataLoader.Result) -> Void) -> any FeedImageDataLoaderTask {
             messages.append((url, completion))
             return Task()
+        }
+        
+        func complete(with error: Error, at index: Int = 0) {
+            messages[index].completion(.failure(error))
         }
         
         private struct Task: FeedImageDataLoaderTask {
