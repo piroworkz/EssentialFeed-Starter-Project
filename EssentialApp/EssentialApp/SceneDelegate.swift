@@ -22,8 +22,10 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let localStore = try! CoreDataFeedStore(storeURL: localStorageURL)
         let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
         let localImageLoader = LocalFeedImageDataLoader(store: localStore)
-        let feedLoader = FeedLoaderWithFallbackComposite(primary: remoteFeedLoader, fallback: localFeedLoader)
-        let feedImageLoader = FeedImageDataLoaderWithFallbackComposite(primary: localImageLoader, fallback: remoteImageLoader)
+        let feedLoaderDecorator = FeedLoaderCacheDecorator(decoratee: remoteFeedLoader, cache: localFeedLoader)
+        let feedImageLoaderDecorator = FeedImageDataLoaderCacheDecorator(decoratee: remoteImageLoader, cache: localImageLoader)
+        let feedLoader = FeedLoaderWithFallbackComposite(primary: feedLoaderDecorator, fallback: localFeedLoader)
+        let feedImageLoader = FeedImageDataLoaderWithFallbackComposite(primary: localImageLoader, fallback: feedImageLoaderDecorator)
         let feedViewController = FeedUIComposer.feedComposedWith(feedLoader: feedLoader, imageLoader: feedImageLoader)
         window?.rootViewController = feedViewController
     }
