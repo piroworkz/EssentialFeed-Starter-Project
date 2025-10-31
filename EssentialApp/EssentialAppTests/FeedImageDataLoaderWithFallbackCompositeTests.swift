@@ -28,20 +28,15 @@ class FeedImageDataLoaderWithFallbackComposite: FeedImageDataLoader {
 final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
     
     func test_init_doesNotLoadImageData() {
-        let primaryLoader = LoaderSpy()
-        let fallbackLoader = LoaderSpy()
-        
-        _ = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        let (_, primaryLoader, fallbackLoader) = buildSUT()
         
         XCTAssertTrue(primaryLoader.loadedURLs.isEmpty, "Expected no loaded URLs from primary loader")
         XCTAssertTrue(fallbackLoader.loadedURLs.isEmpty, "Expected no loaded URLs from fallback loader")
     }
     
     func test_loadImageData_loadsFromPrimaryLoaderFirst() {
+        let (sut, primaryLoader, fallbackLoader) = buildSUT()
         let url = anyURL()
-        let primaryLoader = LoaderSpy()
-        let fallbackLoader = LoaderSpy()
-        let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
         
         _ = sut.loadImageData(from: url) { _ in }
         
@@ -52,8 +47,17 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
 
 extension FeedImageDataLoaderWithFallbackCompositeTests {
     
+    private func buildSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoaderWithFallbackComposite, primaryLoader: LoaderSpy, fallbackLoader: LoaderSpy) {
+        let primaryLoader = LoaderSpy()
+        let fallbackLoader = LoaderSpy()
+        let sut = FeedImageDataLoaderWithFallbackComposite(primary: primaryLoader, fallback: fallbackLoader)
+        trackMemoryLeak(for: primaryLoader, file: file, line: line)
+        trackMemoryLeak(for: fallbackLoader, file: file, line: line)
+        trackMemoryLeak(for: sut, file: file, line: line)
+        return (sut, primaryLoader, fallbackLoader)
+    }
     
-    private func anyURL() -> URL {
+    func anyURL() -> URL {
         return URL(string: "http://any-url.com")!
     }
     

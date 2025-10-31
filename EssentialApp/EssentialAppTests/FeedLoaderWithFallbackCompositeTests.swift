@@ -60,12 +60,6 @@ extension FeedLoaderWithFallbackCompositeTests {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    private func trackMemoryLeak(for instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
-        addTeardownBlock { [weak instance] in
-            XCTAssertNil(instance, "Instance of SUT must be deallocated after each test", file: file, line: line)
-        }
-    }
-    
     private func uniqueFeed() -> [FeedImage] {
         return [FeedImage(id: UUID(), description: "any", location: "any", imageURL: URL(string: "http://any-url.com")!)]
     }
