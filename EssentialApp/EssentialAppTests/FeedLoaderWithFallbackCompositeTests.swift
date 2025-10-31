@@ -30,6 +30,9 @@ final class FeedLoaderWithFallbackCompositeTests: XCTestCase {
         
         expect(sut, toCompleteWith: .failure(anyNSError()))
     }
+}
+
+extension FeedLoaderWithFallbackCompositeTests {
     
     private func buildSUT(primaryResult: FeedLoader.Result, fallbackResult: FeedLoader.Result, file: StaticString = #file, line: UInt = #line) -> FeedLoaderWithFallbackComposite {
         let primaryLoader = LoaderStub(result: primaryResult)
