@@ -18,6 +18,9 @@
         }
       ]
     },
+    "mainThreadCheckerDetectionPolicy" : {
+      "enabled" : false
+    },
     "performanceAntipatternCheckerEnabled" : true,
     "targetForVariableExpansion" : {
       "containerPath" : "container:EssentialApp.xcodeproj",
