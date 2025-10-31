@@ -120,14 +120,6 @@ extension FeedImageDataLoaderWithFallbackCompositeTests {
         wait(for: [expectation], timeout: 1.0)
     }
     
-    func anyData() -> Data {
-        return Data("any data".utf8)
-    }
-    
-    func anyURL() -> URL {
-        return URL(string: "http://any-url.com")!
-    }
-    
     private class LoaderSpy: FeedImageDataLoader {
         private var messages = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
         private(set) var cancelledURLs = [URL]()
