@@ -91,7 +91,7 @@ final class FeedImageDataLoaderWithFallbackCompositeTests: XCTestCase {
     }
 }
 
-extension FeedImageDataLoaderWithFallbackCompositeTests {
+extension FeedImageDataLoaderWithFallbackCompositeTests: FeedLoaderXCTCase {
     
     private func buildSUT(file: StaticString = #file, line: UInt = #line) -> (sut: FeedImageDataLoaderWithFallbackComposite, primaryLoader: LoaderSpy, fallbackLoader: LoaderSpy) {
         let primaryLoader = LoaderSpy()

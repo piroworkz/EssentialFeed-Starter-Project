@@ -6,8 +6,27 @@
 //
 
 import XCTest
+import EssentialFeed
 
-extension XCTestCase {
+protocol FeedLoaderXCTCase {}
+
+extension FeedLoaderXCTCase where Self: XCTestCase {
+    
+    func expect(_ sut: FeedLoader, toCompleteWith expectedResult: FeedLoader.Result, file: StaticString = #filePath, line: UInt = #line) {
+        let expectation = expectation(description: "Wait for load completion")
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedFeed), .success(expectedFeed)):
+                XCTAssertEqual(receivedFeed, expectedFeed, file: file, line: line)
+            case (.failure, .failure):
+                break
+            default:
+                XCTFail("Expected result \(expectedResult), got \(receivedResult) instead", file: file, line: line)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
     
     func trackMemoryLeak(for instance: AnyObject, file: StaticString = #filePath, line: UInt = #line) {
         addTeardownBlock { [weak instance] in
@@ -26,4 +45,9 @@ extension XCTestCase {
     func anyURL() -> URL {
         return URL(string: "http://any-url.com")!
     }
+    
+    func uniqueFeed() -> [FeedImage] {
+        return [FeedImage(id: UUID(), description: "any", location: "any", imageURL: URL(string: "http://any-url.com")!)]
+    }
+    
 }
