@@ -47,6 +47,23 @@ final class FeedImageDataLoaderCacheDecoratorTests: XCTestCase {
         
         XCTAssertEqual(loader.cancelledURLs, [url], "Expected to cancel image data load from loader")
     }
+    
+    func test_loadImageData_deliversDataOnLoaderSuccess() {
+        let (sut, loader) = buildSUT()
+        let data = anyData()
+        
+        expect(sut, toCompleteWith: .success(data)) {
+            loader.complete(with: data)
+        }
+    }
+    
+    func test_loadImageData_deliversErrorOnLoaderFailure() {
+        let (sut, loader) = buildSUT()
+        
+        expect(sut, toCompleteWith: .failure(anyNSError())) {
+            loader.complete(with: anyNSError())
+        }
+    }
 }
 
 extension FeedImageDataLoaderCacheDecoratorTests: FeedImageDataLoaderXCTCase {
