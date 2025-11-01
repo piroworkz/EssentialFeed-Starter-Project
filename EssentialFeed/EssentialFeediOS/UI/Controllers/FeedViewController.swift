@@ -79,5 +79,3 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
         return tableModel[indexPath.row]
     }
 }
-
-

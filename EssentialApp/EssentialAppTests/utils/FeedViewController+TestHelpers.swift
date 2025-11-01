@@ -83,6 +83,10 @@ extension FeedViewController {
         dataSource?.tableView?(tableView, cancelPrefetchingForRowsAt: [index])
     }
     
+    func renderedImageData(at index: Int) -> Data? {
+        return simulateFeedImageViewVisible(at: index)?.renderedImage
+    }
+    
     private class FakeRefreshControl: UIRefreshControl {
         private var _isRefreshing: Bool = false
         

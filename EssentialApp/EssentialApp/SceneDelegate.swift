@@ -13,6 +13,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
     let localStorageURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("feed-store.sqlite")
     
+    private lazy var httpClient: HTTPClient = {
+        let session = URLSession(configuration: .ephemeral)
+        let client = URLSessionHTTPClient(session: session)
+        return client
+    }()
+    
+    private lazy var localStore: FeedStore & FeedImageDataStore = {
+        try! CoreDataFeedStore(storeURL: localStorageURL)
+    }()
+    
+    convenience init(httpClient: HTTPClient, localStore: FeedStore & FeedImageDataStore) {
+        self.init()
+        self.httpClient = httpClient
+        self.localStore = localStore
+    }
+    
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let _ = (scene as? UIWindowScene) else { return }
         configureWindow()
@@ -23,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let client = buildClient()
         let remoteFeedLoader = RemoteFeedLoader(url: url, client: client)
         let remoteImageLoader = RemoteFeedImageDataLoader(client: client)
-        let localStore = try! CoreDataFeedStore(storeURL: localStorageURL)
+        
         let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
         let localImageLoader = LocalFeedImageDataLoader(store: localStore)
         let feedLoaderDecorator = FeedLoaderCacheDecorator(decoratee: remoteFeedLoader, cache: localFeedLoader)
@@ -35,9 +51,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func buildClient() -> HTTPClient {
-        let session = URLSession(configuration: .ephemeral)
-        let client = URLSessionHTTPClient(session: session)
-        return client
+        return httpClient
     }
 }
 
