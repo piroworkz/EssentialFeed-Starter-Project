@@ -33,6 +33,7 @@
 		18B854522EB533D200D6E2B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B854442EB533D200D6E2B1 /* Main.storyboard */; };
 		18CEF9AC2EB57785005A2B0E /* EssentialAppUIAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9A82EB57785005A2B0E /* EssentialAppUIAcceptanceTests.swift */; };
 		18CEF9AE2EB57785005A2B0E /* EssentialAppUIAcceptanceTests.xctestplan in Resources */ = {isa = PBXBuildFile; fileRef = 18CEF9A92EB57785005A2B0E /* EssentialAppUIAcceptanceTests.xctestplan */; };
+		18CEF9EA2EB66931005A2B0E /* DebuggingSceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9E92EB66931005A2B0E /* DebuggingSceneDelegate.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,7 @@
 		18CEF99B2EB57688005A2B0E /* EssentialAppUIAcceptanceTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialAppUIAcceptanceTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		18CEF9A82EB57785005A2B0E /* EssentialAppUIAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialAppUIAcceptanceTests.swift; sourceTree = "<group>"; };
 		18CEF9A92EB57785005A2B0E /* EssentialAppUIAcceptanceTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialAppUIAcceptanceTests.xctestplan; sourceTree = "<group>"; };
+		18CEF9E92EB66931005A2B0E /* DebuggingSceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebuggingSceneDelegate.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -185,6 +187,7 @@
 			children = (
 				18B854402EB533D200D6E2B1 /* Info.plist */,
 				18B8543A2EB533D200D6E2B1 /* AppDelegate.swift */,
+				18CEF9E92EB66931005A2B0E /* DebuggingSceneDelegate.swift */,
 				18B8543C2EB533D200D6E2B1 /* FeedImageDataLoaderCacheDecorator.swift */,
 				18B8543D2EB533D200D6E2B1 /* FeedImageDataLoaderWithFallbackComposite.swift */,
 				18B8543E2EB533D200D6E2B1 /* FeedLoaderCacheDecorator.swift */,
@@ -352,6 +355,7 @@
 				18B854492EB533D200D6E2B1 /* FeedImageDataLoaderCacheDecorator.swift in Sources */,
 				18B8544A2EB533D200D6E2B1 /* FeedImageDataLoaderWithFallbackComposite.swift in Sources */,
 				18B8544B2EB533D200D6E2B1 /* FeedLoaderCacheDecorator.swift in Sources */,
+				18CEF9EA2EB66931005A2B0E /* DebuggingSceneDelegate.swift in Sources */,
 				18B8544C2EB533D200D6E2B1 /* FeedLoaderWithFallbackComposite.swift in Sources */,
 				18B8544D2EB533D200D6E2B1 /* SceneDelegate.swift in Sources */,
 				18B8544E2EB533D200D6E2B1 /* ViewController.swift in Sources */,
