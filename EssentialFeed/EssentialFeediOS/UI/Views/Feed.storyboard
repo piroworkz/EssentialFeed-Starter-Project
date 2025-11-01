@@ -19,7 +19,7 @@
                             <rect key="frame" x="0.0" y="0.0" width="393" height="48"/>
                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             <subviews>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o03-su-Pb8">
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o03-su-Pb8">
                                     <rect key="frame" x="0.0" y="0.0" width="393" height="48"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -27,6 +27,9 @@
                                 </label>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemRedColor"/>
+                            <accessibility key="accessibilityConfiguration">
+                                <accessibilityTraits key="traits" header="YES"/>
+                            </accessibility>
                             <constraints>
                                 <constraint firstAttribute="trailing" secondItem="o03-su-Pb8" secondAttribute="trailing" id="5Qf-pr-grZ"/>
                                 <constraint firstItem="o03-su-Pb8" firstAttribute="top" secondItem="RvD-ca-38H" secondAttribute="top" id="gPO-yW-dNN"/>
