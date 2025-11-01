@@ -20,12 +20,18 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     public var delegate : FeedViewControllerDelegate?
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         onFirstViewIsAppearing = { controller in
             controller.onFirstViewIsAppearing = nil
             controller.refresh()
         }
+    }
+    
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.sizeHeaderToFit()
     }
     
     @IBAction private func refresh() {
