@@ -11,7 +11,6 @@ import EssentialFeediOS
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     var window: UIWindow?
-    let localStorageURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("feed-store.sqlite")
     
     private lazy var httpClient: HTTPClient = {
         let session = URLSession(configuration: .ephemeral)
@@ -20,7 +19,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }()
     
     private lazy var localStore: FeedStore & FeedImageDataStore = {
-        try! CoreDataFeedStore(storeURL: localStorageURL)
+        let localStorageURL = NSPersistentContainer.defaultDirectoryURL().appendingPathComponent("feed-store.sqlite")
+        return try! CoreDataFeedStore(storeURL: localStorageURL)
+    }()
+    
+    private lazy var localFeedLoader: LocalFeedLoader = {
+        LocalFeedLoader(store: localStore, currentDate: Date.init)
     }()
     
     convenience init(httpClient: HTTPClient, localStore: FeedStore & FeedImageDataStore) {
@@ -36,11 +40,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func configureWindow() {
         let url = URL(string: "https://ile-api.essentialdeveloper.com/essential-feed/v1/feed")!
-        let client = buildClient()
-        let remoteFeedLoader = RemoteFeedLoader(url: url, client: client)
-        let remoteImageLoader = RemoteFeedImageDataLoader(client: client)
         
-        let localFeedLoader = LocalFeedLoader(store: localStore, currentDate: Date.init)
+        let remoteFeedLoader = RemoteFeedLoader(url: url, client: httpClient)
+        let remoteImageLoader = RemoteFeedImageDataLoader(client: httpClient)
         let localImageLoader = LocalFeedImageDataLoader(store: localStore)
         let feedLoaderDecorator = FeedLoaderCacheDecorator(decoratee: remoteFeedLoader, cache: localFeedLoader)
         let feedImageLoaderDecorator = FeedImageDataLoaderCacheDecorator(decoratee: remoteImageLoader, cache: localImageLoader)
@@ -50,8 +52,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.rootViewController = UINavigationController(rootViewController: feedViewController)
     }
     
-    func buildClient() -> HTTPClient {
-        return httpClient
+    func sceneWillResignActive(_ scene: UIScene) {
+        localFeedLoader.validateCache { _ in }
     }
+    
 }
 
