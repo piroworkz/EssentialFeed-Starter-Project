@@ -15,10 +15,10 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "188AD7012EB3D70200FC9E9F"
-               BuildableName = "EssentialApp.app"
-               BlueprintName = "EssentialApp"
-               ReferencedContainer = "container:EssentialApp.xcodeproj">
+               BlueprintIdentifier = "1802B5542E9327B300E42155"
+               BuildableName = "EssentialFeediOS.framework"
+               BlueprintName = "EssentialFeediOS"
+               ReferencedContainer = "container:../EssentialFeed/EssentialFeed.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -30,7 +30,7 @@
       shouldUseLaunchSchemeArgsEnv = "YES">
       <TestPlans>
          <TestPlanReference
-            reference = "container:EssentialAppTests/EssentialApp.xctestplan"
+            reference = "container:EssentialFeediOSTests/EssentialFeediOS.xctestplan"
             default = "YES">
          </TestPlanReference>
       </TestPlans>
@@ -40,21 +40,10 @@
             parallelizable = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "188AD7172EB3D70400FC9E9F"
-               BuildableName = "EssentialAppTests.xctest"
-               BlueprintName = "EssentialAppTests"
-               ReferencedContainer = "container:EssentialApp.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            parallelizable = "YES">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "188AD7212EB3D70400FC9E9F"
-               BuildableName = "EssentialAppUITests.xctest"
-               BlueprintName = "EssentialAppUITests"
-               ReferencedContainer = "container:EssentialApp.xcodeproj">
+               BlueprintIdentifier = "1802B55C2E9327B300E42155"
+               BuildableName = "EssentialFeediOSTests.xctest"
+               BlueprintName = "EssentialFeediOSTests"
+               ReferencedContainer = "container:../EssentialFeed/EssentialFeed.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -69,16 +58,6 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
-         <BuildableReference
-            BuildableIdentifier = "primary"
-            BlueprintIdentifier = "188AD7012EB3D70200FC9E9F"
-            BuildableName = "EssentialApp.app"
-            BlueprintName = "EssentialApp"
-            ReferencedContainer = "container:EssentialApp.xcodeproj">
-         </BuildableReference>
-      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
@@ -86,16 +65,15 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable
-         runnableDebuggingMode = "0">
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "188AD7012EB3D70200FC9E9F"
-            BuildableName = "EssentialApp.app"
-            BlueprintName = "EssentialApp"
-            ReferencedContainer = "container:EssentialApp.xcodeproj">
+            BlueprintIdentifier = "1802B5542E9327B300E42155"
+            BuildableName = "EssentialFeediOS.framework"
+            BlueprintName = "EssentialFeediOS"
+            ReferencedContainer = "container:../EssentialFeed/EssentialFeed.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
