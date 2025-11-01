@@ -33,6 +33,8 @@
 		187AB05A2EB6ADAA0060703C /* FeedSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB0592EB6ADAA0060703C /* FeedSnapshotTests.swift */; };
 		187AB05C2EB6B8810060703C /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB05B2EB6B8800060703C /* UIImage+TestHelpers.swift */; };
 		187AB05E2EB6B9A90060703C /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB05D2EB6B9A90060703C /* UITableView+HeaderSizing.swift */; };
+		187AB0612EB6C9DC0060703C /* UIViewController+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB0602EB6C9DC0060703C /* UIViewController+Snapshot.swift */; };
+		187AB0632EB6CA340060703C /* XCTestCase+Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB0622EB6CA340060703C /* XCTestCase+Snapshot.swift */; };
 		1885956B2E93586900E1AA7C /* XCTestCase+MemoryLeakTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18DDBAA82E80B591003E3C6B /* XCTestCase+MemoryLeakTracker.swift */; };
 		18A1D3432E8332160061CA13 /* CacheFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1D3422E8332160061CA13 /* CacheFeedUseCaseTests.swift */; };
 		18B8542B2EB5275200D6E2B1 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8542A2EB5275200D6E2B1 /* FeedCache.swift */; };
@@ -161,6 +163,8 @@
 		187AB0592EB6ADAA0060703C /* FeedSnapshotTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedSnapshotTests.swift; sourceTree = "<group>"; };
 		187AB05B2EB6B8800060703C /* UIImage+TestHelpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImage+TestHelpers.swift"; sourceTree = "<group>"; };
 		187AB05D2EB6B9A90060703C /* UITableView+HeaderSizing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+HeaderSizing.swift"; sourceTree = "<group>"; };
+		187AB0602EB6C9DC0060703C /* UIViewController+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Snapshot.swift"; sourceTree = "<group>"; };
+		187AB0622EB6CA340060703C /* XCTestCase+Snapshot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "XCTestCase+Snapshot.swift"; sourceTree = "<group>"; };
 		18A1D3422E8332160061CA13 /* CacheFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedUseCaseTests.swift; sourceTree = "<group>"; };
 		18B8542A2EB5275200D6E2B1 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
 		18B854362EB532E300D6E2B1 /* FeedImageDataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataCache.swift; sourceTree = "<group>"; };
@@ -365,6 +369,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		187AB05F2EB6C9BB0060703C /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				187AB0602EB6C9DC0060703C /* UIViewController+Snapshot.swift */,
+				187AB05B2EB6B8800060703C /* UIImage+TestHelpers.swift */,
+				187AB0622EB6CA340060703C /* XCTestCase+Snapshot.swift */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
 		18A1D3412E8332020061CA13 /* FeedCache */ = {
 			isa = PBXGroup;
 			children = (
@@ -425,7 +439,7 @@
 		18CEF9BB2EB57B73005A2B0E /* EssentialFeediOSTests */ = {
 			isa = PBXGroup;
 			children = (
-				187AB05B2EB6B8800060703C /* UIImage+TestHelpers.swift */,
+				187AB05F2EB6C9BB0060703C /* Utils */,
 				187AB0592EB6ADAA0060703C /* FeedSnapshotTests.swift */,
 			);
 			path = EssentialFeediOSTests;
@@ -888,7 +902,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				1885956B2E93586900E1AA7C /* XCTestCase+MemoryLeakTracker.swift in Sources */,
+				187AB0632EB6CA340060703C /* XCTestCase+Snapshot.swift in Sources */,
 				187AB05A2EB6ADAA0060703C /* FeedSnapshotTests.swift in Sources */,
+				187AB0612EB6C9DC0060703C /* UIViewController+Snapshot.swift in Sources */,
 				1853A7AF2EB1516C00B2A8CA /* URLProtocolStub.swift in Sources */,
 				187AB05C2EB6B8810060703C /* UIImage+TestHelpers.swift in Sources */,
 				1853A7A62EB1401500B2A8CA /* HTTPClientSpy.swift in Sources */,
