@@ -1,7 +1,7 @@
 {
   "configurations" : [
     {
-      "id" : "0EF639CB-AEDE-4E9E-A847-8280C0EEA02F",
+      "id" : "CD199786-EC5B-428B-903B-5813F3B4D96C",
       "name" : "Test Scheme Action",
       "options" : {
 
@@ -13,8 +13,8 @@
       "targets" : [
         {
           "containerPath" : "container:EssentialFeed.xcodeproj",
-          "identifier" : "1802B5542E9327B300E42155",
-          "name" : "EssentialFeediOS"
+          "identifier" : "1802B55C2E9327B300E42155",
+          "name" : "EssentialFeediOSTests"
         }
       ]
     },

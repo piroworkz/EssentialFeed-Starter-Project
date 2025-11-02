@@ -15,11 +15,13 @@ public protocol FeedViewControllerDelegate {
 public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, FeedLoadingView, FeedErrorView {
     @IBOutlet private(set) public var errorView: ErrorView?
     private var onFirstViewIsAppearing: ((FeedViewController) -> Void)?
+    private var loadingControllers = [IndexPath: FeedImageCellController]()
     private var tableModel = [FeedImageCellController]() {
         didSet { tableView.reloadData() }
     }
     
     public var delegate : FeedViewControllerDelegate?
+    
     public override func viewDidLoad() {
         super.viewDidLoad()
         onFirstViewIsAppearing = { controller in
@@ -28,11 +30,17 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
         }
     }
     
+    public override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        tableView.sizeHeaderToFit()
+    }
+    
     @IBAction private func refresh() {
         delegate?.didRequestFeedRefresh()
     }
     
     public func display(_ cellControllers: [FeedImageCellController]) {
+        loadingControllers = [:]
         tableModel = cellControllers
     }
     
@@ -72,10 +80,13 @@ public final class FeedViewController: UITableViewController, UITableViewDataSou
     }
     
     private func cancelCellControllerLoad(forRowAt indexPath: IndexPath) {
-        cellController(forRowAt: indexPath).cancelLoad()
+        loadingControllers[indexPath]?.cancelLoad()
+        loadingControllers[indexPath] = nil
     }
     
     private func cellController(forRowAt indexPath: IndexPath) -> FeedImageCellController {
-        return tableModel[indexPath.row]
+        let controller = tableModel[indexPath.row]
+        loadingControllers[indexPath] = controller
+        return controller
     }
 }
