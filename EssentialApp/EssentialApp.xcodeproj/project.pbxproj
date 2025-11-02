@@ -32,7 +32,6 @@
 		18B8544E2EB533D200D6E2B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B854462EB533D200D6E2B1 /* ViewController.swift */; };
 		18B8544F2EB533D200D6E2B1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18B8543B2EB533D200D6E2B1 /* Assets.xcassets */; };
 		18B854512EB533D200D6E2B1 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B854422EB533D200D6E2B1 /* LaunchScreen.storyboard */; };
-		18B854522EB533D200D6E2B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 18B854442EB533D200D6E2B1 /* Main.storyboard */; };
 		18CEF9EC2EB67BED005A2B0E /* SceneDelegateTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9EB2EB67BED005A2B0E /* SceneDelegateTests.swift */; };
 		18CEFA9E2EB67FCB005A2B0E /* UIRefreshControl+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEFA9D2EB67FCB005A2B0E /* UIRefreshControl+TestHelpers.swift */; };
 		18CEFA9F2EB67FCB005A2B0E /* UIButton+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEFA9A2EB67FCB005A2B0E /* UIButton+TestHelpers.swift */; };
@@ -102,7 +101,6 @@
 		18B8543F2EB533D200D6E2B1 /* FeedLoaderWithFallbackComposite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoaderWithFallbackComposite.swift; sourceTree = "<group>"; };
 		18B854402EB533D200D6E2B1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		18B854412EB533D200D6E2B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		18B854432EB533D200D6E2B1 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		18B854452EB533D200D6E2B1 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		18B854462EB533D200D6E2B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		18CEF9EB2EB67BED005A2B0E /* SceneDelegateTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegateTests.swift; sourceTree = "<group>"; };
@@ -229,7 +227,6 @@
 				18CEFAAB2EB67FDB005A2B0E /* WeakReference.swift */,
 				18B8543B2EB533D200D6E2B1 /* Assets.xcassets */,
 				18B854422EB533D200D6E2B1 /* LaunchScreen.storyboard */,
-				18B854442EB533D200D6E2B1 /* Main.storyboard */,
 			);
 			path = EssentialApp;
 			sourceTree = "<group>";
@@ -323,7 +320,6 @@
 			files = (
 				18B8544F2EB533D200D6E2B1 /* Assets.xcassets in Resources */,
 				18B854512EB533D200D6E2B1 /* LaunchScreen.storyboard in Resources */,
-				18B854522EB533D200D6E2B1 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -406,14 +402,6 @@
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
 		};
-		18B854442EB533D200D6E2B1 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				18B854432EB533D200D6E2B1 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -429,7 +417,6 @@
 				INFOPLIST_FILE = EssentialApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -460,7 +447,6 @@
 				INFOPLIST_FILE = EssentialApp/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
