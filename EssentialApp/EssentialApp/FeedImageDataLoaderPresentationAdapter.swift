@@ -30,13 +30,15 @@ final class FeedImageDataLoaderPresentationAdapter<View: FeedImageView, Image>: 
             case let .failure(error):
                 self?.presenter?.didFinishLoadingImageData(with: error, for: model)
             }
-        }, receiveValue: { data in
-            self.presenter?.didFinishLoadingImageData(with: data, for: model)
+            self?.cancellable = nil
+        }, receiveValue: { [weak self] data in
+            self?.presenter?.didFinishLoadingImageData(with: data, for: model)
+            self?.cancellable = nil
         })
     }
     
     func didCancelImageRequest() {
         cancellable?.cancel()
+        cancellable = nil
     }
 }
-

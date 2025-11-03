@@ -31,7 +31,7 @@ extension FeedUiIntegrationTests {
         feed.enumerated().forEach { index, image in
             assertThat(sut, hasViewConfiguredFor: image, at: index, file: file, line: line)
         }
-        RunLoop.current.run(until: Date())
+        RunLoop.current.run(until: Date() + 1)
     }
     
     func assertThat(_ sut: FeedViewController, hasViewConfiguredFor feedImage: FeedImage, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
