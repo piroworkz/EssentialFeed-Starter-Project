@@ -12,11 +12,11 @@ import EssentialFeediOS
 final class FeedViewAdapter: FeedView {
     
     private weak var controller: FeedViewController?
-    private let loader: FeedImageDataLoader
+    private let loader: (URL) -> FeedImageDataLoader.Publisher
     
-    init(controller: FeedViewController, loader: FeedImageDataLoader) {
+    init(controller: FeedViewController, feedImageDataLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
         self.controller = controller
-        self.loader = loader
+        self.loader = feedImageDataLoader
     }
     
     func display(_ state: FeedViewState) {

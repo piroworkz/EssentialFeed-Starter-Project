@@ -56,6 +56,7 @@ extension FeedViewController {
     }
     
     func setFakeRefreshControl() {
+        tableView.frame = CGRect(x: 0, y: 0, width: 390, height: 1)
         let fake = FakeRefreshControl()
 
         refreshControl?.allTargets.forEach { target in
