@@ -39,6 +39,8 @@
 		18CEFAB12EB67FDB005A2B0E /* FeedImageDataLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEFAA62EB67FDB005A2B0E /* FeedImageDataLoaderPresentationAdapter.swift */; };
 		18CEFAB32EB68034005A2B0E /* FeedUiIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEFAB22EB68034005A2B0E /* FeedUiIntegrationTests.swift */; };
 		18CEFAB52EB6843B005A2B0E /* FeedAcceptanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEFAB42EB6843B005A2B0E /* FeedAcceptanceTests.swift */; };
+		18D93C542EB90C09005F80DE /* DispatchQueue+MainScheduler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D93C532EB90C09005F80DE /* DispatchQueue+MainScheduler.swift */; };
+		18D93C562EB90C53005F80DE /* Combine+Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18D93C552EB90C53005F80DE /* Combine+Utils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +102,8 @@
 		18CEFAAB2EB67FDB005A2B0E /* WeakReference.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakReference.swift; sourceTree = "<group>"; };
 		18CEFAB22EB68034005A2B0E /* FeedUiIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedUiIntegrationTests.swift; sourceTree = "<group>"; };
 		18CEFAB42EB6843B005A2B0E /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
+		18D93C532EB90C09005F80DE /* DispatchQueue+MainScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+MainScheduler.swift"; sourceTree = "<group>"; };
+		18D93C552EB90C53005F80DE /* Combine+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Utils.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -188,6 +192,8 @@
 			children = (
 				18B854402EB533D200D6E2B1 /* Info.plist */,
 				18B8543A2EB533D200D6E2B1 /* AppDelegate.swift */,
+				18D93C552EB90C53005F80DE /* Combine+Utils.swift */,
+				18D93C532EB90C09005F80DE /* DispatchQueue+MainScheduler.swift */,
 				18CEFAA62EB67FDB005A2B0E /* FeedImageDataLoaderPresentationAdapter.swift */,
 				18CEFAA72EB67FDB005A2B0E /* FeedLoaderPresentationAdapter.swift */,
 				18CEFAA82EB67FDB005A2B0E /* FeedUIComposer.swift */,
@@ -311,7 +317,9 @@
 				18B854482EB533D200D6E2B1 /* AppDelegate.swift in Sources */,
 				18CEFAAC2EB67FDB005A2B0E /* FeedViewAdapter.swift in Sources */,
 				18CEFAAE2EB67FDB005A2B0E /* WeakReference.swift in Sources */,
+				18D93C542EB90C09005F80DE /* DispatchQueue+MainScheduler.swift in Sources */,
 				18CEFAAF2EB67FDB005A2B0E /* FeedUIComposer.swift in Sources */,
+				18D93C562EB90C53005F80DE /* Combine+Utils.swift in Sources */,
 				18CEFAB02EB67FDB005A2B0E /* FeedLoaderPresentationAdapter.swift in Sources */,
 				18CEFAB12EB67FDB005A2B0E /* FeedImageDataLoaderPresentationAdapter.swift in Sources */,
 				18B8544D2EB533D200D6E2B1 /* SceneDelegate.swift in Sources */,
