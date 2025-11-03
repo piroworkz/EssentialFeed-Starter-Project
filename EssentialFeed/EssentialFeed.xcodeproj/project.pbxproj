@@ -12,7 +12,6 @@
 		080EDF0E21B6DCB600813479 /* FeedLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 080EDF0D21B6DCB600813479 /* FeedLoader.swift */; };
 		1800B7172E7E5CEE0069BF14 /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1800B7162E7E5CEE0069BF14 /* URLSessionHTTPClientTests.swift */; };
 		1802B55E2E9327B300E42155 /* EssentialFeediOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1802B5552E9327B300E42155 /* EssentialFeediOS.framework */; };
-		1852F1F02E9DA8510080B80F /* FeedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852F1EF2E9DA8510080B80F /* FeedImageCell.swift */; };
 		1853A7A32EB020AB00B2A8CA /* LoadFeedImageDataFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7A22EB020AB00B2A8CA /* LoadFeedImageDataFromRemoteUseCaseTests.swift */; };
 		1853A7A42EB027E000B2A8CA /* FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E038382EA1AF0500A08664 /* FeedImageDataLoader.swift */; };
 		1853A7A62EB1401500B2A8CA /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7A52EB1401500B2A8CA /* HTTPClientSpy.swift */; };
@@ -30,6 +29,7 @@
 		185FFF312EA40A8300A3957A /* Feed.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 185FFF302EA40A8300A3957A /* Feed.xcassets */; };
 		18764E612EA8486F00AE9179 /* UIRefreshControl+Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18764E602EA8486F00AE9179 /* UIRefreshControl+Helpers.swift */; };
 		18777EC22E848AB30028A145 /* LoadFeedFromCacheUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18777EC12E848AB30028A145 /* LoadFeedFromCacheUseCaseTests.swift */; };
+		1878FB5F2EB8335F001FCC3A /* FeedImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1852F1EF2E9DA8510080B80F /* FeedImageCell.swift */; };
 		187AB05A2EB6ADAA0060703C /* FeedSnapshotTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB0592EB6ADAA0060703C /* FeedSnapshotTests.swift */; };
 		187AB05C2EB6B8810060703C /* UIImage+TestHelpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB05B2EB6B8800060703C /* UIImage+TestHelpers.swift */; };
 		187AB05E2EB6B9A90060703C /* UITableView+HeaderSizing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187AB05D2EB6B9A90060703C /* UITableView+HeaderSizing.swift */; };
@@ -891,8 +891,8 @@
 				18764E612EA8486F00AE9179 /* UIRefreshControl+Helpers.swift in Sources */,
 				18F8EB122EA701590002942C /* ErrorView.swift in Sources */,
 				18FFA8A02E938066001818C5 /* FeedViewController.swift in Sources */,
-				1852F1F02E9DA8510080B80F /* FeedImageCell.swift in Sources */,
 				18E039682EA1CC9000A08664 /* FeedImageCellController.swift in Sources */,
+				1878FB5F2EB8335F001FCC3A /* FeedImageCell.swift in Sources */,
 				185AA5162EA43EC400C50FF2 /* UIImageView+SetAnimated.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

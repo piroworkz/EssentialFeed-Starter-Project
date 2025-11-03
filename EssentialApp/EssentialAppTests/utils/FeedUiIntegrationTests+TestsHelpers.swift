@@ -15,7 +15,7 @@ extension FeedUiIntegrationTests {
     
     func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = FeedUIComposer.feedComposedWith(feedLoader: loader.loadPublisher, imageLoader: loader)
+        let sut = FeedUIComposer.feedComposedWith(feedLoader: loader.loadPublisher, imageLoader: { url in loader.loadImageDataPublisher(from: url) })
         trackMemoryLeak(for: sut, file: file, line: line)
         trackMemoryLeak(for: loader, file: file, line: line)
         return (sut, loader)
@@ -31,6 +31,7 @@ extension FeedUiIntegrationTests {
         feed.enumerated().forEach { index, image in
             assertThat(sut, hasViewConfiguredFor: image, at: index, file: file, line: line)
         }
+        RunLoop.current.run(until: Date())
     }
     
     func assertThat(_ sut: FeedViewController, hasViewConfiguredFor feedImage: FeedImage, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
@@ -61,3 +62,4 @@ extension FeedUiIntegrationTests {
         return value
     }
 }
+
