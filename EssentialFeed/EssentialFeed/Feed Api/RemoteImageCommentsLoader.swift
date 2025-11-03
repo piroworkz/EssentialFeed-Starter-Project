@@ -4,12 +4,9 @@
 //
 //  Created by David Luna on 03/11/25.
 //
-
-
-
 import Foundation
 
-public final class RemoteCommentsImageLoader: FeedLoader {
+public final class RemoteImageCommentsLoader: FeedLoader {
     private let client: HTTPClient
     private let url: URL
     
@@ -28,7 +25,7 @@ public final class RemoteCommentsImageLoader: FeedLoader {
     public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url) { [weak self] result in
             guard self != nil else { return }
-            completion(result.toLoadFeedResult())
+            completion(result.toImageComment())
         }
     }
 

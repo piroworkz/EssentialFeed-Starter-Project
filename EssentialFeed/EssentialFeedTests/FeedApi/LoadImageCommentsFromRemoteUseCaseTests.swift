@@ -35,7 +35,7 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         XCTAssertEqual(client.requestedURLs, [url, url])
     }
     
-    func test_load_deliverErrorOnClientError() {
+    func test_load_deliversErrorOnClientError() {
         let (sut, client) = buildSUT()
         let clientError = anyNSError()
         
@@ -44,10 +44,10 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_deliverErrorOnNon200HTTPResponse() {
+    func test_load_deliversErrorOnNon2xxHTTPResponse() {
         let (sut, client) = buildSUT()
         
-        [199, 201, 300, 400, 500].enumerated().forEach {index, code in
+        [199, 150, 300, 400, 500].enumerated().forEach {index, code in
             expect(sut, toCompleteWith: failure(.invalidData)) {
                 client.complete(withStatusCode: code, data: anyData(), at: index)
             }
@@ -98,9 +98,9 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
     func test_load_doesNotDeliverResultAfterSUTInstanceHasBeenDeallocated() {
         let url: URL = URL(string: "https://example.com")!
         let client = HTTPClientSpy()
-        var sut: RemoteFeedLoader? = RemoteFeedLoader(url: url, client: client)
+        var sut: RemoteImageCommentsLoader? = RemoteImageCommentsLoader(url: url, client: client)
         
-        var capturedResults = [RemoteFeedLoader.Result]()
+        var capturedResults = [RemoteImageCommentsLoader.Result]()
         sut?.load { capturedResults.append($0)}
         sut = nil
         client.complete(withStatusCode: 200, data: buildItemsJSON([]))
@@ -112,9 +112,9 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
 
 extension LoadImageCommentsFromRemoteUseCaseTests {
     
-    private func buildSUT(url: URL = URL(string: "https://example.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteFeedLoader, client: HTTPClientSpy) {
+    private func buildSUT(url: URL = URL(string: "https://example.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteImageCommentsLoader, client: HTTPClientSpy) {
         let client = HTTPClientSpy()
-        let sut = RemoteFeedLoader(url: url, client: client)
+        let sut = RemoteImageCommentsLoader(url: url, client: client)
         trackMemoryLeak(for: sut, file: file, line: line)
         trackMemoryLeak(for: client, file: file, line: line)
         return (sut, client)
@@ -137,8 +137,8 @@ extension LoadImageCommentsFromRemoteUseCaseTests {
     }
     
     private func expect(
-        _ sut: RemoteFeedLoader,
-        toCompleteWith expectedResult: RemoteFeedLoader.Result,
+        _ sut: RemoteImageCommentsLoader,
+        toCompleteWith expectedResult: RemoteImageCommentsLoader.Result,
         when action: () -> Void,
         file: StaticString = #filePath,
         line: UInt = #line) {
@@ -148,7 +148,7 @@ extension LoadImageCommentsFromRemoteUseCaseTests {
                 switch (receivedResult, expectedResult) {
                 case let (.success(receivedItems), .success(expectedItems)):
                     XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
-                case let (.failure(receivedError as RemoteFeedLoader.Error), .failure(expectedError as RemoteFeedLoader.Error)):
+                case let (.failure(receivedError as RemoteImageCommentsLoader.Error), .failure(expectedError as RemoteImageCommentsLoader.Error)):
                     XCTAssertEqual(receivedError, expectedError, file: file, line: line)
                 default:
                     XCTFail("Unexpected result: \(receivedResult) <-- does not match --> \(expectedResult)", file: file, line: line)
@@ -161,7 +161,7 @@ extension LoadImageCommentsFromRemoteUseCaseTests {
             wait(for: [expectation], timeout: 1.0)
         }
     
-    private func failure(_ error: RemoteFeedLoader.Error) -> RemoteFeedLoader.Result {
+    private func failure(_ error: RemoteImageCommentsLoader.Error) -> RemoteImageCommentsLoader.Result {
         return .failure(error)
     }
 }

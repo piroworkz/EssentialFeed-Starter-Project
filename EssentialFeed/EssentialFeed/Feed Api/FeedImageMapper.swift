@@ -9,7 +9,7 @@ import Foundation
 
 extension HTTPClient.Result {
     
-    func toImageCommentsResult() -> RemoteFeedLoader.Result {
+    func toFeedImage() -> RemoteFeedLoader.Result {
         switch self {
         case let .success((data, response)):
             return map(data, response)
@@ -46,4 +46,12 @@ extension HTTPClient.Result {
             let image: URL
         }
     }
+}
+
+extension HTTPURLResponse {
+    
+    var isOK: Bool {
+        return statusCode == 200
+    }
+    
 }

@@ -9,18 +9,18 @@ import Foundation
 
 extension HTTPClient.Result {
     
-    func toLoadFeedResult() -> RemoteFeedLoader.Result {
+    func toImageComment() -> RemoteImageCommentsLoader.Result {
         switch self {
         case let .success((data, response)):
             return map(data, response)
         case .failure(_):
-            return RemoteFeedLoader.Result.failure(RemoteFeedLoader.Error.connection)
+            return RemoteImageCommentsLoader.Result.failure(RemoteImageCommentsLoader.Error.connection)
         }
     }
     
-    private func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteFeedLoader.Result {
+    private func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteImageCommentsLoader.Result {
         guard response.isOK, let items = try? JSONDecoder().decode(Root.self, from: data).feedItems  else {
-            return .failure(RemoteFeedLoader.Error.invalidData)
+            return .failure(RemoteImageCommentsLoader.Error.invalidData)
         }
         return .success(items)
     }
@@ -46,12 +46,4 @@ extension HTTPClient.Result {
             let image: URL
         }
     }
-}
-
-extension HTTPURLResponse {
-    
-    var isOK: Bool {
-        return statusCode == 200
-    }
-    
 }
