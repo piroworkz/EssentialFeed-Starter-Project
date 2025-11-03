@@ -54,44 +54,49 @@ class LoadImageCommentsFromRemoteUseCaseTests: XCTestCase {
         }
     }
     
-    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
+    func test_load_deliversErrorOn2xxHTTPResponseWithInvalidJSON() {
         let (sut, client) = buildSUT()
-        
-        expect(sut, toCompleteWith: failure(.invalidData)) {
-            let invalidJSON = Data("invalid json".utf8)
-            client.complete(withStatusCode: 200, data: invalidJSON)
+        let invalidJSON = Data("invalid json".utf8)
+
+        [200, 201, 250, 280, 299].enumerated().forEach { index, code in
+            expect(sut, toCompleteWith: failure(.invalidData)) {
+                client.complete(withStatusCode: 200, data: invalidJSON, at: index)
+            }
         }
     }
     
-    func test_load_deliversNoItemsON200HTTPResponseWithEmptyJSON() {
+    func test_load_deliversNoItemsON2xxHTTPResponseWithEmptyJSON() {
         let (sut, client) = buildSUT()
+        let emptyListJSON = buildItemsJSON([])
         
-        expect(sut, toCompleteWith: .success([])) {
-            let emptyListJSON = buildItemsJSON([])
-            client.complete(withStatusCode: 200, data: emptyListJSON)
+        [200, 201, 250, 280, 299].enumerated().forEach { index, code in
+            expect(sut, toCompleteWith: .success([])) {
+                client.complete(withStatusCode: 200, data: emptyListJSON, at: index)
+            }
         }
     }
     
-    func test_load_deliversItemsON200HTTPResponseWithJSONItems() {
+    func test_load_deliversItemsON2xxHTTPResponseWithJSONItems() {
         let (sut, client) = buildSUT()
-        
-        let item1 = buildFeedItem(
+        let item1 = buildImageComment(
             id: UUID(),
-            description: nil,
-            location: nil,
-            imageURL: URL(string: "http://a-url.com")!)
+            message: "a message",
+            createdAt: (Date(timeIntervalSince1970: 1598627222), "2020-08-28T15:07:02+00:00"),
+            username: "a username")
         
-        let item2 = buildFeedItem(
+        let item2 = buildImageComment(
             id: UUID(),
-            description: "a description",
-            location: "a location",
-            imageURL: URL(string: "http://another-url.com")!)
+            message: "another message",
+            createdAt: (Date(timeIntervalSince1970: 1577881882), "2020-01-01T12:31:22+00:00"),
+            username: "another username")
         
-        let items: [FeedImage] = [item1.model, item2.model]
+        let items = [item1.model, item2.model]
         
-        expect(sut, toCompleteWith: .success(items)) {
-            let json = buildItemsJSON([item1.json, item2.json])
-            client.complete(withStatusCode: 200, data: json)
+        [200, 201, 250, 280, 299].enumerated().forEach { index, code in
+            expect(sut, toCompleteWith: .success(items)) {
+                let json = buildItemsJSON([item1.json, item2.json])
+                client.complete(withStatusCode: code, data: json, at: index)
+            }
         }
     }
     
@@ -120,15 +125,17 @@ extension LoadImageCommentsFromRemoteUseCaseTests {
         return (sut, client)
     }
     
-    private func buildFeedItem(id: UUID, description: String? = nil, location: String? = nil, imageURL: URL) -> (model: FeedImage, json: [String: Any]) {
-        let feedItem = FeedImage(id: id, description: description, location: location, imageURL: imageURL)
-        let json = [
-            "id": feedItem.id.uuidString,
-            "description": feedItem.description,
-            "location": feedItem.location,
-            "image": feedItem.imageURL.absoluteString
-        ].compactMapValues { $0 }
-        return (feedItem, json)
+    private func buildImageComment(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComment, json: [String: Any]) {
+        let imageComment = ImageComment(id: id, message: message, createdAt: createdAt.date, username: username)
+        let json: [String : Any] = [
+            "id": id.uuidString,
+            "message": message,
+            "created_at": createdAt.iso8601String,
+            "author": [
+                "username": username
+            ]
+        ]
+        return (imageComment, json)
     }
     
     private func buildItemsJSON(_ items: [[String: Any]]) -> Data {
@@ -148,7 +155,7 @@ extension LoadImageCommentsFromRemoteUseCaseTests {
                 switch (receivedResult, expectedResult) {
                 case let (.success(receivedItems), .success(expectedItems)):
                     XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
-                case let (.failure(receivedError as RemoteImageCommentsLoader.Error), .failure(expectedError as RemoteImageCommentsLoader.Error)):
+                case let (.failure(receivedError), .failure(expectedError)):
                     XCTAssertEqual(receivedError, expectedError, file: file, line: line)
                 default:
                     XCTFail("Unexpected result: \(receivedResult) <-- does not match --> \(expectedResult)", file: file, line: line)

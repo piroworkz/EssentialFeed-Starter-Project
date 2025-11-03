@@ -54,4 +54,8 @@ extension HTTPURLResponse {
         return statusCode == 200
     }
     
+    func validateStatusCode(byRange validStatusCodes: ClosedRange<Int>) -> Bool {
+        return validStatusCodes.contains(statusCode)
+    }
+    
 }

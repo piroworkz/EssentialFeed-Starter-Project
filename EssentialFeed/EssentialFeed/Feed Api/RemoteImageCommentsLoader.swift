@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public final class RemoteImageCommentsLoader: FeedLoader {
+public final class RemoteImageCommentsLoader {
     private let client: HTTPClient
     private let url: URL
     
@@ -15,7 +15,7 @@ public final class RemoteImageCommentsLoader: FeedLoader {
         self.url = url
     }
     
-    public typealias Result = FeedLoader.Result
+    public typealias Result = Swift.Result<[ImageComment], Error>
     
     public enum Error: Swift.Error {
         case connection

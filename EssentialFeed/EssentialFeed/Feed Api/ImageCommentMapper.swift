@@ -19,7 +19,10 @@ extension HTTPClient.Result {
     }
     
     private func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteImageCommentsLoader.Result {
-        guard response.isOK, let items = try? JSONDecoder().decode(Root.self, from: data).feedItems  else {
+        let decoder = JSONDecoder()
+        decoder.dateDecodingStrategy = .iso8601
+        
+        guard response.validateStatusCode(byRange: 200...299), let items = try? decoder.decode(Root.self, from: data).imageComments else {
             return .failure(RemoteImageCommentsLoader.Error.invalidData)
         }
         return .success(items)
@@ -28,22 +31,22 @@ extension HTTPClient.Result {
     private struct Root: Decodable {
         private let items: [Item]
         
-        var feedItems: [FeedImage] {
+        var imageComments: [ImageComment] {
             items.map { item in
-                FeedImage(
-                    id: item.id,
-                    description: item.description,
-                    location: item.location,
-                    imageURL: item.image
-                )
+                ImageComment(id: item.id, message: item.message, createdAt: item.created_at, username: item.author.username)
             }
         }
         
         private struct Item: Decodable {
             let id: UUID
-            let description: String?
-            let location: String?
-            let image: URL
+            let message: String
+            let created_at: Date
+            let author: Author
+        }
+        
+        private struct Author: Decodable {
+            let username: String
         }
     }
 }
+
