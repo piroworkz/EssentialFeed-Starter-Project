@@ -102,6 +102,8 @@
 		18CEFAB42EB6843B005A2B0E /* FeedAcceptanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedAcceptanceTests.swift; sourceTree = "<group>"; };
 		18D93C532EB90C09005F80DE /* DispatchQueue+MainScheduler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchQueue+MainScheduler.swift"; sourceTree = "<group>"; };
 		18D93C552EB90C53005F80DE /* Combine+Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Combine+Utils.swift"; sourceTree = "<group>"; };
+		18F282572EB9571D0077481F /* CI_iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_iOS.xctestplan; sourceTree = "<group>"; };
+		18F282582EB9571D0077481F /* CI_macOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_macOS.xctestplan; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,8 @@
 		188AD6F92EB3D70200FC9E9F = {
 			isa = PBXGroup;
 			children = (
+				18F282572EB9571D0077481F /* CI_iOS.xctestplan */,
+				18F282582EB9571D0077481F /* CI_macOS.xctestplan */,
 				18B854472EB533D200D6E2B1 /* EssentialApp */,
 				18B854232EB51FCA00D6E2B1 /* EssentialAppTests */,
 				186BE3A22EB3D78600DFFE28 /* Frameworks */,
