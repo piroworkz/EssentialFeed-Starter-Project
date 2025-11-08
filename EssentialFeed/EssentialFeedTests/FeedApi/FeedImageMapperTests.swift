@@ -26,7 +26,7 @@ class FeedImageMapperTests: XCTestCase {
     
     func test_map_deliversNoItemsON200HTTPResponseWithEmptyJSON() throws {
         let emptyListJSON = buildItemsJSON([])
-
+        
         let actual = try FeedImageMapper.map(emptyListJSON, HTTPURLResponse(statusCode: 200))
         
         XCTAssertEqual(actual, [])
@@ -71,11 +71,5 @@ extension FeedImageMapperTests {
     private func buildItemsJSON(_ items: [[String: Any]]) -> Data {
         let itemsJSON = [ "items": items]
         return try! JSONSerialization.data(withJSONObject: itemsJSON)
-    }
-}
-
-private extension HTTPURLResponse {
-    convenience init(statusCode: Int) {
-        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
     }
 }

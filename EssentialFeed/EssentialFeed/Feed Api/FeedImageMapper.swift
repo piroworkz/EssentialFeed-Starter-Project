@@ -14,4 +14,24 @@ public class FeedImageMapper {
         }
         return items
     }
+    
+    struct RemoteFeedImage: Decodable {
+        let id: UUID
+        let description: String?
+        let location: String?
+        let image: URL
+    }
+}
+
+extension RemoteResponse where T == [FeedImageMapper.RemoteFeedImage] {
+    var feedItems: [FeedImage] {
+        items.map { item in
+            FeedImage(
+                id: item.id,
+                description: item.description,
+                location: item.location,
+                imageURL: item.image
+            )
+        }
+    }
 }
