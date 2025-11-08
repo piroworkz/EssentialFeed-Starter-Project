@@ -7,24 +7,14 @@
 
 import Foundation
 
-extension HTTPClient.Result {
+class ImageCommentMapper {
     
-    func toImageComment() -> RemoteImageCommentsLoader.Result {
-        switch self {
-        case let .success((data, response)):
-            return map(data, response)
-        case .failure(_):
-            return RemoteImageCommentsLoader.Result.failure(RemoteImageCommentsLoader.Error.connection)
-        }
-    }
-    
-    private func map(_ data: Data, _ response: HTTPURLResponse) -> RemoteImageCommentsLoader.Result {
+    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [ImageComment] {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        
         guard response.validateStatusCode(byRange: 200...299), let items = try? decoder.decode(RemoteResponse.self, from: data).imageComments else {
-            return .failure(RemoteImageCommentsLoader.Error.invalidData)
+            throw RemoteImageCommentsLoader.Error.invalidData
         }
-        return .success(items)
+        return items
     }
 }
