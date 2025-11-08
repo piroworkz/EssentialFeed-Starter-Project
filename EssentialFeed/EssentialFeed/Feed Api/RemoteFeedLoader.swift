@@ -7,27 +7,10 @@
 
 import Foundation
 
-public final class RemoteFeedLoader: FeedLoader {
-    private let client: HTTPClient
-    private let url: URL
-    
-    public init(url: URL, client: HTTPClient) {
-        self.client = client
-        self.url = url
-    }
-    
-    public typealias Result = FeedLoader.Result
-    
-    public enum Error: Swift.Error {
-        case connection
-        case invalidData
-    }
-    
-    public func load(completion: @escaping (Result) -> Void) {
-        client.get(from: url) { [weak self] result in
-            guard self != nil else { return }
-            completion(result.toFeedImage())
-        }
-    }
+public typealias RemoteFeedLoader = RemoteLoader<[FeedImage]>
 
+public extension RemoteFeedLoader {
+    convenience init(url: URL, client: HTTPClient) {
+        self.init(url: url, client: client, mapper: FeedImageMapper.map)
+    }
 }
