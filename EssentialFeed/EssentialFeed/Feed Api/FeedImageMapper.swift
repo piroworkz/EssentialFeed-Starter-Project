@@ -20,20 +20,6 @@ extension HTTPClient.Result {
             return RemoteFeedLoader.Result.failure(RemoteFeedLoader.Error.connection)
         }
     }
-    
-    func toRemoteLoaderFeedImage() -> RemoteLoader.Result {
-        switch self {
-        case let .success((data, response)):
-            guard response.isOK, let items = try? JSONDecoder().decode(RemoteResponse.self, from: data).feedItems  else {
-                return .failure(RemoteLoader.Error.invalidData)
-            }
-            return .success(items)
-        case .failure(_):
-            return RemoteLoader.Result.failure(RemoteLoader.Error.connection)
-        }
-    }
-    
-    
 }
 
 extension HTTPURLResponse {
