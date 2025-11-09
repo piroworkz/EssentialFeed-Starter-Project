@@ -6,6 +6,6 @@
 //
 import EssentialFeed
 
-class FakeView: ResourceView {
+class FakeView: CommonView {
     func display(_ viewModel: Void) {}
 }

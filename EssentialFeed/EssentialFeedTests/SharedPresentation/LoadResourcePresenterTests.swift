@@ -37,25 +37,25 @@ final class LoadResourcePresenterTests: XCTestCase {
         
         sut.didFinishLoading(with: anyNSError())
         
-        XCTAssertEqual(view.messages, [.display(errorMessage: LoadResourcePresenter<String, FakeView>.loadErrorMessage), .display(isLoading: false)], "Expected to display localized error message and stop loading")
+        XCTAssertEqual(view.messages, [.display(errorMessage: CommonPresenter<String, FakeView>.loadErrorMessage), .display(isLoading: false)], "Expected to display localized error message and stop loading")
     }
 }
 
 extension LoadResourcePresenterTests {
-    private typealias SUT = LoadResourcePresenter<String, ViewSpy>
+    private typealias SUT = CommonPresenter<String, ViewSpy>
     
     private func buildSUT(
         mapper: @escaping SUT.Mapper = { _ in "" },
         file: StaticString = #filePath,
         line: UInt = #line) -> (SUT, ViewSpy) {
         let view = ViewSpy()
-        let sut = SUT(feedErrorView: view, feedLoadingView: view, resourceView: view, mapper: mapper)
+        let sut = SUT(errorView: view, loadingView: view, commonView: view, mapper: mapper)
         trackMemoryLeak(for: view, file: file, line: line)
         trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, view)
     }
     
-    private class ViewSpy: ErrorMessageView, LoadingView, ResourceView {
+    private class ViewSpy: ErrorMessageView, LoadingView, CommonView {
         typealias UIState = String
         enum Message: Hashable {
             case display(errorMessage: String?)

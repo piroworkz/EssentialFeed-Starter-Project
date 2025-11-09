@@ -12,7 +12,7 @@ final class SharedLocalizationTests: XCTestCase {
     
     func test_localizedStrings_haveKeyANdValuesForAllSupportedLocalizations() {
         let table = "Shared"
-        let bundle = Bundle(for: LoadResourcePresenter<String, FakeView>.self)
+        let bundle = Bundle(for: CommonPresenter<String, FakeView>.self)
         
         assertLocalizationKeysAndValuesExist(in: bundle, table)
     }
