@@ -72,11 +72,11 @@ extension EssentialFeedApiEndToEndTests {
         return receivedResult
     }
     
-    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> FeedLoader.Result? {
+    private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> LocalFeedLoader.LoadResult? {
         let client = buildClient()
         let exp = expectation(description: "Wait for load completion")
         
-        var receivedResult: FeedLoader.Result?
+        var receivedResult: LocalFeedLoader.LoadResult?
         client.get(from: baseURL) { result in
             receivedResult = result.flatMap({ (data, response) in
                 do {
