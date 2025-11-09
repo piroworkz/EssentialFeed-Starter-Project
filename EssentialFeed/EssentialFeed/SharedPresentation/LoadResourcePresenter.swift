@@ -26,7 +26,7 @@ public class LoadResourcePresenter<T, View: ResourceView> {
         self.mapper = mapper
     }
     
-    private var loadErrorMessage: String {
+    public static var loadErrorMessage: String {
         return String(localized: .Shared.genericConnectionError)
     }
     
@@ -41,7 +41,7 @@ public class LoadResourcePresenter<T, View: ResourceView> {
     }
     
     public func didFinishLoading(with error: Error) {
-        feedErrorView.display(.error(message: loadErrorMessage))
+        feedErrorView.display(.error(message: Self.loadErrorMessage))
         feedLoadingView.display(.notLoading)
     }
 }

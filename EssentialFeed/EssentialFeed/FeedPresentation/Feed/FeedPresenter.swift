@@ -19,7 +19,7 @@ public final class FeedPresenter {
     }
     
     public static var title: String {
-        return NSLocalizedString("FEED_VIEW_TITLE", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Feed view title")
+        return String(localized: .Feed.feedViewTitle)
     }
     
     private var loadErrorMessage: String {

@@ -13,6 +13,18 @@ import EssentialApp
 
 extension FeedUiIntegrationTests {
     
+    var localizedErrorMessage: String {
+        LoadResourcePresenter<String, FakeView>.loadErrorMessage
+    }
+    
+    var localizedTitle: String {
+        FeedPresenter.title
+    }
+    
+    private class FakeView: ResourceView {
+        func display(_ state: Void) {}
+    }
+    
     func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedUIComposer.feedComposedWith(feedLoader: loader.loadPublisher, imageLoader: { url in loader.loadImageDataPublisher(from: url) })
@@ -50,16 +62,6 @@ extension FeedUiIntegrationTests {
     
     func buildFeedItem(description: String? = nil, location: String? = nil, imageURL: URL = URL(string: "https://example.com/image.jpg")!) -> FeedImage {
         return FeedImage(id: UUID(), description: description, location: location, imageURL: imageURL)
-    }
-    
-    func localized(_ key: String, file: StaticString = #filePath, line: UInt = #line) -> String {
-        let table = "Feed"
-        let bundle = Bundle(for: FeedPresenter.self)
-        let value = bundle.localizedString(forKey: key, value: nil, table: table)
-        if value == key {
-            XCTFail("Missing localized string for key: \(key) in table: \(table)", file: file, line: line)
-        }
-        return value
     }
 }
 
