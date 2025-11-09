@@ -18,15 +18,11 @@ public class LoadResourcePresenter {
         self.feedView = feedView
     }
     
-    public static var title: String {
-        return NSLocalizedString("FEED_VIEW_TITLE", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Feed view title")
-    }
-    
     private var loadErrorMessage: String {
         return NSLocalizedString("FEED_VIEW_CONNECTION_ERROR", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Error message displayed when we can't load the feed")
     }
     
-    public func didStartLoadingFeed() {
+    public func didStartLoading() {
         feedErrorView.display(.noError)
         feedLoadingView.display(.loading)
     }
