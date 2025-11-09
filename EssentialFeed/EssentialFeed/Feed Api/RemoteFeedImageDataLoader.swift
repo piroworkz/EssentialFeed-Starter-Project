@@ -54,3 +54,9 @@ public final class RemoteFeedImageDataLoader: FeedImageDataLoader {
         return wrapper
     }
 }
+
+private extension HTTPURLResponse {
+    var isOK: Bool {
+        return statusCode == 200
+    }
+}

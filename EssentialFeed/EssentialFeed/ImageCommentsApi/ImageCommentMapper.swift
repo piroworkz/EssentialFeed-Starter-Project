@@ -12,20 +12,30 @@ public class ImageCommentMapper {
     public static func map(_ data: Data, _ response: HTTPURLResponse) throws -> [ImageComment] {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
-        guard response.validateStatusCode(byRange: 200...299), let items = try? decoder.decode(RemoteResponse.self, from: data).imageComments else {
+        guard response.validateStatusCode(in: 200...299), let items = try? decoder.decode(RemoteResponse.self, from: data).imageComments else {
             throw Error.invalidData
         }
         return items
     }
     
-    struct RemoteImageComment: Decodable {
+    private struct RemoteResponse: Decodable {
+        let items: [RemoteImageComment]
+        
+        var imageComments: [ImageComment] {
+            items.map { item in
+                ImageComment(id: item.id, message: item.message, createdAt: item.created_at, username: item.author.username)
+            }
+        }
+    }
+    
+    private struct RemoteImageComment: Decodable {
         let id: UUID
         let message: String
         let created_at: Date
         let author: RemoteAuthor
     }
 
-    struct RemoteAuthor: Decodable {
+    private struct RemoteAuthor: Decodable {
         let username: String
     }
     
@@ -34,10 +44,8 @@ public class ImageCommentMapper {
     }
 }
 
-private extension RemoteResponse where T == [ImageCommentMapper.RemoteImageComment] {
-    var imageComments: [ImageComment] {
-        items.map { item in
-            ImageComment(id: item.id, message: item.message, createdAt: item.created_at, username: item.author.username)
-        }
+private extension HTTPURLResponse {
+    func validateStatusCode(in validStatusCodes: ClosedRange<Int>) -> Bool {
+        return validStatusCodes.contains(statusCode)
     }
 }
