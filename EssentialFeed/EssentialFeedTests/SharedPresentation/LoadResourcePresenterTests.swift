@@ -21,16 +21,15 @@ final class LoadResourcePresenterTests: XCTestCase {
         
         sut.didStartLoading()
         
-        XCTAssertEqual(view.messages, [.display(.none), .display(isLoading: true)], "Expected no error message when starting to load feed")
+        XCTAssertEqual(view.messages, [.display(errorMessage: .none), .display(isLoading: true)], "Expected to display no error message and start loading")
     }
     
-    func test_didFinishLoadingFeed_displaysFeedAndStopsLoading() {
-        let (sut, view) = buildSUT()
-        let feed = uniqueImageFeed().domain
+    func test_didFinishLoadingResource_displaysResourceAndStopsLoading() {
+        let (sut, view) = buildSUT(mapper: { resource in resource + " state" })
         
-        sut.didFinishLoadingFeed(with: feed)
+        sut.didFinishLoading(with: "resource")
         
-        XCTAssertEqual(view.messages, [.display(feed: feed), .display(isLoading: false)], "Expected to display feed and stop loading")
+        XCTAssertEqual(view.messages, [.display(state: "resource state"), .display(isLoading: false)], "Expected to display mapped resource and stop loading")
     }
     
     func test_didFinishLoadingFeedWithError_displaysLocalizedErrorMessageAndStopsLoading() {
@@ -38,15 +37,19 @@ final class LoadResourcePresenterTests: XCTestCase {
         
         sut.didFinishLoadingFeed(with: anyNSError())
         
-        XCTAssertEqual(view.messages, [.display(localized("FEED_VIEW_CONNECTION_ERROR")), .display(isLoading: false)], "Expected to display localized error message and stop loading")
+        XCTAssertEqual(view.messages, [.display(errorMessage: localized("FEED_VIEW_CONNECTION_ERROR")), .display(isLoading: false)], "Expected to display localized error message and stop loading")
     }
 }
 
 extension LoadResourcePresenterTests {
+    private typealias SUT = LoadResourcePresenter<String, ViewSpy>
     
-    private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (LoadResourcePresenter, ViewSpy) {
+    private func buildSUT(
+        mapper: @escaping SUT.Mapper = { _ in "" },
+        file: StaticString = #filePath,
+        line: UInt = #line) -> (SUT, ViewSpy) {
         let view = ViewSpy()
-        let sut = LoadResourcePresenter(feedErrorView: view, feedLoadingView: view as FeedLoadingView, feedView: view as FeedView)
+        let sut = SUT(feedErrorView: view, feedLoadingView: view, resourceView: view, mapper: mapper)
         trackMemoryLeak(for: view, file: file, line: line)
         trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, view)
@@ -54,7 +57,7 @@ extension LoadResourcePresenterTests {
     
     private func localized(_ key: String, file: StaticString = #file, line: UInt = #line) -> String {
         let table = "Feed"
-        let bundle = Bundle(for: LoadResourcePresenter.self)
+        let bundle = Bundle(for: SUT.self)
         let value = bundle.localizedString(forKey: key, value: nil, table: table)
         if value == key {
             XCTFail("Missing localized string for key: \(key) in table: \(table)", file: file, line: line)
@@ -62,25 +65,25 @@ extension LoadResourcePresenterTests {
         return value
     }
     
-    private class ViewSpy: FeedErrorView, FeedLoadingView, FeedView {
-        
+    private class ViewSpy: FeedErrorView, FeedLoadingView, ResourceView {
+        typealias UIState = String
         enum Message: Hashable {
-            case display(String?)
+            case display(errorMessage: String?)
             case display(isLoading: Bool)
-            case display(feed: [FeedImage])
+            case display(state: String)
         }
         var messages = Set<Message>()
         
         func display(_ state: FeedErrorViewState) {
-            messages.insert(.display(state.message))
+            messages.insert(.display(errorMessage: state.message))
         }
         
         func display(_ state: FeedLoadingViewState) {
             messages.insert(.display(isLoading: state.isLoading))
         }
         
-        func display(_ state: FeedViewState) {
-            messages.insert(.display(feed: state.feed))
+        func display(_ state: UIState) {
+            messages.insert(.display(state: state))
         }
     }
 }

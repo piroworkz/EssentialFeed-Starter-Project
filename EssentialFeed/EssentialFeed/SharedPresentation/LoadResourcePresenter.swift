@@ -7,15 +7,23 @@
 
 import Foundation
 
-public class LoadResourcePresenter {
+public protocol ResourceView {
+    associatedtype UIState
+    func display(_ state: UIState)
+}
+
+public class LoadResourcePresenter<T, View: ResourceView> {
+    public typealias Mapper = (T) -> View.UIState
     private let feedErrorView: FeedErrorView
     private let feedLoadingView: FeedLoadingView
-    private let feedView: FeedView
+    private let resourceView: View
+    private let mapper: Mapper
     
-    public init(feedErrorView: FeedErrorView, feedLoadingView: FeedLoadingView, feedView: FeedView) {
+    public init(feedErrorView: FeedErrorView, feedLoadingView: FeedLoadingView, resourceView: View, mapper: @escaping Mapper) {
         self.feedErrorView = feedErrorView
         self.feedLoadingView = feedLoadingView
-        self.feedView = feedView
+        self.resourceView = resourceView
+        self.mapper = mapper
     }
     
     private var loadErrorMessage: String {
@@ -27,8 +35,8 @@ public class LoadResourcePresenter {
         feedLoadingView.display(.loading)
     }
     
-    public func didFinishLoadingFeed(with feed: [FeedImage]) {
-        feedView.display(FeedViewState(feed: feed))
+    public func didFinishLoading(with resource: T) {
+        resourceView.display(mapper(resource))
         feedLoadingView.display(.notLoading)
     }
     
