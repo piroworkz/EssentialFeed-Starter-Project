@@ -8,11 +8,12 @@
 import Foundation
 import EssentialFeed
 import EssentialFeediOS
+import Combine
 
 extension FeedUiIntegrationTests {
-    class LoaderSpy: FeedLoader, FeedImageDataLoader {
+    class LoaderSpy: FeedImageDataLoader {
         
-        private var feedRequests = [(FeedLoader.Result) -> Void]()
+        private var feedRequests = [PassthroughSubject<[FeedImage], Error>]()
         private var imageRequests = [(url: URL, completion: (FeedImageDataLoader.Result) -> Void)]()
         
         var loadedImageURLs: [URL] {
@@ -25,6 +26,12 @@ extension FeedUiIntegrationTests {
             return feedRequests.count
         }
         
+        func loadPublisher() -> AnyPublisher<[FeedImage], Error> {
+            let publisher = PassthroughSubject<[FeedImage], Error>()
+            feedRequests.append(publisher)
+            return publisher.eraseToAnyPublisher()
+        }
+        
         func load(completion: @escaping (FeedLoader.Result) -> Void) {
             feedRequests.append(completion)
         }
@@ -35,12 +42,12 @@ extension FeedUiIntegrationTests {
         }
         
         func completeFeedLoading(with feed: [FeedImage] = [], at index: Int) {
-            feedRequests[index](.success(feed))
+            feedRequests[index].send(feed)
         }
         
         func completeFeedLoadingWithError(at index: Int) {
             let error = NSError(domain: "an error", code: 0)
-            feedRequests[index](.failure(error))
+            feedRequests[index].send(load(completion: .failure(error)))
         }
         
         func completeImageLoading(with imageData: Data = Data(), at index: Int = 0) {
