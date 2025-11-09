@@ -63,10 +63,10 @@
 		18CDCE652E90D31E00771821 /* SharedTestUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F4BEB42E8606F60030008C /* SharedTestUtils.swift */; };
 		18CEF9C92EB57B76005A2B0E /* EssentialFeedCacheIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9C62EB57B76005A2B0E /* EssentialFeedCacheIntegrationTests.swift */; };
 		18CEF9CF2EB57C11005A2B0E /* EssentialFeedApiEndToEndTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9CB2EB57C11005A2B0E /* EssentialFeedApiEndToEndTests.swift */; };
-		18CEF9DE2EB57C17005A2B0E /* FeedErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D02EB57C17005A2B0E /* FeedErrorView.swift */; };
-		18CEF9DF2EB57C17005A2B0E /* FeedErrorViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D12EB57C17005A2B0E /* FeedErrorViewState.swift */; };
-		18CEF9E02EB57C17005A2B0E /* FeedLoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D22EB57C17005A2B0E /* FeedLoadingView.swift */; };
-		18CEF9E12EB57C17005A2B0E /* FeedLoadingViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D32EB57C17005A2B0E /* FeedLoadingViewState.swift */; };
+		18CEF9DE2EB57C17005A2B0E /* ErrorMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D02EB57C17005A2B0E /* ErrorMessageView.swift */; };
+		18CEF9DF2EB57C17005A2B0E /* ErrorMessageUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D12EB57C17005A2B0E /* ErrorMessageUIState.swift */; };
+		18CEF9E02EB57C17005A2B0E /* LoadingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D22EB57C17005A2B0E /* LoadingView.swift */; };
+		18CEF9E12EB57C17005A2B0E /* LoadingUIState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D32EB57C17005A2B0E /* LoadingUIState.swift */; };
 		18CEF9E22EB57C17005A2B0E /* FeedPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D42EB57C17005A2B0E /* FeedPresenter.swift */; };
 		18CEF9E32EB57C17005A2B0E /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D52EB57C17005A2B0E /* FeedView.swift */; };
 		18CEF9E42EB57C17005A2B0E /* FeedViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18CEF9D62EB57C17005A2B0E /* FeedViewState.swift */; };
@@ -203,10 +203,10 @@
 		18CEF9C72EB57B76005A2B0E /* EssentialFeedCacheIntegrationTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeedCacheIntegrationTests.xctestplan; sourceTree = "<group>"; };
 		18CEF9CB2EB57C11005A2B0E /* EssentialFeedApiEndToEndTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialFeedApiEndToEndTests.swift; sourceTree = "<group>"; };
 		18CEF9CC2EB57C11005A2B0E /* EssentialFeedAPIEndToEndTests.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = EssentialFeedAPIEndToEndTests.xctestplan; sourceTree = "<group>"; };
-		18CEF9D02EB57C17005A2B0E /* FeedErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedErrorView.swift; sourceTree = "<group>"; };
-		18CEF9D12EB57C17005A2B0E /* FeedErrorViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedErrorViewState.swift; sourceTree = "<group>"; };
-		18CEF9D22EB57C17005A2B0E /* FeedLoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoadingView.swift; sourceTree = "<group>"; };
-		18CEF9D32EB57C17005A2B0E /* FeedLoadingViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedLoadingViewState.swift; sourceTree = "<group>"; };
+		18CEF9D02EB57C17005A2B0E /* ErrorMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageView.swift; sourceTree = "<group>"; };
+		18CEF9D12EB57C17005A2B0E /* ErrorMessageUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorMessageUIState.swift; sourceTree = "<group>"; };
+		18CEF9D22EB57C17005A2B0E /* LoadingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingView.swift; sourceTree = "<group>"; };
+		18CEF9D32EB57C17005A2B0E /* LoadingUIState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingUIState.swift; sourceTree = "<group>"; };
 		18CEF9D42EB57C17005A2B0E /* FeedPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedPresenter.swift; sourceTree = "<group>"; };
 		18CEF9D52EB57C17005A2B0E /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 		18CEF9D62EB57C17005A2B0E /* FeedViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewState.swift; sourceTree = "<group>"; };
@@ -503,10 +503,6 @@
 		18CEF9D72EB57C17005A2B0E /* Feed */ = {
 			isa = PBXGroup;
 			children = (
-				18CEF9D02EB57C17005A2B0E /* FeedErrorView.swift */,
-				18CEF9D12EB57C17005A2B0E /* FeedErrorViewState.swift */,
-				18CEF9D22EB57C17005A2B0E /* FeedLoadingView.swift */,
-				18CEF9D32EB57C17005A2B0E /* FeedLoadingViewState.swift */,
 				18CEF9D42EB57C17005A2B0E /* FeedPresenter.swift */,
 				18CEF9D52EB57C17005A2B0E /* FeedView.swift */,
 				18CEF9D62EB57C17005A2B0E /* FeedViewState.swift */,
@@ -605,6 +601,10 @@
 		18D863032EC11D4600DB6FD3 /* SharedPresentation */ = {
 			isa = PBXGroup;
 			children = (
+				18CEF9D02EB57C17005A2B0E /* ErrorMessageView.swift */,
+				18CEF9D12EB57C17005A2B0E /* ErrorMessageUIState.swift */,
+				18CEF9D22EB57C17005A2B0E /* LoadingView.swift */,
+				18CEF9D32EB57C17005A2B0E /* LoadingUIState.swift */,
 				18D863042EC11D5400DB6FD3 /* LoadResourcePresenter.swift */,
 				18B5C1CF2EC129E7002F3EC0 /* Shared.xcstrings */,
 			);
@@ -946,10 +946,10 @@
 				080EDF0C21B6DAE800813479 /* FeedImage.swift in Sources */,
 				18DDBAAD2E80D3B8003E3C6B /* URLSessionHTTPClient.swift in Sources */,
 				18E0C72D2E88C4E7006ED77E /* CoreDataFeedStore.swift in Sources */,
-				18CEF9DE2EB57C17005A2B0E /* FeedErrorView.swift in Sources */,
-				18CEF9DF2EB57C17005A2B0E /* FeedErrorViewState.swift in Sources */,
-				18CEF9E02EB57C17005A2B0E /* FeedLoadingView.swift in Sources */,
-				18CEF9E12EB57C17005A2B0E /* FeedLoadingViewState.swift in Sources */,
+				18CEF9DE2EB57C17005A2B0E /* ErrorMessageView.swift in Sources */,
+				18CEF9DF2EB57C17005A2B0E /* ErrorMessageUIState.swift in Sources */,
+				18CEF9E02EB57C17005A2B0E /* LoadingView.swift in Sources */,
+				18CEF9E12EB57C17005A2B0E /* LoadingUIState.swift in Sources */,
 				18CEF9E22EB57C17005A2B0E /* FeedPresenter.swift in Sources */,
 				18CEF9E32EB57C17005A2B0E /* FeedView.swift in Sources */,
 				18CEF9E42EB57C17005A2B0E /* FeedViewState.swift in Sources */,

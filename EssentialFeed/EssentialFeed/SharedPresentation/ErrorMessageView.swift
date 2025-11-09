@@ -7,6 +7,6 @@
 
 import Foundation
 
-public protocol FeedErrorView {
-    func display(_ state: FeedErrorViewState)
+public protocol ErrorMessageView {
+    func display(_ state: ErrorMessageUIState)
 }

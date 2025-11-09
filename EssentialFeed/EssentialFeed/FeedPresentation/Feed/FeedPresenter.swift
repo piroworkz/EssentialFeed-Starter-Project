@@ -8,11 +8,11 @@
 import Foundation
 
 public final class FeedPresenter {
-    private let feedErrorView: FeedErrorView
-    private let feedLoadingView: FeedLoadingView
+    private let feedErrorView: ErrorMessageView
+    private let feedLoadingView: LoadingView
     private let feedView: FeedView
     
-    public init(feedErrorView: FeedErrorView, feedLoadingView: FeedLoadingView, feedView: FeedView) {
+    public init(feedErrorView: ErrorMessageView, feedLoadingView: LoadingView, feedView: FeedView) {
         self.feedErrorView = feedErrorView
         self.feedLoadingView = feedLoadingView
         self.feedView = feedView

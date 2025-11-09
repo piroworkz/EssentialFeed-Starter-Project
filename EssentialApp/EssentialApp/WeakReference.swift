@@ -16,8 +16,8 @@ final class WeakReference<T: AnyObject> {
     }
 }
 
-extension WeakReference: FeedLoadingView where T: FeedLoadingView {
-    func display(_ state: FeedLoadingViewState) {
+extension WeakReference: LoadingView where T: LoadingView {
+    func display(_ state: LoadingUIState) {
         value?.display(state)
     }
 }
@@ -28,8 +28,8 @@ extension WeakReference: FeedImageView where T: FeedImageView, T.Image == UIImag
     }
 }
 
-extension WeakReference: FeedErrorView where T: FeedErrorView {
-    func display(_ state: FeedErrorViewState) {
+extension WeakReference: ErrorMessageView where T: ErrorMessageView {
+    func display(_ state: ErrorMessageUIState) {
         value?.display(state)
     }
 }

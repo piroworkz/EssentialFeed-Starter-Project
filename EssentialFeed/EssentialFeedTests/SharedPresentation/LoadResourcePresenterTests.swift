@@ -55,7 +55,7 @@ extension LoadResourcePresenterTests {
         return (sut, view)
     }
     
-    private class ViewSpy: FeedErrorView, FeedLoadingView, ResourceView {
+    private class ViewSpy: ErrorMessageView, LoadingView, ResourceView {
         typealias UIState = String
         enum Message: Hashable {
             case display(errorMessage: String?)
@@ -64,11 +64,11 @@ extension LoadResourcePresenterTests {
         }
         var messages = Set<Message>()
         
-        func display(_ state: FeedErrorViewState) {
+        func display(_ state: ErrorMessageUIState) {
             messages.insert(.display(errorMessage: state.message))
         }
         
-        func display(_ state: FeedLoadingViewState) {
+        func display(_ state: LoadingUIState) {
             messages.insert(.display(isLoading: state.isLoading))
         }
         

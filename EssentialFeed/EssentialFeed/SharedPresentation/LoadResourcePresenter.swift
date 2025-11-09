@@ -14,12 +14,12 @@ public protocol ResourceView {
 
 public class LoadResourcePresenter<T, View: ResourceView> {
     public typealias Mapper = (T) -> View.UIState
-    private let feedErrorView: FeedErrorView
-    private let feedLoadingView: FeedLoadingView
+    private let feedErrorView: ErrorMessageView
+    private let feedLoadingView: LoadingView
     private let resourceView: View
     private let mapper: Mapper
     
-    public init(feedErrorView: FeedErrorView, feedLoadingView: FeedLoadingView, resourceView: View, mapper: @escaping Mapper) {
+    public init(feedErrorView: ErrorMessageView, feedLoadingView: LoadingView, resourceView: View, mapper: @escaping Mapper) {
         self.feedErrorView = feedErrorView
         self.feedLoadingView = feedLoadingView
         self.resourceView = resourceView

@@ -50,13 +50,13 @@ extension FeedPresenterTests {
     
     private func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (FeedPresenter, ViewSpy) {
         let view = ViewSpy()
-        let sut = FeedPresenter(feedErrorView: view, feedLoadingView: view as FeedLoadingView, feedView: view as FeedView)
+        let sut = FeedPresenter(feedErrorView: view, feedLoadingView: view as LoadingView, feedView: view as FeedView)
         trackMemoryLeak(for: view, file: file, line: line)
         trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, view)
     }
 
-    private class ViewSpy: FeedErrorView, FeedLoadingView, FeedView {
+    private class ViewSpy: ErrorMessageView, LoadingView, FeedView {
         
         enum Message: Hashable {
             case display(String?)
@@ -65,11 +65,11 @@ extension FeedPresenterTests {
         }
         var messages = Set<Message>()
         
-        func display(_ state: FeedErrorViewState) {
+        func display(_ state: ErrorMessageUIState) {
             messages.insert(.display(state.message))
         }
         
-        func display(_ state: FeedLoadingViewState) {
+        func display(_ state: LoadingUIState) {
             messages.insert(.display(isLoading: state.isLoading))
         }
         

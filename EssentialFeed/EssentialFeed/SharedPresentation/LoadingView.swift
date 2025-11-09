@@ -5,6 +5,6 @@
 //  Created by David Luna on 26/10/25.
 //
 
-public protocol FeedLoadingView {
-    func display(_ state: FeedLoadingViewState)
+public protocol LoadingView {
+    func display(_ state: LoadingUIState)
 }
