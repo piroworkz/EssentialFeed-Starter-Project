@@ -32,10 +32,6 @@ extension FeedUiIntegrationTests {
             return publisher.eraseToAnyPublisher()
         }
         
-        func load(completion: @escaping (FeedLoader.Result) -> Void) {
-            feedRequests.append(completion)
-        }
-        
         func loadImageData(from url: URL, completion: @escaping(FeedImageDataLoader.Result) -> Void) -> FeedImageDataLoaderTask {
             imageRequests.append((url, completion))
             return TaskSpy { [weak self] in self?.cancelledImageURLs.append(url) }
@@ -47,7 +43,7 @@ extension FeedUiIntegrationTests {
         
         func completeFeedLoadingWithError(at index: Int) {
             let error = NSError(domain: "an error", code: 0)
-            feedRequests[index].send(load(completion: .failure(error)))
+            feedRequests[index].send(completion: .failure(error))
         }
         
         func completeImageLoading(with imageData: Data = Data(), at index: Int = 0) {
