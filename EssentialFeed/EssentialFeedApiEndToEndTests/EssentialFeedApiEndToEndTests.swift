@@ -73,7 +73,7 @@ extension EssentialFeedApiEndToEndTests {
     }
     
     private func getFeedResult(file: StaticString = #filePath, line: UInt = #line) -> FeedLoader.Result? {
-        let loader = RemoteFeedLoader(url: baseURL, client: buildClient())
+        let loader = RemoteLoader(url: baseURL, client: buildClient(), mapper: FeedImageMapper.map)
         trackMemoryLeak(for: loader, file: file, line: line)
         
         let exp = expectation(description: "Wait for load completion")

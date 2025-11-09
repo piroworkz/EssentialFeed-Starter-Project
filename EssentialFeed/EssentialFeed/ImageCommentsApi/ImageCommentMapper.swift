@@ -13,7 +13,7 @@ public class ImageCommentMapper {
         let decoder = JSONDecoder()
         decoder.dateDecodingStrategy = .iso8601
         guard response.validateStatusCode(byRange: 200...299), let items = try? decoder.decode(RemoteResponse.self, from: data).imageComments else {
-            throw RemoteImageCommentsLoader.Error.invalidData
+            throw Error.invalidData
         }
         return items
     }
@@ -28,7 +28,10 @@ public class ImageCommentMapper {
     struct RemoteAuthor: Decodable {
         let username: String
     }
-
+    
+    public enum Error: Swift.Error {
+        case invalidData
+    }
 }
 
 private extension RemoteResponse where T == [ImageCommentMapper.RemoteImageComment] {

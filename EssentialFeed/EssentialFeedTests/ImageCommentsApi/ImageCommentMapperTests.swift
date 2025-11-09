@@ -58,14 +58,6 @@ class ImageCommentMapperTests: XCTestCase {
 
 extension ImageCommentMapperTests {
     
-    private func buildSUT(url: URL = URL(string: "https://example.com")!, file: StaticString = #filePath, line: UInt = #line) -> (sut: RemoteImageCommentsLoader, client: HTTPClientSpy) {
-        let client = HTTPClientSpy()
-        let sut = RemoteImageCommentsLoader(url: url, client: client)
-        trackMemoryLeak(for: sut, file: file, line: line)
-        trackMemoryLeak(for: client, file: file, line: line)
-        return (sut, client)
-    }
-    
     private func buildImageComment(id: UUID, message: String, createdAt: (date: Date, iso8601String: String), username: String) -> (model: ImageComment, json: [String: Any]) {
         let imageComment = ImageComment(id: id, message: message, createdAt: createdAt.date, username: username)
         let json: [String : Any] = [
@@ -82,35 +74,6 @@ extension ImageCommentMapperTests {
     private func buildItemsJSON(_ items: [[String: Any]]) -> Data {
         let itemsJSON = [ "items": items]
         return try! JSONSerialization.data(withJSONObject: itemsJSON)
-    }
-    
-    private func expect(
-        _ sut: RemoteImageCommentsLoader,
-        toCompleteWith expectedResult: RemoteImageCommentsLoader.Result,
-        when action: () -> Void,
-        file: StaticString = #filePath,
-        line: UInt = #line) {
-            let expectation = expectation(description: "Wait for load completion")
-            
-            sut.load { receivedResult in
-                switch (receivedResult, expectedResult) {
-                case let (.success(receivedItems), .success(expectedItems)):
-                    XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
-                case let (.failure(receivedError as RemoteImageCommentsLoader.Error), .failure(expectedError as RemoteImageCommentsLoader.Error)):
-                    XCTAssertEqual(receivedError, expectedError, file: file, line: line)
-                default:
-                    XCTFail("Unexpected result: \(receivedResult) <-- does not match --> \(expectedResult)", file: file, line: line)
-                }
-                expectation.fulfill()
-            }
-            
-            action()
-            
-            wait(for: [expectation], timeout: 1.0)
-        }
-    
-    private func failure(_ error: RemoteImageCommentsLoader.Error) -> RemoteImageCommentsLoader.Result {
-        return .failure(error)
     }
 }
 
