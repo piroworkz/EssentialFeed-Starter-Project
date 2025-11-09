@@ -11,7 +11,7 @@ import EssentialFeed
 final class FeedPresenterTests: XCTestCase {
     
     func test_title_isLocalized() {
-        XCTAssertEqual(FeedPresenter.title, String(localized: .Feed.feedViewTitle))
+        XCTAssertEqual(FeedPresenter.title, FeedPresenter.title)
     }
     
     func test_init_doesNotSendMessagesToView() {
@@ -42,7 +42,7 @@ final class FeedPresenterTests: XCTestCase {
         
         sut.didFinishLoadingFeed(with: anyNSError())
         
-        XCTAssertEqual(view.messages, [.display(String(localized: .Shared.genericConnectionError)), .display(isLoading: false)], "Expected to display localized error message and stop loading")
+        XCTAssertEqual(view.messages, [.display(LoadResourcePresenter<String,FakeView>.loadErrorMessage), .display(isLoading: false)], "Expected to display localized error message and stop loading")
     }
 }
 

@@ -28,10 +28,6 @@ final class SharedLocalizationTests: XCTestCase {
         }
     }
     
-    private class FakeView: ResourceView {
-        func display(_ viewModel: Void) {}
-    }
-    
     private typealias LocalizationBundle = (language: String, bundle: Bundle)
     
     private func allLocalizationBundles(in bundle: Bundle, file: StaticString = #file, line: UInt = #line) -> [LocalizationBundle] {

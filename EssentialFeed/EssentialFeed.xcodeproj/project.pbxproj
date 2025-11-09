@@ -43,6 +43,10 @@
 		18A1D3432E8332160061CA13 /* CacheFeedUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18A1D3422E8332160061CA13 /* CacheFeedUseCaseTests.swift */; };
 		18B5C1D02EC129E7002F3EC0 /* Shared.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 18B5C1CF2EC129E7002F3EC0 /* Shared.xcstrings */; };
 		18B5C1D52EC1433D002F3EC0 /* SharedLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5C1D42EC1433D002F3EC0 /* SharedLocalizationTests.swift */; };
+		18B5C1D72EC1490F002F3EC0 /* FakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5C1D62EC1490F002F3EC0 /* FakeView.swift */; };
+		18B5C1D82EC1490F002F3EC0 /* FakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5C1D62EC1490F002F3EC0 /* FakeView.swift */; };
+		18B5C1D92EC1490F002F3EC0 /* FakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5C1D62EC1490F002F3EC0 /* FakeView.swift */; };
+		18B5C1DA2EC1490F002F3EC0 /* FakeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B5C1D62EC1490F002F3EC0 /* FakeView.swift */; };
 		18B8542B2EB5275200D6E2B1 /* FeedCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B8542A2EB5275200D6E2B1 /* FeedCache.swift */; };
 		18B854372EB532E300D6E2B1 /* FeedImageDataCache.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18B854362EB532E300D6E2B1 /* FeedImageDataCache.swift */; };
 		18C0DDD12E7E0EAD00138960 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18C0DDD02E7E0EAD00138960 /* HTTPClient.swift */; };
@@ -181,6 +185,7 @@
 		18A1D3422E8332160061CA13 /* CacheFeedUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CacheFeedUseCaseTests.swift; sourceTree = "<group>"; };
 		18B5C1CF2EC129E7002F3EC0 /* Shared.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Shared.xcstrings; sourceTree = "<group>"; };
 		18B5C1D42EC1433D002F3EC0 /* SharedLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedLocalizationTests.swift; sourceTree = "<group>"; };
+		18B5C1D62EC1490F002F3EC0 /* FakeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FakeView.swift; sourceTree = "<group>"; };
 		18B8542A2EB5275200D6E2B1 /* FeedCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCache.swift; sourceTree = "<group>"; };
 		18B854362EB532E300D6E2B1 /* FeedImageDataCache.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageDataCache.swift; sourceTree = "<group>"; };
 		18C0DDD02E7E0EAD00138960 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
@@ -604,6 +609,7 @@
 		18DDBAA72E80B566003E3C6B /* Utils */ = {
 			isa = PBXGroup;
 			children = (
+				18B5C1D62EC1490F002F3EC0 /* FakeView.swift */,
 				185E09752EC0028100E97D35 /* HTTPURLResponse+Utils.swift */,
 				18DDBAA82E80B591003E3C6B /* XCTestCase+MemoryLeakTracker.swift */,
 				18F4BEB42E8606F60030008C /* SharedTestUtils.swift */,
@@ -978,6 +984,7 @@
 				18E0C72B2E88C457006ED77E /* CoreDataFeedStoreTests.swift in Sources */,
 				18B5C1D52EC1433D002F3EC0 /* SharedLocalizationTests.swift in Sources */,
 				18F031842EB29036004DABCC /* CoreDataFeedImageDataStoreTests.swift in Sources */,
+				18B5C1D92EC1490F002F3EC0 /* FakeView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1007,6 +1014,7 @@
 				187AB0612EB6C9DC0060703C /* UIViewController+Snapshot.swift in Sources */,
 				1853A7AF2EB1516C00B2A8CA /* URLProtocolStub.swift in Sources */,
 				187AB05C2EB6B8810060703C /* UIImage+TestHelpers.swift in Sources */,
+				18B5C1D82EC1490F002F3EC0 /* FakeView.swift in Sources */,
 				1853A7A62EB1401500B2A8CA /* HTTPClientSpy.swift in Sources */,
 				185E09762EC0028100E97D35 /* HTTPURLResponse+Utils.swift in Sources */,
 			);
@@ -1019,6 +1027,7 @@
 				18CEF9C92EB57B76005A2B0E /* EssentialFeedCacheIntegrationTests.swift in Sources */,
 				1853A7AD2EB1516C00B2A8CA /* URLProtocolStub.swift in Sources */,
 				18CDCE652E90D31E00771821 /* SharedTestUtils.swift in Sources */,
+				18B5C1D72EC1490F002F3EC0 /* FakeView.swift in Sources */,
 				185E09782EC0028100E97D35 /* HTTPURLResponse+Utils.swift in Sources */,
 				18CDCE622E90CF3500771821 /* XCTestCase+MemoryLeakTracker.swift in Sources */,
 				1853A7A82EB1401500B2A8CA /* HTTPClientSpy.swift in Sources */,
@@ -1032,6 +1041,7 @@
 				1853A7AE2EB1516C00B2A8CA /* URLProtocolStub.swift in Sources */,
 				18F4BEB52E8606F60030008C /* SharedTestUtils.swift in Sources */,
 				18DDBABC2E80DA64003E3C6B /* XCTestCase+MemoryLeakTracker.swift in Sources */,
+				18B5C1DA2EC1490F002F3EC0 /* FakeView.swift in Sources */,
 				18E0C7302E88C746006ED77E /* FeedStore.xcdatamodeld in Sources */,
 				185E09792EC0028100E97D35 /* HTTPURLResponse+Utils.swift in Sources */,
 				18CEF9CF2EB57C11005A2B0E /* EssentialFeedApiEndToEndTests.swift in Sources */,

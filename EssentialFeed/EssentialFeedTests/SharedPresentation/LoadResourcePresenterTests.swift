@@ -37,7 +37,7 @@ final class LoadResourcePresenterTests: XCTestCase {
         
         sut.didFinishLoading(with: anyNSError())
         
-        XCTAssertEqual(view.messages, [.display(errorMessage: String(localized: .Shared.genericConnectionError)), .display(isLoading: false)], "Expected to display localized error message and stop loading")
+        XCTAssertEqual(view.messages, [.display(errorMessage: LoadResourcePresenter<String, FakeView>.loadErrorMessage), .display(isLoading: false)], "Expected to display localized error message and stop loading")
     }
 }
 
