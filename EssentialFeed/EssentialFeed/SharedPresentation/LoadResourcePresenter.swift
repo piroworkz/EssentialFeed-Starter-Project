@@ -27,7 +27,7 @@ public class LoadResourcePresenter<T, View: ResourceView> {
     }
     
     private var loadErrorMessage: String {
-        return NSLocalizedString("FEED_VIEW_CONNECTION_ERROR", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Error message displayed when we can't load the feed")
+        return NSLocalizedString("GENERIC_CONNECTION_ERROR", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Error message displayed when we can't load the feed")
     }
     
     public func didStartLoading() {
@@ -40,7 +40,7 @@ public class LoadResourcePresenter<T, View: ResourceView> {
         feedLoadingView.display(.notLoading)
     }
     
-    public func didFinishLoadingFeed(with error: Error) {
+    public func didFinishLoading(with error: Error) {
         feedErrorView.display(.error(message: loadErrorMessage))
         feedLoadingView.display(.notLoading)
     }
