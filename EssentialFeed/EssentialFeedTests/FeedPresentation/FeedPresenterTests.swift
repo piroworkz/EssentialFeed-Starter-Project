@@ -14,6 +14,14 @@ final class FeedPresenterTests: XCTestCase {
         XCTAssertEqual(FeedPresenter.title, FeedPresenter.title)
     }
     
+    func test_map_buildsNewUIState() {
+        let feed = uniqueImageFeed().domain
+        
+        let uiState = FeedPresenter.map(feed)
+        
+        XCTAssertEqual(uiState.feed, feed, "Expected to map feed to UI state")
+    }
+    
     func test_init_doesNotSendMessagesToView() {
         let (_, view) = buildSUT()
         
