@@ -346,16 +346,16 @@
 		080EDEF321B6DA7E00813479 /* EssentialFeed */ = {
 			isa = PBXGroup;
 			children = (
-				18D863032EC11D4600DB6FD3 /* SharedPresentation */,
-				18D4A6432EB99F6D006DB7AA /* ImageCommentsApi */,
-				18D4A6392EB99E71006DB7AA /* SharedApi */,
 				080EDEF521B6DA7E00813479 /* Info.plist */,
 				18D167B92E7CF91D006A3E6B /* Feed Api */,
 				080EDF1021B6DFA200813479 /* Feed Feature */,
 				18A1D3452E836FE10061CA13 /* FeedCache */,
 				18E038372EA1AED800A08664 /* FeedImageLoader */,
 				18CEF9DD2EB57C17005A2B0E /* FeedPresentation */,
+				18D4A6432EB99F6D006DB7AA /* ImageCommentsApi */,
+				18D4A6392EB99E71006DB7AA /* SharedApi */,
 				18D4A6382EB99E18006DB7AA /* SharedApiInfrastructure */,
+				18D863032EC11D4600DB6FD3 /* SharedPresentation */,
 			);
 			path = EssentialFeed;
 			sourceTree = "<group>";
@@ -363,7 +363,6 @@
 		080EDEFE21B6DA7E00813479 /* EssentialFeedTests */ = {
 			isa = PBXGroup;
 			children = (
-				185E097C2EC02EA200E97D35 /* SharedPresentation */,
 				18D167B12E7CEFAE006A3E6B /* EssentialFeedTests-Bridging-Header.h */,
 				080EDF0121B6DA7E00813479 /* Info.plist */,
 				18C0DDD42E7E1CE700138960 /* FeedApi */,
@@ -372,6 +371,7 @@
 				18D4A6442EB99FB2006DB7AA /* ImageCommentsApi */,
 				18D4A63B2EB99EE7006DB7AA /* SharedApi */,
 				18D4A63A2EB99EB7006DB7AA /* SharedApiInfrastructure */,
+				185E097C2EC02EA200E97D35 /* SharedPresentation */,
 				18DDBAA72E80B566003E3C6B /* Utils */,
 			);
 			path = EssentialFeedTests;

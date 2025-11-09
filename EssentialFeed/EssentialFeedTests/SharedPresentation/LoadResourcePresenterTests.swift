@@ -47,9 +47,10 @@ extension LoadResourcePresenterTests {
     private func buildSUT(
         mapper: @escaping SUT.Mapper = { _ in "" },
         file: StaticString = #filePath,
-        line: UInt = #line) -> (SUT, ViewSpy) {
+        line: UInt = #line) -> (SUT, ViewSpy)
+    {
         let view = ViewSpy()
-        let sut = SUT(errorView: view, loadingView: view, commonView: view, mapper: mapper)
+        let sut = SUT(errorView: view, loadingView: view, view: view, mapper: mapper)
         trackMemoryLeak(for: view, file: file, line: line)
         trackMemoryLeak(for: sut, file: file, line: line)
         return (sut, view)
