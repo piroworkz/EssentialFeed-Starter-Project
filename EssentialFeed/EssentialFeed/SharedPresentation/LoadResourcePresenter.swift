@@ -27,7 +27,7 @@ public class LoadResourcePresenter<T, View: ResourceView> {
     }
     
     private var loadErrorMessage: String {
-        return NSLocalizedString("GENERIC_CONNECTION_ERROR", tableName: "Feed", bundle: Bundle(for: FeedPresenter.self), comment: "Error message displayed when we can't load the feed")
+        return String(localized: .Shared.genericConnectionError)
     }
     
     public func didStartLoading() {
