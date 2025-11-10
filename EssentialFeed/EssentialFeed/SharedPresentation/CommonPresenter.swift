@@ -8,7 +8,7 @@
 import Foundation
 
 public class CommonPresenter<T, View: CommonView> {
-    public typealias Mapper = (T) -> View.UIState
+    public typealias Mapper = (T) throws -> View.UIState
     private let errorView: ErrorMessageView
     private let loadingView: LoadingView
     private let view: View
@@ -31,8 +31,12 @@ public class CommonPresenter<T, View: CommonView> {
     }
     
     public func didFinishLoading(with resource: T) {
-        view.display(mapper(resource))
-        loadingView.display(.notLoading)
+        do {
+            view.display(try mapper(resource))
+            loadingView.display(.notLoading)
+        } catch {
+            didFinishLoading(with: error)
+        }
     }
     
     public func didFinishLoading(with error: Error) {

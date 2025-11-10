@@ -8,7 +8,7 @@
 import XCTest
 import EssentialFeed
 
-final class LoadResourcePresenterTests: XCTestCase {
+final class CommonPresenterTests: XCTestCase {
     
     func test_init_doesNotSendMessagesToView() {
         let (_, view) = buildSUT()
@@ -32,6 +32,15 @@ final class LoadResourcePresenterTests: XCTestCase {
         XCTAssertEqual(view.messages, [.display(state: "resource state"), .display(isLoading: false)], "Expected to display mapped resource and stop loading")
     }
     
+    func test_didFinishLoadingWithMapError_displaysLocalizedErrorMessageAndStopsLoading() throws {
+        let (sut, view) = buildSUT { _ in throw anyNSError() }
+        let expected: Set<ViewSpy.Message> = [.display(errorMessage: String(localized: .Shared.genericConnectionError)), .display(isLoading: false)]
+        
+        sut.didFinishLoading(with: "resource")
+        
+        XCTAssertEqual(view.messages, expected, "Expected to display localized error message and stop loading")
+    }
+    
     func test_didFinishLoadingWithError_displaysLocalizedErrorMessageAndStopsLoading() {
         let (sut, view) = buildSUT()
         
@@ -41,7 +50,7 @@ final class LoadResourcePresenterTests: XCTestCase {
     }
 }
 
-extension LoadResourcePresenterTests {
+extension CommonPresenterTests {
     private typealias SUT = CommonPresenter<String, ViewSpy>
     
     private func buildSUT(
