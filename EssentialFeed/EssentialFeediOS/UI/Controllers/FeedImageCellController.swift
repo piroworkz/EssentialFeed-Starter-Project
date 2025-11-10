@@ -13,17 +13,24 @@ public protocol FeedImageCellControllerDelegate {
     func didCancelImageRequest()
 }
 
-public final class FeedImageCellController: FeedImageView {
+public final class FeedImageCellController: FeedImageView, CommonView, LoadingView, ErrorMessageView {
+    public typealias UIState = UIImage
     
+    private let state: FeedImageState<UIImage>
     private let delegate: FeedImageCellControllerDelegate
     private var cell: FeedImageCell?
     
-    public init(delegate: FeedImageCellControllerDelegate) {
+    public init(state: FeedImageState<UIImage>, delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
+        self.state = state
     }
     
     func view(in tableView: UITableView) -> UITableViewCell {
         cell = tableView.dequeueReusableCell()
+        cell?.locationContainer?.isHidden = !state.hasLocation
+        cell?.locationLabel?.text = state.location
+        cell?.descriptionLabel?.text = state.description
+        cell?.onRetry = delegate.didRequestImage
         delegate.didRequestImage()
         return cell!
     }
@@ -37,15 +44,20 @@ public final class FeedImageCellController: FeedImageView {
         delegate.didCancelImageRequest()
     }
     
-    public func display(_ state: FeedImageState<UIImage>) {
-        cell?.locationContainer?.isHidden = !state.hasLocation
-        cell?.locationLabel?.text = state.location
-        cell?.descriptionLabel?.text = state.description
-        cell?.feedImageView?.setImageAnimated(state.image)
-        cell?.feedImageContainer?.isShimmering = state.isLoading
-        cell?.feedImageRetryButton?.isHidden = !state.shouldRetry
-        cell?.onRetry = delegate.didRequestImage
+    public func display(_ state: FeedImageState<UIImage>) {}
+    
+    public func display(_ state: UIImage) {
+        cell?.feedImageView?.setImageAnimated(state)
     }
+    
+    public func display(_ state: EssentialFeed.LoadingUIState) {
+        cell?.feedImageContainer?.isShimmering = state.isLoading
+    }
+    
+    public func display(_ state: EssentialFeed.ErrorMessageUIState) {
+        cell?.feedImageRetryButton?.isHidden = state.message == nil
+    }
+    
     
     private func releaseCellForReuse() {
         cell = nil

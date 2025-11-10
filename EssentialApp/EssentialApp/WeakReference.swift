@@ -22,8 +22,8 @@ extension WeakReference: LoadingView where T: LoadingView {
     }
 }
 
-extension WeakReference: FeedImageView where T: FeedImageView, T.Image == UIImage {
-    func display(_ state: FeedImageState<UIImage>) {
+extension WeakReference: CommonView where T: CommonView, T.UIState == UIImage {
+    func display(_ state: UIImage) {
         value?.display(state)
     }
 }

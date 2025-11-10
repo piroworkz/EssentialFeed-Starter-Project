@@ -12,22 +12,31 @@ import EssentialFeediOS
 final class FeedViewAdapter: CommonView {
     
     private weak var controller: FeedViewController?
-    private let loader: (URL) -> FeedImageDataLoader.Publisher
+    private let imageLoader: (URL) -> FeedImageDataLoader.Publisher
     
-    init(controller: FeedViewController, feedImageDataLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
+    init(controller: FeedViewController, imageLoader: @escaping (URL) -> FeedImageDataLoader.Publisher) {
         self.controller = controller
-        self.loader = feedImageDataLoader
+        self.imageLoader = imageLoader
     }
     
     func display(_ state: FeedViewState) {
         controller?.display(state.feed.map { model in
-            let adapter = FeedImageDataLoaderPresentationAdapter<WeakReference<FeedImageCellController>, UIImage>(model: model, imageLoader: loader)
-            let view = FeedImageCellController(delegate: adapter)
-            adapter.presenter = FeedImagePresenter(
+            let adapter = CommonPresentationAdapter<Data, WeakReference<FeedImageCellController>>(loader: { [imageLoader] in imageLoader(model.imageURL) })
+            let view = FeedImageCellController(state: FeedImagePresenter<FeedImageCellController, UIImage>.map(model), delegate: adapter)
+            
+            adapter.presenter = CommonPresenter(
+                errorView: WeakReference(view),
+                loadingView: WeakReference(view),
                 view: WeakReference(view),
-                imageMapper: UIImage.init
-            )
+                mapper: { data in
+                    guard let image = UIImage(data: data) else {
+                        throw InvalidImageDataError()
+                    }
+                    return image
+                })
             return view
         })
     }
+    private struct InvalidImageDataError: Error {}
 }
+
