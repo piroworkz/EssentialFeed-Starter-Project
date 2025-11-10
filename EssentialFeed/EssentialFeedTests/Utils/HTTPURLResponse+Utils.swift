@@ -8,6 +8,6 @@ import Foundation
 
 extension HTTPURLResponse {
     convenience init(statusCode: Int) {
-        self.init(url: anyURL(), statusCode: statusCode, httpVersion: nil, headerFields: nil)!
+        self.init(url: URL(string: "https://example.com")!, statusCode: statusCode, httpVersion: nil, headerFields: nil)!
     }
 }

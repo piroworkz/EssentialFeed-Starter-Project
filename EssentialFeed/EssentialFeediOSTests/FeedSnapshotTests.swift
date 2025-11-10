@@ -98,7 +98,7 @@ extension FeedSnapshotTests {
 private extension FeedViewController {
     func display(_ stubs: [ImageStub]) {
         let cells: [FeedImageCellController] = stubs.map { stub in
-            let cellController = FeedImageCellController(delegate: stub)
+            let cellController = FeedImageCellController(state: stub.state, delegate: stub)
             stub.controller = cellController
             return cellController
         }
@@ -107,21 +107,26 @@ private extension FeedViewController {
 }
 
 private class ImageStub: FeedImageCellControllerDelegate {
-    let state: FeedImageState<UIImage>
+    let state: FeedImageState
+    let image : UIImage?
     weak var controller: FeedImageCellController?
     
     init(description: String?, location: String?, image: UIImage?) {
         self.state = FeedImageState(
             description: description,
-            location: location,
-            image: image,
-            isLoading: false,
-            shouldRetry: image == nil
+            location: location
         )
+        self.image = image
     }
     
     func didRequestImage() {
-        controller?.display(state)
+        controller?.display(LoadingUIState(isLoading: false))
+        if let image = image {
+            controller?.display(image)
+            controller?.display(ErrorMessageUIState(message: .none))
+        } else {
+            controller?.display(ErrorMessageUIState(message: "any error"))
+        }
     }
     
     func didCancelImageRequest() {}

@@ -13,14 +13,14 @@ public protocol FeedImageCellControllerDelegate {
     func didCancelImageRequest()
 }
 
-public final class FeedImageCellController: FeedImageView, CommonView, LoadingView, ErrorMessageView {
+public final class FeedImageCellController: CommonView, LoadingView, ErrorMessageView {
     public typealias UIState = UIImage
     
-    private let state: FeedImageState<UIImage>
+    private let state: FeedImageState
     private let delegate: FeedImageCellControllerDelegate
     private var cell: FeedImageCell?
     
-    public init(state: FeedImageState<UIImage>, delegate: FeedImageCellControllerDelegate) {
+    public init(state: FeedImageState, delegate: FeedImageCellControllerDelegate) {
         self.delegate = delegate
         self.state = state
     }
@@ -44,8 +44,6 @@ public final class FeedImageCellController: FeedImageView, CommonView, LoadingVi
         delegate.didCancelImageRequest()
     }
     
-    public func display(_ state: FeedImageState<UIImage>) {}
-    
     public func display(_ state: UIImage) {
         cell?.feedImageView?.setImageAnimated(state)
     }
@@ -57,7 +55,6 @@ public final class FeedImageCellController: FeedImageView, CommonView, LoadingVi
     public func display(_ state: EssentialFeed.ErrorMessageUIState) {
         cell?.feedImageRetryButton?.isHidden = state.message == nil
     }
-    
     
     private func releaseCellForReuse() {
         cell = nil

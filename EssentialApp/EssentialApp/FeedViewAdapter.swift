@@ -22,7 +22,7 @@ final class FeedViewAdapter: CommonView {
     func display(_ state: FeedViewState) {
         controller?.display(state.feed.map { model in
             let adapter = CommonPresentationAdapter<Data, WeakReference<FeedImageCellController>>(loader: { [imageLoader] in imageLoader(model.imageURL) })
-            let view = FeedImageCellController(state: FeedImagePresenter<FeedImageCellController, UIImage>.map(model), delegate: adapter)
+            let view = FeedImageCellController(state: FeedImagePresenter.map(model), delegate: adapter)
             
             adapter.presenter = CommonPresenter(
                 errorView: WeakReference(view),
