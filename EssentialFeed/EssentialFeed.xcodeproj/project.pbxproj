@@ -14,6 +14,7 @@
 		1821DAC02EC2950000164ABA /* ImageCommentsPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821DABF2EC2950000164ABA /* ImageCommentsPresenter.swift */; };
 		1821DAC22EC295C200164ABA /* ImageComments.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1821DAC12EC295C200164ABA /* ImageComments.xcstrings */; };
 		1821DAC32EC295C200164ABA /* ImageComments.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 1821DAC12EC295C200164ABA /* ImageComments.xcstrings */; };
+		1821DAC72EC297A000164ABA /* ImageCommentsLocalizationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1821DAC62EC297A000164ABA /* ImageCommentsLocalizationTests.swift */; };
 		1853A7A32EB020AB00B2A8CA /* LoadFeedImageDataFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7A22EB020AB00B2A8CA /* LoadFeedImageDataFromRemoteUseCaseTests.swift */; };
 		1853A7A42EB027E000B2A8CA /* FeedImageDataLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18E038382EA1AF0500A08664 /* FeedImageDataLoader.swift */; };
 		1853A7A62EB1401500B2A8CA /* HTTPClientSpy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1853A7A52EB1401500B2A8CA /* HTTPClientSpy.swift */; };
@@ -175,6 +176,7 @@
 		1802B58A2E932E2600E42155 /* CI_iOS.xctestplan */ = {isa = PBXFileReference; lastKnownFileType = text; path = CI_iOS.xctestplan; sourceTree = "<group>"; };
 		1821DABF2EC2950000164ABA /* ImageCommentsPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsPresenter.swift; sourceTree = "<group>"; };
 		1821DAC12EC295C200164ABA /* ImageComments.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = ImageComments.xcstrings; sourceTree = "<group>"; };
+		1821DAC62EC297A000164ABA /* ImageCommentsLocalizationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCommentsLocalizationTests.swift; sourceTree = "<group>"; };
 		1852F1EF2E9DA8510080B80F /* FeedImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedImageCell.swift; sourceTree = "<group>"; };
 		1853A7A22EB020AB00B2A8CA /* LoadFeedImageDataFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadFeedImageDataFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
 		1853A7A52EB1401500B2A8CA /* HTTPClientSpy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClientSpy.swift; sourceTree = "<group>"; };
@@ -463,6 +465,7 @@
 		18B96B762EC25DDD00F8960D /* ImageCommentsPresentation */ = {
 			isa = PBXGroup;
 			children = (
+				1821DAC62EC297A000164ABA /* ImageCommentsLocalizationTests.swift */,
 				18B96B772EC25E0100F8960D /* ImageCommentsPresenterTests.swift */,
 			);
 			path = ImageCommentsPresentation;
@@ -1012,6 +1015,7 @@
 				185E097E2EC02ECB00E97D35 /* CommonPresenterTests.swift in Sources */,
 				18F031202EB1755A004DABCC /* LoadFeedImageDataFromCacheUseCaseTests.swift in Sources */,
 				18DDBAA92E80B591003E3C6B /* XCTestCase+MemoryLeakTracker.swift in Sources */,
+				1821DAC72EC297A000164ABA /* ImageCommentsLocalizationTests.swift in Sources */,
 				18F031822EB28A55004DABCC /* CacheFeedImageDataUseCaseTests.swift in Sources */,
 				18A1D3432E8332160061CA13 /* CacheFeedUseCaseTests.swift in Sources */,
 				18D93C5C2EB90F28005F80DE /* ImageCommentMapperTests.swift in Sources */,
