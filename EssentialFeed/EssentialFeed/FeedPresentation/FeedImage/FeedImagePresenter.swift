@@ -34,4 +34,8 @@ public final class FeedImagePresenter<View: FeedImageView, Image> where View.Ima
     public func didFinishLoadingImageData(with error: Error, for model: FeedImage) {
         view.display(FeedImageState(description: model.description, location: model.location, image: nil, isLoading: false, shouldRetry: true))
     }
+    
+    public static func map(_ model: FeedImage) -> FeedImageState<Image> {
+        FeedImageState(description: model.description, location: model.location, image: nil, isLoading: false, shouldRetry: false)
+    }
 }

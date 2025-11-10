@@ -9,6 +9,15 @@ import XCTest
 import EssentialFeed
 
 final class FeedImagePresenterTests: XCTestCase {
+    
+    func test_map_createsUIState() {
+        let expected = uniqueImage()
+        let uiState = FeedImagePresenter<ViewSpy, AnyImage>.map(expected)
+        
+        XCTAssertEqual(uiState.description, expected.description, "Expected description to be \(String(describing: expected.description))")
+        XCTAssertEqual(uiState.location, expected.location, "Expected location to be \(String(describing: expected.location))")
+    }
+    
     func test_init_doesNotSendMessagesToView() {
         let (_, view) = buildSUT()
         
