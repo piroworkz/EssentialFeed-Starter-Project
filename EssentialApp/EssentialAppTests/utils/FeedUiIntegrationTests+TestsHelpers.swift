@@ -14,14 +14,14 @@ import EssentialApp
 extension FeedUiIntegrationTests {
     
     var localizedErrorMessage: String {
-        LoadResourcePresenter<String, FakeView>.loadErrorMessage
+        CommonPresenter<String, FakeView>.loadErrorMessage
     }
     
     var localizedTitle: String {
         FeedPresenter.title
     }
     
-    private class FakeView: ResourceView {
+    private class FakeView: CommonView {
         func display(_ state: Void) {}
     }
     

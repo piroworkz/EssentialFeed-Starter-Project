@@ -20,10 +20,11 @@ public final class FeedUIComposer {
             title: FeedPresenter.title
         )
         
-        presenterAdapter.presenter = FeedPresenter(
-            feedErrorView: WeakReference(feedController),
-            feedLoadingView: WeakReference(feedController),
-            feedView: FeedViewAdapter(controller: feedController, feedImageDataLoader: { imageLoader($0).dispatchOnMainQueue() })
+        presenterAdapter.presenter = CommonPresenter(
+            errorView: WeakReference(feedController),
+            loadingView: WeakReference(feedController),
+            view: FeedViewAdapter(controller: feedController, feedImageDataLoader: { imageLoader($0).dispatchOnMainQueue() }),
+            mapper: FeedPresenter.map
         )
         
         return feedController
