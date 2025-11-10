@@ -43,7 +43,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     }
     
     func configureWindow() {
-        let feedViewController = FeedUIComposer.feedComposedWith(feedLoader: buildRemoteFeedLoaderWithFallback, imageLoader: buildLocalImageLoaderWithFallback)
+        let feedViewController = FeedUIComposer.feedComposedWith(loader: buildRemoteFeedLoaderWithFallback, imageLoader: buildLocalImageLoaderWithFallback)
         window?.rootViewController = UINavigationController(rootViewController: feedViewController)
         window?.makeKeyAndVisible()
     }

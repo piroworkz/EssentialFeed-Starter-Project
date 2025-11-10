@@ -8,7 +8,7 @@ import Combine
 import EssentialFeed
 import EssentialFeediOS
 
-final class FeedLoaderPresentationAdapter: FeedViewControllerDelegate {
+final class CommonPresentationAdapter: FeedViewControllerDelegate {
     private let feedLoader: () -> LocalFeedLoader.Publisher
     private var cancellable: Cancellable?
     var presenter: CommonPresenter<[FeedImage], FeedViewAdapter>?

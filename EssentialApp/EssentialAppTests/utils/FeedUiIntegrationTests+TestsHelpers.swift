@@ -27,7 +27,7 @@ extension FeedUiIntegrationTests {
     
     func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
-        let sut = FeedUIComposer.feedComposedWith(feedLoader: loader.loadPublisher, imageLoader: { url in loader.loadImageDataPublisher(from: url) })
+        let sut = FeedUIComposer.feedComposedWith(loader: loader.loadPublisher, imageLoader: { url in loader.loadImageDataPublisher(from: url) })
         trackMemoryLeak(for: sut, file: file, line: line)
         trackMemoryLeak(for: loader, file: file, line: line)
         return (sut, loader)
