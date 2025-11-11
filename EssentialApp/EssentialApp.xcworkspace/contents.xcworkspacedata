@@ -13,4 +13,7 @@
    <FileRef
       location = "group:../EssentialFeed/EssentialFeediOSTests/EssentialFeediOSTests.xctestplan">
    </FileRef>
+   <FileRef
+      location = "group:../EssentialFeed/EssentialFeediOSTests/EssentialFeediOS.xctestplan">
+   </FileRef>
 </Workspace>
