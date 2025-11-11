@@ -6,10 +6,10 @@
 //
 import Foundation
 
-public struct ImageCommentsUiState: Equatable {
-    public let comments: [Comment]
+public struct CommentsUiState: Equatable {
+    public let comments: [CommentUiState]
     
-    public init(comments: [Comment]) {
+    public init(comments: [CommentUiState]) {
         self.comments = comments
     }
 }

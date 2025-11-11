@@ -6,7 +6,7 @@
 //
 import Foundation
 
-public struct Comment: Equatable {
+public struct CommentUiState: Equatable {
     public let message: String
     public let date: String
     public let username: String

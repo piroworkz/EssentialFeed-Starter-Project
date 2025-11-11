@@ -16,14 +16,14 @@ public final class ImageCommentsPresenter {
         comments: [ImageComment],
         calendar: Calendar = .current,
         locale: Locale = .current,
-        date now: Date = Date()) -> ImageCommentsUiState {
+        date now: Date = Date()) -> CommentsUiState {
         let formatter = RelativeDateTimeFormatter()
         let mapped = comments.map{ coment in
-            Comment(
+            CommentUiState(
                 message: coment.message,
                 date: formatter.localizedString(for: coment.createdAt, relativeTo: now),
                 username: coment.username)
         }
-        return ImageCommentsUiState(comments: mapped)
+        return CommentsUiState(comments: mapped)
     }
 }

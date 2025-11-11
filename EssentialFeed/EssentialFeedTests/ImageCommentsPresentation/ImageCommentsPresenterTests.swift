@@ -20,8 +20,8 @@ final class ImageCommentsPresenterTests: XCTestCase {
             ImageComment(id: UUID(), message: "another message", createdAt: now.adding(days: -1), username: "another username")
         ]
         let expectedComments =  [
-            Comment(message: "a message", date: "5 days ago", username: "a username"),
-            Comment(message: "another message", date: "1 day ago", username: "another username")
+            CommentUiState(message: "a message", date: "5 days ago", username: "a username"),
+            CommentUiState(message: "another message", date: "1 day ago", username: "another username")
         ]
         
         let actualComments = ImageCommentsPresenter.map(comments: comments, calendar: calendar, locale: Locale(identifier: "en_US_POSIX"), date: now).comments
