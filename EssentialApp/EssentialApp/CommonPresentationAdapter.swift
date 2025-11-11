@@ -38,12 +38,6 @@ final class CommonPresentationAdapter<T, View: CommonView> {
     }
 }
 
-extension CommonPresentationAdapter: FeedViewControllerDelegate {
-    func didRequestFeedRefresh() {
-        load()
-    }
-}
-
 extension CommonPresentationAdapter: FeedImageCellControllerDelegate {
     func didRequestImage() {
         load()
