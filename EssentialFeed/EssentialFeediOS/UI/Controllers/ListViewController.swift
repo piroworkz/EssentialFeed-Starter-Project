@@ -18,9 +18,9 @@ public protocol CellController {
     func cancelLoad()
 }
 
-public final class FeedViewController: UITableViewController, UITableViewDataSourcePrefetching, LoadingView, ErrorMessageView {
+public final class ListViewController: UITableViewController, UITableViewDataSourcePrefetching, LoadingView, ErrorMessageView {
     @IBOutlet private(set) public var errorView: ErrorView?
-    private var onFirstViewIsAppearing: ((FeedViewController) -> Void)?
+    private var onFirstViewIsAppearing: ((ListViewController) -> Void)?
     private var loadingControllers = [IndexPath: CellController]()
     private var tableModel = [CellController]() {
         didSet { tableView.reloadData() }

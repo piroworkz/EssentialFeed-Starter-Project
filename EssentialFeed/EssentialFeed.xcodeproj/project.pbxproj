@@ -111,7 +111,7 @@
 		18F8EB122EA701590002942C /* ErrorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18F8EB112EA701590002942C /* ErrorView.swift */; };
 		18FFA8962E937ED8001818C5 /* EssentialFeed.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 080EDEF121B6DA7E00813479 /* EssentialFeed.framework */; platformFilter = ios; };
 		18FFA8972E937ED8001818C5 /* EssentialFeed.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 080EDEF121B6DA7E00813479 /* EssentialFeed.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		18FFA8A02E938066001818C5 /* FeedViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFA89E2E938066001818C5 /* FeedViewController.swift */; };
+		18FFA8A02E938066001818C5 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 18FFA89E2E938066001818C5 /* ListViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -255,7 +255,7 @@
 		18F4BEB02E85FD190030008C /* ValidateFeedCacheUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ValidateFeedCacheUseCaseTests.swift; sourceTree = "<group>"; };
 		18F4BEB42E8606F60030008C /* SharedTestUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedTestUtils.swift; sourceTree = "<group>"; };
 		18F8EB112EA701590002942C /* ErrorView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorView.swift; sourceTree = "<group>"; };
-		18FFA89E2E938066001818C5 /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
+		18FFA89E2E938066001818C5 /* ListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -677,7 +677,7 @@
 		18E0383B2EA1AF6100A08664 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				18FFA89E2E938066001818C5 /* FeedViewController.swift */,
+				18FFA89E2E938066001818C5 /* ListViewController.swift */,
 				18E039672EA1CC9000A08664 /* FeedImageCellController.swift */,
 			);
 			path = Controllers;
@@ -1046,7 +1046,7 @@
 				185AA5142EA43D9D00C50FF2 /* UITableView+Dequeueing.swift in Sources */,
 				18764E612EA8486F00AE9179 /* UIRefreshControl+Helpers.swift in Sources */,
 				18F8EB122EA701590002942C /* ErrorView.swift in Sources */,
-				18FFA8A02E938066001818C5 /* FeedViewController.swift in Sources */,
+				18FFA8A02E938066001818C5 /* ListViewController.swift in Sources */,
 				18E039682EA1CC9000A08664 /* FeedImageCellController.swift in Sources */,
 				1878FB5F2EB8335F001FCC3A /* FeedImageCell.swift in Sources */,
 				185AA5162EA43EC400C50FF2 /* UIImageView+SetAnimated.swift in Sources */,

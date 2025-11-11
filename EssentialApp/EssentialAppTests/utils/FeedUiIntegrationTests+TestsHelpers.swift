@@ -25,7 +25,7 @@ extension FeedUiIntegrationTests {
         func display(_ state: Void) {}
     }
     
-    func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: FeedViewController, loader: LoaderSpy) {
+    func buildSUT(file: StaticString = #filePath, line: UInt = #line) -> (sut: ListViewController, loader: LoaderSpy) {
         let loader = LoaderSpy()
         let sut = FeedUIComposer.feedComposedWith(loader: loader.loadPublisher, imageLoader: { url in loader.loadImageDataPublisher(from: url) })
         trackMemoryLeak(for: sut, file: file, line: line)
@@ -33,7 +33,7 @@ extension FeedUiIntegrationTests {
         return (sut, loader)
     }
     
-    func assertThat(_ sut: FeedViewController, isRendering feed: [FeedImage], file: StaticString = #filePath, line: UInt = #line) {
+    func assertThat(_ sut: ListViewController, isRendering feed: [FeedImage], file: StaticString = #filePath, line: UInt = #line) {
         sut.view.enforceLayoutCycle()
         
         guard sut.numberOfRenderedFeedImageViews() == feed.count else {
@@ -46,7 +46,7 @@ extension FeedUiIntegrationTests {
         RunLoop.current.run(until: Date() + 1)
     }
     
-    func assertThat(_ sut: FeedViewController, hasViewConfiguredFor feedImage: FeedImage, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
+    func assertThat(_ sut: ListViewController, hasViewConfiguredFor feedImage: FeedImage, at index: Int, file: StaticString = #filePath, line: UInt = #line) {
         let view = sut.feedImageView(at: index)
         
         guard let cell = view as? FeedImageCell else {

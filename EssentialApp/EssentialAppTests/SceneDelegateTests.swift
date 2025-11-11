@@ -34,7 +34,7 @@ final class SceneDelegateTests: XCTestCase {
         
         XCTAssertNotNil(sut.window, "Expected window to be set")
         XCTAssertNotNil(rootNavigationVC, "Expected root view controller to be a navigation controller")
-        XCTAssertTrue(topController is FeedViewController, "Expected top view controller to be FeedViewController")
+        XCTAssertTrue(topController is ListViewController, "Expected top view controller to be FeedViewController")
     }
     
     private class UIWindowSpy : UIWindow {
